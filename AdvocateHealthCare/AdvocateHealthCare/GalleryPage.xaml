@@ -18,7 +18,7 @@
 
                     <!--<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">-->
                     <Image x:Name="imgUserCapture" Source="Assets/capture_photo.png" Height="100" ></Image>
-                    <!--<TextBlock Text="Capture Photo"></TextBlock>-->
+                    
                     <!--</StackPanel>-->
 
                 </Grid>
