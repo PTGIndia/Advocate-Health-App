@@ -1,0 +1,2 @@
+MainPackage=C:\Users\v-rata\Documents\Visual Studio 2015\Projects\AdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\ARM\Debug\AdvocateHealthCare_1.0.0.0_ARM_Debug.appx
+SymbolPackage=C:\Users\v-rata\Desktop\ADH App packages\AdvocateHealthCare_1.0.0.0_Debug_Test\AdvocateHealthCare_1.0.0.0_ARM_Debug.appxsym
