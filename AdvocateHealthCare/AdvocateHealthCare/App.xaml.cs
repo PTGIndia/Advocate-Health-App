@@ -31,7 +31,7 @@ namespace AdvocateHealthCare
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-        {
+        {// GitHub Test
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
