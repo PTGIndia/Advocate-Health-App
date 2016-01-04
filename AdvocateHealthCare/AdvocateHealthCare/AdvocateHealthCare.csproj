@@ -132,6 +132,9 @@
     </Compile>
     <Compile Include="Model\MyDataTemplateSelector2.cs" />
     <Compile Include="Model\MyDataTemplateSelector3.cs" />
+    <Compile Include="MyAdvocatePage.xaml.cs">
+      <DependentUpon>MyAdvocatePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Notifications.xaml.cs">
       <DependentUpon>Notifications.xaml</DependentUpon>
     </Compile>
@@ -257,6 +260,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MyAdvocatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Notifications.xaml">
       <SubType>Designer</SubType>

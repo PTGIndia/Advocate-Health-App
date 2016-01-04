@@ -1676,6 +1676,7 @@ C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\JournalPage.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\LoginPage.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\MainPage.xbf
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\MyAdvocatePage.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\Notifications.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\PlayVideo.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\ProfilePage.xbf
@@ -1802,7 +1803,6 @@ C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\System.Xml.XDocument.dll
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\System.Xml.XmlDocument.dll
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\System.Xml.XmlSerializer.dll
-C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\AdvocateHealthCare.csprojResolveAssemblyReference.cache
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\App.g.i.cs
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\App.g.cs
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\DietandPregnancy.g.i.cs
@@ -1823,6 +1823,8 @@ C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\LoginPage.g.cs
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MainPage.g.i.cs
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MainPage.g.cs
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MyAdvocatePage.g.i.cs
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MyAdvocatePage.g.cs
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\Notifications.g.i.cs
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\Notifications.g.cs
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\PlayVideo.g.i.cs
@@ -1850,6 +1852,7 @@ C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\JournalPage.xaml
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\LoginPage.xaml
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MainPage.xaml
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MyAdvocatePage.xaml
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\Notifications.xaml
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\PlayVideo.xaml
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\ProfilePage.xaml
@@ -1869,6 +1872,7 @@ C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\JournalPage.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\LoginPage.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MainPage.xbf
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MyAdvocatePage.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\Notifications.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\PlayVideo.xbf
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\ProfilePage.xbf
