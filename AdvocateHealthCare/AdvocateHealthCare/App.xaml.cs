@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Email;
+using Windows.Networking.Connectivity;
 
 namespace AdvocateHealthCare
 {
@@ -26,12 +27,13 @@ namespace AdvocateHealthCare
     sealed partial class App : Application
     {
         private Frame _rootFrame;
+        public int NavigateText { get; set; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-        {// GitHub Test
+        {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
@@ -49,6 +51,29 @@ namespace AdvocateHealthCare
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
+            _rootFrame = new Frame();
+            _rootFrame.NavigationFailed += OnNavigationFailed;
+            _rootFrame.Navigated += OnNavigated;
+
+
+            object FirstTimeLogin = Windows.Storage.ApplicationData.Current.LocalSettings.Values["IsFirstTimeLogin"];
+            if (FirstTimeLogin == null)
+            {
+                if (Window.Current.Content == null)
+                {
+                    Window.Current.Content = new LoginPage();
+
+                    Window.Current.Activate();
+                    // _rootFrame.Navigate(typeof(ProfilePage));
+
+                }
+            }
+            else
+            {
+                Window.Current.Content = new LoginPage();
+                Window.Current.Activate();
+            }
 
 
             //Window.Current.Content = new ProfilePage();
@@ -84,11 +109,17 @@ namespace AdvocateHealthCare
             //_rootFrame.Navigate(typeof(HomePage));
 
 
-            Window.Current.Content = new ProfilePage();
+            // Window.Current.Content = new ProfilePage();
 
-            Window.Current.Activate();
+            //Window.Current.Activate();
         }
-
+        public static bool internet;
+        public static bool IsInternet()
+        {
+            ConnectionProfile connections = NetworkInformation.GetInternetConnectionProfile();
+            internet = connections != null && connections.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+            return internet;
+        }
         public void OnNavigated(object sender, NavigationEventArgs e)
         {
             // Each time a navigation event occurs, update the Back button's visibility

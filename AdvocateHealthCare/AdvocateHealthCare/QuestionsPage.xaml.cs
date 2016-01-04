@@ -55,51 +55,58 @@ namespace AdvocateHealthCare
         {
             //Flag = 0;
             //throw new NotImplementedException();
-
-            try
+            if (App.IsInternet() == true)
             {
-                //string ServiceCall = App.BASE_URL + "/api/Journals/GetJournals?UserId=2&JournalTypeId=2";
-                // JournalTypeId 2 is for questions
-                string ServiceCall = App.BASE_URL + "/api/Journals/GetJournals?UserId=" + App.userId + "&JournalTypeId=" + "2";
-                var client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
-                var jsonString = await response.Content.ReadAsStringAsync();
-                JArray jobject = JArray.Parse(jsonString);
-
-                foreach (var item in jobject)
+                try
                 {
-                    QuestionsHelper objQuestion = new QuestionsHelper();
-                    objQuestion.JournelID = (string)item["$id"];
-                    objQuestion._id = (string)item["$id"];
-                    objQuestion.ProfileJournalID = (string)item["ProfileJournalID"];
-                    objQuestion.CreatedDate = (string)item["CreatedDate"];
-                    objQuestion.QuestionTitle = (string)item["JournalTitle"];
-                    objQuestion.QuestionInfo = (string)item["JournalInfo"];
-                    if ((string)item["ProfileName"] == null)
-                        objQuestion.ProfileName = (string)item["ProfileName"];
-                    else
-                        objQuestion.ProfileName = (string)item["ProfileName"];
+                    //string ServiceCall = App.BASE_URL + "/api/Journals/GetJournals?UserId=2&JournalTypeId=2";
+                    // JournalTypeId 2 is for questions
+                    string ServiceCall = App.BASE_URL + "/api/Journals/GetJournals?UserId=" + App.userId + "&JournalTypeId=" + "2";
+                    //string ServiceCall = App.BASE_URL + "/api/Journals/GetJournals?UserId=" + 2 + "&JournalTypeId=" + "1";
+                    var client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    JArray jobject = JArray.Parse(jsonString);
 
-                    var x = (string)item["JournalAsset"];
-
-
-
-                    if (!string.IsNullOrEmpty(x))
+                    foreach (var item in jobject)
                     {
-                        objQuestion.imgProp = new BitmapImage(new Uri(App.BASE_URL + x, UriKind.Absolute));
+                        QuestionsHelper objQuestion = new QuestionsHelper();
+                        objQuestion.JournelID = (string)item["$id"];
+                        objQuestion._id = (string)item["$id"];
+                        objQuestion.ProfileJournalID = (string)item["ProfileJournalID"];
+                        objQuestion.CreatedDate = (string)item["CreatedDate"];
+                        objQuestion.QuestionTitle = (string)item["JournalTitle"];
+                        objQuestion.QuestionInfo = (string)item["JournalInfo"];
+                        if ((string)item["ProfileName"] == null)
+                            objQuestion.ProfileName = (string)item["ProfileName"];
+                        else
+                            objQuestion.ProfileName = (string)item["ProfileName"];
+
+                        var x = (string)item["JournalAsset"];
+
+
+
+                        if (!string.IsNullOrEmpty(x))
+                        {
+                            objQuestion.imgProp = new BitmapImage(new Uri(App.BASE_URL + x, UriKind.Absolute));
+                        }
+                        objListQuestion.Add(objQuestion);
                     }
-                    objListQuestion.Add(objQuestion);
+
+
+                    gridGallary.ItemsSource = objListQuestion;
                 }
-
-
-                gridGallary.ItemsSource = objListQuestion;
+                catch (Exception)
+                {
+                    MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                    msgDialog.ShowAsync();
+                }
             }
-            catch (Exception)
+            else
             {
-                MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
-
 
 
         }
@@ -136,10 +143,10 @@ namespace AdvocateHealthCare
             }
             await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(emailMessage);
         }
-        public void GetTrimestersData()
+        public void GetTrimestersData(int condition)
         {
             objListQuestionHelper.Clear();
-
+            objListQuestionHelper = new List<QuestionsHelper>();
             DateTime lmpDate = Convert.ToDateTime("11/04/2015");
             DateTime FirstTrimesterPeriod = lmpDate.AddMonths(3);
             DateTime SecondTrimesterPeriod = FirstTrimesterPeriod.AddMonths(3);
@@ -160,22 +167,32 @@ namespace AdvocateHealthCare
                     DateTime datetime = Convert.ToDateTime(SplittedDate);
                     TimeSpan GetDaysToCompare = datetime - lmpDate;
                     double days = GetDaysToCompare.TotalDays;
+
+
+
+
                     if (days > 0 && days <= 90)
                     {
-                        objListQuestionHelper.Add(objQuestions);
+                        int cond = 1;
+                        if (cond == condition)
+                            objListQuestionHelper.Add(objQuestions);
 
                     }
                     else if (days >= 91 && days <= 180)
                     {
-                        objListQuestionHelper.Add(objQuestions);
+                        int cond = 2;
+                        if (cond == condition)
+                            objListQuestionHelper.Add(objQuestions);
                     }
                     else if (days >= 181 && days <= 270)
                     {
-                        objListQuestionHelper.Add(objQuestions);
+                        int cond = 3;
+                        if (cond == condition)
+                            objListQuestionHelper.Add(objQuestions);
                     }
+                    //}
                 }
             }
-
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -200,18 +217,18 @@ namespace AdvocateHealthCare
 
                 if (ActiveItemName == "First Trimester")
                 {
-                    GetTrimestersData();
+                    GetTrimestersData(1);
                     gridGallary1.ItemsSource = objListQuestionHelper;
 
                 }
                 else if (ActiveItemName == "Second Trimester")
                 {
-                    GetTrimestersData();
+                    GetTrimestersData(2);
                     gridGallary2.ItemsSource = objListQuestionHelper;
                 }
-                else if (ActiveItemName == "Third Trimester")
+                else if (ActiveItemName == "Thrid Trimester")
                 {
-                    GetTrimestersData();
+                    GetTrimestersData(3);
                     gridGallary3.ItemsSource = objListQuestionHelper;
                 }
             }

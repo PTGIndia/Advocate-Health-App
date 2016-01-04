@@ -23,8 +23,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace AdvocateHealthCare
 {
-
-    //test
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -39,7 +37,9 @@ namespace AdvocateHealthCare
             public DateTime LMPDATE { get; set; }
             public int calculatedweek { get; set; }
             public DateTime dt { get; set; }
+
         }
+
 
         public InputWeightPage()
         {
@@ -49,85 +49,140 @@ namespace AdvocateHealthCare
 
         }
 
-
+        public string missedDate;
         async void InputWeightPag_Load(object sender, RoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                List<WeightHelper> objWeightHelper = new List<WeightHelper>();
-                //string ServiceCall = App.BASE_URL + "/api/WeightEntries/GetWeightEntries?UserId=2";
-                string ServiceCall = App.BASE_URL + "/api/WeightEntries/GetWeightEntries?UserId=" + App.userId;
-                var client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
-                var jsonString = await response.Content.ReadAsStringAsync();
-                JArray jobject = JArray.Parse(jsonString);
-
-
-
-                foreach (var item in jobject)
+                try
                 {
-                    WeightHelper objweight = new WeightHelper();
-                    objweight.CreatedDate = (string)item["CreatedDate"];
-                    var stringArray = ((string)item["CreatedDate"]).Split(' ');
-                    objweight.dt = Convert.ToDateTime(stringArray[1]);
-                    //  objweight.CreatedDate= objweight.dt.Split;
+                    List<WeightHelper> objWeightHelper = new List<WeightHelper>();
+                    //string ServiceCall = App.BASE_URL + "/api/WeightEntries/GetWeightEntries?UserId=2";
+                    string ServiceCall = App.BASE_URL + "/api/WeightEntries/GetWeightEntries?UserId=" + App.userId;
+                    var client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    JArray jobject = JArray.Parse(jsonString);
 
 
-                    objweight.Weight = (string)item["Weight"];
 
-                    objweight.LMPDATE = (DateTime)item["LMPDATE"];
-                    int dateX = (int)((objweight.dt - objweight.LMPDATE).TotalDays) / 7;//cal.GetWeekOfYear(dt, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
-                    objweight.calculatedweek = dateX != 0 ? dateX : 1;
-                    objWeightHelper.Add(objweight);
-                    dateweek = objweight.calculatedweek;
+                    foreach (var item in jobject)
+                    {
+                        WeightHelper objweight = new WeightHelper();
+                        objweight.CreatedDate = (string)item["CreatedDate"];
+                        var stringArray = ((string)item["CreatedDate"]).Split(' ');
+                        objweight.dt = Convert.ToDateTime(stringArray[1]);
+                        //  objweight.CreatedDate= objweight.dt.Split;
+                        objweight.Weight = (string)item["Weight"];
+
+                        objweight.LMPDATE = (DateTime)item["LMPDATE"];
+
+                        missedDate = (string)item["LMPDATE"];
+                        missedDate = missedDate.Split(' ')[0];
+
+                        int dateX = (int)((objweight.dt - objweight.LMPDATE).TotalDays) / 7;//cal.GetWeekOfYear(dt, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+
+
+                        //objweight.calculatedweek = dateX != 0 ? dateX : 1;
+                        if (dateX == 0)
+                        {
+                            dateX = 1;
+                        }
+                        else
+                        {
+                            objweight.calculatedweek = dateX;
+                            int week = (int)((DateTime.Now - objweight.LMPDATE).TotalDays) / 7;
+
+                            currentweek.Text = Convert.ToString(week);
+
+                            objWeightHelper.Add(objweight);
+                            dateweek = objweight.calculatedweek;
+                        }
+                    }
+                    gridWeight.ItemsSource = objWeightHelper;
+
+                    var dateAndTime = DateTime.Now;
+                    string date = Convert.ToString(dateAndTime.Date).Split(' ')[0];
+                    DateTime currentDateTime = Convert.ToDateTime(date);
+                    DateTime lmp = Convert.ToDateTime(missedDate);
+
+                    //int numberOfDays = Convert.ToInt16( (currentDateTime - lmp));
+                    //var weekNumber = numberOfDays / 7;
                 }
-                gridWeight.ItemsSource = objWeightHelper;
+                catch (Exception ex)
+                {
+                    MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                    msgDialog.ShowAsync();
+                }
             }
-            catch (Exception)
+            else
             {
-                MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
-
 
         }
 
 
         private void Weightinputbutton(object sender, RoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                MODEL.WeightEntries weightEntries = new MODEL.WeightEntries();
-                //   weightEntries.CreatedDate = Convert.ToDateTime(_WeightInputDate.Date.ToString());
-                weightEntries.ProfileID = App.userId;
-                weightEntries.Weight = Convert.ToDecimal(Weight.Text);
-                weightEntries.LoggedInUser = "null";
-
-                var serializedPatchDoc = JsonConvert.SerializeObject(weightEntries);
-                var method = new HttpMethod("POST");
-                var request = new HttpRequestMessage(method,
-                     App.BASE_URL + "/api/WeightEntries/SaveWeightTrackerType")
-
+                if (Weight.Text.Trim() != "")
                 {
-                    Content = new StringContent(serializedPatchDoc,
-                    System.Text.Encoding.Unicode, "application/json")
-                };
-                HttpClient client = new HttpClient();
-                var result = client.SendAsync(request).Result;
-                client.Dispose();
+                    try
+                    {
+                        MODEL.WeightEntries weightEntries = new MODEL.WeightEntries();
+                        weightEntries.CreatedDate = Convert.ToDateTime(_WeightInputDate.Date.ToString());
+                        if (weightEntries.CreatedDate > DateTime.Now)
+                        {
+                            MessageDialog msgDialog = new MessageDialog("You can only enter current week date", "Message");
+                            msgDialog.ShowAsync();
+                        }
+                        else {
+                            weightEntries.ProfileID = App.userId;
+                            weightEntries.Weight = Convert.ToDecimal(Weight.Text);
+                            weightEntries.LoggedInUser = "null";
 
-                if (result.IsSuccessStatusCode == false)
+                            var serializedPatchDoc = JsonConvert.SerializeObject(weightEntries);
+                            var method = new HttpMethod("POST");
+                            var request = new HttpRequestMessage(method,
+                                 App.BASE_URL + "/api/WeightEntries/SaveWeightTrackerType")
+
+                            {
+                                Content = new StringContent(serializedPatchDoc,
+                                System.Text.Encoding.Unicode, "application/json")
+                            };
+                            HttpClient client = new HttpClient();
+                            var result = client.SendAsync(request).Result;
+                            client.Dispose();
+
+                            if (result.IsSuccessStatusCode == false)
+                            {
+                                MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                                msgDialog.ShowAsync();
+                            }
+
+
+                        }
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                        msgDialog.ShowAsync();
+                    }
+                }
+                else
                 {
-                    MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                    MessageDialog msgDialog = new MessageDialog("Input Weight should not be empty", "Message");
                     msgDialog.ShowAsync();
                 }
 
-
             }
-
-            catch (Exception ex)
+            else
             {
-                MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
             Weight.Text = "";

@@ -72,7 +72,7 @@
                     </Button>
                     <!-- Video button -->
                     <!--<RadioButton Tag="&#xe783;"  Content="About" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnAboutButtonChecked" />-->
-                    <Button Height="45" Width="50" Margin="0,10,0,0" Background="Transparent" x:Name="Video" Click="Video_Click" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+                    <Button Height="45" Width="55" Margin="0,10,0,0" Background="Transparent" x:Name="Video" Click="Video_Click" HorizontalAlignment="Left"  VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                         <Viewbox>
                             <Path Fill="White" Data="M435.512,400.719L260.383,286.056C256.074,283.237 251.339,281.745 246.688,281.745 234.305,281.745 224.963,291.829 224.963,305.201L224.963,536.686C224.963,550.058 234.302,560.142 246.686,560.142 251.339,560.142 256.077,558.651 260.381,555.829L435.512,441.15C442.804,436.375 446.99,429.004 446.987,420.932 446.99,412.861 442.806,405.496 435.512,400.719z M258.609,516.778L258.609,325.107 404.973,420.936 258.609,516.778z M297.64,123.307C133.521,123.307 0,256.826 0,420.945 0,585.064 133.521,718.585 297.64,718.585 461.759,718.585 595.28,585.064 595.28,420.945 595.28,256.826 461.761,123.307 297.64,123.307z M297.64,684.941C152.073,684.941 33.644,566.512 33.644,420.945 33.644,275.377 152.073,156.951 297.64,156.951 443.207,156.951 561.636,275.377 561.636,420.945 561.636,566.513 443.21,684.941 297.64,684.941z"></Path>
                         </Viewbox>
@@ -83,11 +83,11 @@
                     <!-- UserIcon button -->
 
 
-                    <Button>
+                    <Button x:Name="User" Click="User_Click">
                         <StackPanel Orientation="Horizontal" >
 
 
-                            <Image Source="/Assets/user.png" Width="22" Height="28" Margin="0,0,300,0" RenderTransformOrigin="0.5,0.607" >
+                            <Image Source="/Assets/user.png" Width="22" Height="28" Margin="0,0,300,0"    RenderTransformOrigin="0.5,0.607" >
                             </Image>
 
 
@@ -96,7 +96,7 @@
                     <!-- UserIcon button -->
                     <!-- Settings button -->
 
-                    <Button>
+                    <Button x:Name="Setting" Click="Setting_Click">
                         <StackPanel Orientation="Horizontal">
 
 

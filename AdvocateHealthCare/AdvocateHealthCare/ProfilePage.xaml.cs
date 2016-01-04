@@ -25,6 +25,10 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Threading.Tasks;
 using System.Text;
+using Windows.Networking.Connectivity;
+using System.Text.RegularExpressions;
+using System.Globalization;
+
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -37,6 +41,7 @@ namespace AdvocateHealthCare
     public sealed partial class ProfilePage : Page
     {
         int SelectedHosPitalId;
+        bool isValidEmail = false;
 
         public ProfilePage()
         {
@@ -51,39 +56,46 @@ namespace AdvocateHealthCare
 
         async void ProfilePage_Loaded(object sender, RoutedEventArgs e)
         {
-
-            try
+            //IsInternet();
+            if (App.IsInternet() == true)
             {
-                List<ProfileSetup> objlistProfileSetup = new List<ProfileSetup>();
-                string ServiceCall = App.BASE_URL + "/api/HospitalInfo/GetHosipitalDetails";
-                var client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
-                var jsonString = await response.Content.ReadAsStringAsync();
-                JArray objJArray = JArray.Parse(jsonString);
-                var len = objJArray.Count;
-                ComboBoxitemsTest.ItemsSource = null;
-                ProfileSetup objProfileSetup = new ProfileSetup();
-
-                objProfileSetup.HospitalID = 000;
-                objProfileSetup.HospitalName = "Choose your primary care hospital...";
-                objlistProfileSetup.Add(objProfileSetup);
-                for (int x = 0; x < objJArray.Count; x++)
+                try
                 {
-                    objProfileSetup = new ProfileSetup();
-                    objProfileSetup.HospitalID = (int)objJArray[x]["HospitalID"];
-                    objProfileSetup.HospitalName = (string)objJArray[x]["HospitalName"];
+                    List<ProfileSetup> objlistProfileSetup = new List<ProfileSetup>();
+                    string ServiceCall = App.BASE_URL + "/api/HospitalInfo/GetHosipitalDetails";
+                    var client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    JArray objJArray = JArray.Parse(jsonString);
+                    var len = objJArray.Count;
+                    ComboBoxitemsTest.ItemsSource = null;
+                    ProfileSetup objProfileSetup = new ProfileSetup();
+
+                    objProfileSetup.HospitalID = 000;
+                    objProfileSetup.HospitalName = "Choose your primary care hospital...";
                     objlistProfileSetup.Add(objProfileSetup);
+                    for (int x = 0; x < objJArray.Count; x++)
+                    {
+                        objProfileSetup = new ProfileSetup();
+                        objProfileSetup.HospitalID = (int)objJArray[x]["HospitalID"];
+                        objProfileSetup.HospitalName = (string)objJArray[x]["HospitalName"];
+                        objlistProfileSetup.Add(objProfileSetup);
+                    }
+                    ComboBoxitemsTest.ItemsSource = objlistProfileSetup;
+                    ComboBoxitemsTest.SelectedIndex = 0;
                 }
-                ComboBoxitemsTest.ItemsSource = objlistProfileSetup;
-                ComboBoxitemsTest.SelectedIndex = 0;
+
+                catch (Exception ex)
+                {
+                    string meg = ex.StackTrace;
+                    MessageDialog msgDialog = new MessageDialog("'" + ex + "'", "Message");
+                    msgDialog.ShowAsync();
+
+                }
             }
-
-            catch (Exception ex)
-            {
-                string meg = ex.StackTrace;
-                MessageDialog msgDialog = new MessageDialog("'" + ex + "'", "Message");
+            else {
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
-
             }
         }
         public string ImageToServerString { get; set; }
@@ -111,68 +123,158 @@ namespace AdvocateHealthCare
 
             SelectedHosPitalId = (int)ComboBoxitemsTest.SelectedValue;
         }
+        private string DomainMapper(Match match)
+        {
+            // IdnMapping class with default property values.
+            IdnMapping idn = new IdnMapping();
+
+            string domainName = match.Groups[2].Value;
+            try
+            {
+                domainName = idn.GetAscii(domainName);
+            }
+            catch (ArgumentException)
+            {
+                isValidEmail = true;
+            }
+            return match.Groups[1].Value + domainName;
+        }
+        public bool IsValidEmail(string strIn)
+        {
+            isValidEmail = false;
+            if (String.IsNullOrEmpty(strIn))
+                return false;
+
+            // Use IdnMapping class to convert Unicode domain names.
+            try
+            {
+                strIn = Regex.Replace(strIn, @"(@)(.+)$", this.DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+
+            if (isValidEmail)
+                return false;
+
+            // Return true if strIn is in valid e-mail format.
+            try
+            {
+                return Regex.IsMatch(strIn,
+                      @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                      @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                      RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
 
 
 
         private void bottonsetup_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                ProfileInfo objProfileInfo = new ProfileInfo();
-                objProfileInfo.FirstName = txtfirstname.Text;
-                objProfileInfo.LastName = txtlastname.Text;
-                objProfileInfo.Email = txtemail.Text;
-
-                objProfileInfo.Password = txtpassword.Password;
-
-                //  objProfileInfo.cpassword = txtpassword.Password;
-
-                objProfileInfo.LMPdate = Convert.ToDateTime(txtdatemissed.Date.ToString());
-                objProfileInfo.HospitalID = SelectedHosPitalId;
-                objProfileInfo.LoggedInUser = "null";
-                objProfileInfo.Picture = ImageToServerString;
-
-
-                var serializedPatchDoc = JsonConvert.SerializeObject(objProfileInfo);
-                var method = new HttpMethod("POST");
-                var request = new HttpRequestMessage(method,
-                 App.BASE_URL + "/api/ProfileInfo/SaveProfileInfo")
-                //"http://localhost:53676/api/ProfileInfo/SaveProfileInfo")
-
+                try
                 {
-                    Content = new StringContent(serializedPatchDoc,
-                    System.Text.Encoding.Unicode, "application/json")
-                };
-                HttpClient client = new HttpClient();
-                var result = client.SendAsync(request).Result;
-                client.Dispose();
-                if (result.IsSuccessStatusCode == true)
-                {
-                    MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
-                    Window.Current.Content = new LoginPage();
-                    App.userName = txtfirstname.Text;
-                    //msgDialog.ShowAsync();
+                    if (txtfirstname.Text.Trim() != "" && txtlastname.Text.Trim() != "" && txtemail.Text.Trim() != "" && txtpassword.Password.Trim() != "" && txtcpassword.Password.Trim() != "" && txtdatemissed.Date.HasValue == true && ComboBoxitemsTest.SelectedItem != null)
+                    {
+                        if (IsValidEmail(txtemail.Text))
+                        {
+                            if (txtpassword.Password.Trim() == txtcpassword.Password.Trim())
+                            {
+                                if (txtpassword.Password.Trim().Length < 6 && txtcpassword.Password.Trim().Length < 6)
+                                {
+                                    MessageDialog msgDialog = new MessageDialog("Password should be minimun 5 characters", "Warning");
+                                    msgDialog.ShowAsync();
+                                }
+                                else
+                                {
+                                    ProfileInfo objProfileInfo = new ProfileInfo();
+                                    objProfileInfo.FirstName = txtfirstname.Text;
+                                    objProfileInfo.LastName = txtlastname.Text;
+                                    objProfileInfo.Email = txtemail.Text;
+                                    objProfileInfo.Password = txtpassword.Password;
+
+                                    objProfileInfo.LMPdate = Convert.ToDateTime(txtdatemissed.Date.ToString());
+                                    objProfileInfo.HospitalID = SelectedHosPitalId;
+                                    objProfileInfo.LoggedInUser = "null";
+                                    objProfileInfo.Picture = ImageToServerString;
+
+
+                                    var serializedPatchDoc = JsonConvert.SerializeObject(objProfileInfo);
+                                    var method = new HttpMethod("POST");
+                                    var request = new HttpRequestMessage(method,
+                                     App.BASE_URL + "/api/ProfileInfo/SaveProfileInfo")
+                                    //"http://localhost:53676/api/ProfileInfo/SaveProfileInfo")
+
+                                    {
+                                        Content = new StringContent(serializedPatchDoc,
+                                        System.Text.Encoding.Unicode, "application/json")
+                                    };
+                                    HttpClient client = new HttpClient();
+                                    var result = client.SendAsync(request).Result;
+                                    client.Dispose();
+
+                                    if (result.IsSuccessStatusCode == true)
+                                    {
+                                        var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                                        localSettings.Values["IsFirstTimeLogin"] = "True";
+                                        localSettings.Values["userName"] = txtfirstname.Text;
+                                        Window.Current.Content = new LoginPage();
+
+                                    }
+                                    else {
+                                        MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                                        msgDialog.ShowAsync();
+                                    }
+
+                                }
+
+                            }
+                            else
+                            {
+                                MessageDialog msgDialog = new MessageDialog("Password and Conform Password din't match", "Password Mismatch");
+                                msgDialog.ShowAsync();
+                            }
+
+                        }
+                        else
+                        {
+                            MessageDialog msgDialog = new MessageDialog("Email id format is incorrect. Please enter correct mail id. (Example - John@gmail.com)", "Profile creation failed");
+                            msgDialog.ShowAsync();
+                        }
+                    }
+                    else
+                    {
+                        MessageDialog msgDialog = new MessageDialog("Please fill all the details above", "Incomplete data");
+                        msgDialog.ShowAsync();
+
+                    }
                 }
-                else {
-                    MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                catch (Exception ex)
+                {
+                    string meg = ex.StackTrace;
+                    MessageDialog msgDialog = new MessageDialog("'" + ex + "'", "Message");
                     msgDialog.ShowAsync();
+
                 }
+                //txtfirstname.Text = "";
+                //txtlastname.Text = "";
+                //txtemail.Text = "";
+                //txtpassword.Password = "";
+                //txtcpassword.Password = "";
+                //ComboBoxitemsTest.SelectedValue = 000;
             }
-            catch (Exception ex)
+            else
             {
-                string meg = ex.StackTrace;
-                MessageDialog msgDialog = new MessageDialog("'" + ex + "'", "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
-
             }
-            txtfirstname.Text = "";
-            txtlastname.Text = "";
-            txtemail.Text = "";
-            txtpassword.Password = "";
-
-            txtcpassword.Password = "";
-            ComboBoxitemsTest.SelectedValue = 000;
-
 
         }
 

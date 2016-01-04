@@ -66,6 +66,7 @@ namespace AdvocateHealthCare
         {
             this.InitializeComponent();
             txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
+            txtdate.Text = Convert.ToString(DateTime.Now);
         }
         public class ProfileJournal
         {
@@ -83,64 +84,71 @@ namespace AdvocateHealthCare
         }
         private void QuestionsButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                ProfileJournal profilejournal = new ProfileJournal();
-                profilejournal.CreatedDate = System.DateTime.Today;
-                if (textprofilejournalid.Text == "")
+                try
                 {
-                    profilejournal.ProfileJournalID = null;
-                }
-                else {
-                    profilejournal.ProfileJournalID = textprofilejournalid.Text;
-                }
-                profilejournal.ProfileID = App.userId;
-                profilejournal.JournalTitle = txtquestionvalue.Text;
-                profilejournal.JournalInfo = txtquestioninfo.Text;
-                profilejournal.JournalAsset = null;
-                profilejournal.JournalTypeID = 2;
-                profilejournal.LoggedInUser = App.userName;
-
-
-                if (txtquestionvalue.Text == "" || txtquestioninfo.Text == "")
-                {
-                    MessageDialog msgDialog = new MessageDialog("Please enter both fields to proceed.", "Message");
-                    msgDialog.ShowAsync();
-                }
-                else
-                {
-                    var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
-                    var method = new HttpMethod("POST");
-                    var request = new HttpRequestMessage(method,
-                  App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
-                    //"http://localhost:53676//api/ProfileJournal/SaveProfileJournal")
+                    ProfileJournal profilejournal = new ProfileJournal();
+                    profilejournal.CreatedDate = System.DateTime.Today;
+                    if (textprofilejournalid.Text == "")
                     {
-                        Content = new StringContent(serializedPatchDoc,
-                        System.Text.Encoding.Unicode, "application/json")
-                    };
-                    HttpClient client = new HttpClient();
-                    var result = client.SendAsync(request).Result;
-                    client.Dispose();
-                    if (result.IsSuccessStatusCode == true)
-                    {
-                        MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
-                        msgDialog.ShowAsync();
-                        this.Frame.Navigate(typeof(QuestionsPage));
+                        profilejournal.ProfileJournalID = null;
                     }
                     else {
-                        MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                        profilejournal.ProfileJournalID = textprofilejournalid.Text;
+                    }
+                    profilejournal.ProfileID = App.userId;
+                    profilejournal.JournalTitle = txtquestionvalue.Text;
+                    profilejournal.JournalInfo = txtquestioninfo.Text;
+                    profilejournal.JournalAsset = null;
+                    profilejournal.JournalTypeID = 2;
+                    profilejournal.LoggedInUser = App.userName;
+
+
+                    if (txtquestionvalue.Text == "" || txtquestioninfo.Text == "")
+                    {
+                        MessageDialog msgDialog = new MessageDialog("Please enter both fields to proceed.", "Message");
                         msgDialog.ShowAsync();
                     }
+                    else
+                    {
+                        var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
+                        var method = new HttpMethod("POST");
+                        var request = new HttpRequestMessage(method,
+                      App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
+                        //"http://localhost:53676//api/ProfileJournal/SaveProfileJournal")
+                        {
+                            Content = new StringContent(serializedPatchDoc,
+                            System.Text.Encoding.Unicode, "application/json")
+                        };
+                        HttpClient client = new HttpClient();
+                        var result = client.SendAsync(request).Result;
+                        client.Dispose();
+                        if (result.IsSuccessStatusCode == true)
+                        {
+                            MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
+                            msgDialog.ShowAsync();
+                            this.Frame.Navigate(typeof(QuestionsPage));
+                        }
+                        else {
+                            MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                            msgDialog.ShowAsync();
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    string meg = ex.StackTrace;
+                    MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
+                    msgDialog.ShowAsync();
                 }
             }
-
-            catch (Exception ex)
+            else
             {
-                string meg = ex.StackTrace;
-                MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
-
         }
 
         private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)

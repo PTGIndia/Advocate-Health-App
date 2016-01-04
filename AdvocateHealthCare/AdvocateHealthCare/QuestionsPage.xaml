@@ -71,21 +71,19 @@
         <Grid Background="#70729F">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.9*"></ColumnDefinition>
-                <ColumnDefinition Width="0.1*"/>
-                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Questions" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#ffffff" FontSize="20" Margin="10,0,0,0"></TextBlock>
+            <TextBlock Text="Questions" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#ffffff" FontSize="20" Margin="10,0,0,0"></TextBlock>
 
-            <Grid Grid.Column="1" Tapped="Notificationgridtapped" HorizontalAlignment="Right">
-                <Image x:Name="notificationsImg" Source="/Assets/notifications.png" HorizontalAlignment="Right"  Height="30" Margin="0,0,35,0"/>
-                <Grid  Margin="0,0,30,5" HorizontalAlignment="Right">
-                    <Ellipse Fill="#E5302B" x:Name="ec"  Width="20" Height="20"  Margin="0,1,0,1" />
-                    <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff"  Margin="7,6,0,0"></TextBlock>
-                </Grid>
-            </Grid>
-            <Grid Grid.Column="2">
-
-                <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="0,0,20,0" x:Name="mySearchBox" PlaceholderText="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#ffffff"  Height="30" Width="200" />
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Grid>
+                        <Image x:Name="notificationsImg" Tapped="Notificationgridtapped" Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                        <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
+                        <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
+                    </Grid>
+                    <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                </StackPanel>
             </Grid>
         </Grid>
         <Pivot Opacity="1" SelectionChanged="Pivot_SelectionChanged" Grid.Row="1" Style="{StaticResource PivotStyle}" FontFamily="Segoe UI" FontSize="24"  >

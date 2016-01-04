@@ -106,11 +106,12 @@ namespace AdvocateHealthCare
         private void gridVideosDisplay_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             VideoPlayerHelper value = (VideoPlayerHelper)(sender as GridView).SelectedItem;
-            Uri uri = value.VideoUrl;
-            //(App.Current as App).NavigateText = uri;
+            int uri = value.VideoID;
+            (App.Current as App).NavigateText = uri;
             this.Frame.Navigate(typeof(PlayVideo));
 
         }
+
 
         private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
         {

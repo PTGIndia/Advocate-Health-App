@@ -23,26 +23,92 @@ namespace AdvocateHealthCare
     /// </summary>
     public sealed partial class PlayVideo : Page
     {
+        int VideoId;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter != null)
+            {
+                //string DoctorVideo = e.Parameter.ToString();
+                PlayYoutubeVideo(e.Parameter.ToString());
+            }
+            else
+            {
+                PlayVideoFromVideoPage();
+            }
+        }
         public PlayVideo()
         {
             this.InitializeComponent();
 
-            //Uri previousPageUri = (App.Current as App).NavigateText;
+            //}
+            //PlayYoutubeVideo(VideoId);
+        }
+        public void PlayVideoFromVideoPage()
+        {
 
-            //if (previousPageUri != null)
+            VideoId = (App.Current as App).NavigateText;
+            switch (VideoId)
+            {
+                case 1:
+                    PlayYoutubeVideo("d9uAa9lECcA");
+                    break;
+                case 2:
+                    PlayYoutubeVideo("CDJ7IebMo2A");
+                    break;
+                case 3:
+                    PlayYoutubeVideo("Xb8aVX6nA88");
+                    break;
+                case 4:
+                    PlayYoutubeVideo("U6118JszdCU");
+                    break;
+                case 5:
+                    PlayYoutubeVideo("Xb8aVX6nA88");
+                    break;
+                case 6:
+                    PlayYoutubeVideo("sjqfDru825I");
+                    break;
+                case 7:
+                    PlayYoutubeVideo("usrh-1bnXgE");
+                    break;
+            }
+
+            //if (VideoId == 1)
             //{
-            //    PlayVideoFromPreviuosPage(previousPageUri);
+            //    PlayYoutubeVideo("d9uAa9lECcA");
+            //}
+            //else if (VideoId == 2)
+            //{
+            //    PlayYoutubeVideo("CDJ7IebMo2A");
+            //}
+            //else if (VideoId == 3)
+            //{
+            //    PlayYoutubeVideo("Xb8aVX6nA88");
+            //}
+            //else if (VideoId == 4)
+            //{
+            //    PlayYoutubeVideo("U6118JszdCU");
+            //}
+            //else if (VideoId == 5)
+            //{
+            //    PlayYoutubeVideo("Xb8aVX6nA88");
+            //}
+            //else if (VideoId == 6)
+            //{
+            //    PlayYoutubeVideo("sjqfDru825I");
+            //}
+            //else if (VideoId == 7)
+            //{
+            //    PlayYoutubeVideo("PG81CP5U9iw");
             //}
             //else
             //{
-            //    PlayYoutubeVideo();
+            //    PlayYoutubeVideo("usrh-1bnXgE");
             //}
-            PlayYoutubeVideo();
         }
-        public async void PlayYoutubeVideo()
+
+        public async void PlayYoutubeVideo(string _videoId)
         {
-            string videoID = "aANj9_oeyUM";
-            var url = await YouTube.GetVideoUriAsync(videoID, YouTubeQuality.Quality1080P);
+            var url = await YouTube.GetVideoUriAsync(_videoId, YouTubeQuality.Quality1080P);
             var YoutubePlayer = new MediaElement();
             mediaYoutube.Source = url.Uri;
             mediaYoutube.Play();

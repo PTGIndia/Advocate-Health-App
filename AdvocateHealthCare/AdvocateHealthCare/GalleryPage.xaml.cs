@@ -78,7 +78,6 @@ namespace AdvocateHealthCare
             foreach (var item in jobject)
             {
                 GalleryHelper objGallery = new GalleryHelper();
-                //test
                 objGallery._id = (string)item["$id"];
                 objGallery.CreatedDate = (string)item["CreatedDate"];
                 string imagePath = App.BASE_URL + (string)item["JournalAsset"];

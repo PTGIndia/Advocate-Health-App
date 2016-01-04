@@ -58,57 +58,63 @@ namespace AdvocateHealthCare
         //Below Methods is called when page  loads
         private async void Notifications_Loaded(object sender, RoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                objListNotificationDetails = new List<NotificationDetails>();
-                //string getAllNotifications = App.BASE_URL + "/api/Notifications/GetNotifications?UserId=3&HospitalId=1";
-                string getAllNotifications = App.BASE_URL + "/api/Notifications/GetNotifications?UserId=" + App.userId + "&HospitalId=" + App.hospitalId;
-                var client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync(new Uri(getAllNotifications));
-                string jsonString = await response.Content.ReadAsStringAsync();
-                jArr = JArray.Parse(jsonString);
-
-                for (int x = 0; x < jArr.Count; x++)
+                try
                 {
-                    objNotificationDetails = new NotificationDetails();
-                    var HospitalID = (string)jArr[x]["HospitalID"];
-                    objNotificationDetails.NotificationData = (string)jArr[x]["NotificationDate"];
-                    string[] split = (objNotificationDetails.NotificationData).Split(' ');
-                    objNotificationDetails.NotificationData = split[0];
-                    objNotificationDetails.NotificationText = (string)jArr[x]["NotificationText"];
-                    objNotificationDetails.NotificationTitle = (string)jArr[x]["NotificationTitle"];
-                    objNotificationDetails.TypeOfNotification = (string)jArr[x]["TypeOfNotification"];
-                    objNotificationDetails.ReadStatus = (string)jArr[x]["IsRead"];
+                    objListNotificationDetails = new List<NotificationDetails>();
+                    //string getAllNotifications = App.BASE_URL + "/api/Notifications/GetNotifications?UserId=3&HospitalId=1";
+                    string getAllNotifications = App.BASE_URL + "/api/Notifications/GetNotifications?UserId=" + App.userId + "&HospitalId=" + App.hospitalId;
+                    var client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(new Uri(getAllNotifications));
+                    string jsonString = await response.Content.ReadAsStringAsync();
+                    jArr = JArray.Parse(jsonString);
 
-
-                    bool readStatus = Convert.ToBoolean(objNotificationDetails.ReadStatus);
-                    switch (readStatus)
+                    for (int x = 0; x < jArr.Count; x++)
                     {
-                        case true:
-                            objNotificationDetails.Mailimage = new BitmapImage(new Uri(@"ms-appx:/Assets/read.png", UriKind.Absolute));
-                            break;
-                        case false:
-                            objNotificationDetails.Mailimage = new BitmapImage(new Uri(@"ms-appx:/Assets/unread.png", UriKind.Absolute));
-                            objNotificationDetails.FontColor = new SolidColorBrush(Colors.Gray);
+                        objNotificationDetails = new NotificationDetails();
+                        var HospitalID = (string)jArr[x]["HospitalID"];
+                        objNotificationDetails.NotificationData = (string)jArr[x]["NotificationDate"];
+                        string[] split = (objNotificationDetails.NotificationData).Split(' ');
+                        objNotificationDetails.NotificationData = split[0];
+                        objNotificationDetails.NotificationText = (string)jArr[x]["NotificationText"];
+                        objNotificationDetails.NotificationTitle = (string)jArr[x]["NotificationTitle"];
+                        objNotificationDetails.TypeOfNotification = (string)jArr[x]["TypeOfNotification"];
+                        objNotificationDetails.ReadStatus = (string)jArr[x]["IsRead"];
 
-                            break;
-                        default:
-                            objNotificationDetails.Mailimage = new BitmapImage(new Uri(@"ms-appx:/Assets/unread.png", UriKind.Absolute));
-                            break;
+
+                        bool readStatus = Convert.ToBoolean(objNotificationDetails.ReadStatus);
+                        switch (readStatus)
+                        {
+                            case true:
+                                objNotificationDetails.Mailimage = new BitmapImage(new Uri(@"ms-appx:/Assets/read.png", UriKind.Absolute));
+                                objNotificationDetails.FontColor = new SolidColorBrush(Colors.Gray);
+                                break;
+                            case false:
+                                objNotificationDetails.Mailimage = new BitmapImage(new Uri(@"ms-appx:/Assets/unread.png", UriKind.Absolute));
+                                break;
+                            default:
+                                objNotificationDetails.Mailimage = new BitmapImage(new Uri(@"ms-appx:/Assets/unread.png", UriKind.Absolute));
+                                break;
+                        }
+
+
+                        objListNotificationDetails.Add(objNotificationDetails);
+
                     }
-
-
-                    objListNotificationDetails.Add(objNotificationDetails);
-
+                    grdNotifications.ItemsSource = objListNotificationDetails;
                 }
-                grdNotifications.ItemsSource = objListNotificationDetails;
+                catch (Exception ex)
+                {
+                    MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                    msgDialog.ShowAsync();
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageDialog msgDialog = new MessageDialog("The required resources are not downloaded.Please check your internet connectivity. If the problem persists, please contact advocate healthcare customer care associate.", "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
-
 
         }
 

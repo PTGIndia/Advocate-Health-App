@@ -70,6 +70,7 @@ namespace AdvocateHealthCare
             this.InitializeComponent();
             var count = HomePage.unreadNotificationCount;
             txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
+            txtdate.Text = Convert.ToString(DateTime.Now);
         }
 
         public class ProfileJournal
@@ -88,71 +89,78 @@ namespace AdvocateHealthCare
 
         private void JournalButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                ProfileJournal profilejournal = new ProfileJournal();
-                profilejournal.CreatedDate = System.DateTime.Today;
-                if (textprofilejournalid.Text == "")
+                try
                 {
-                    profilejournal.ProfileJournalID = null;
-                }
-                else {
-                    profilejournal.ProfileJournalID = textprofilejournalid.Text;
-                }
-
-                profilejournal.ProfileID = App.userId;
-                profilejournal.JournalTitle = txtvalue.Text;
-                profilejournal.JournalInfo = txtjournalinfo.Text;
-                profilejournal.JournalAsset = null;
-                profilejournal.JournalTypeID = 1;
-                profilejournal.LoggedInUser = App.userName;
-
-
-
-                if (txtvalue.Text != "" || txtjournalinfo.Text != "")
-                {
-                    var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
-                    var method = new HttpMethod("POST");
-                    var request = new HttpRequestMessage(method,
-                    App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
-                    // "http://localhost:53676//api/ProfileJournal/SaveProfileJournal")
-
+                    ProfileJournal profilejournal = new ProfileJournal();
+                    profilejournal.CreatedDate = System.DateTime.Today;
+                    if (textprofilejournalid.Text == "")
                     {
-                        Content = new StringContent(serializedPatchDoc,
-                        System.Text.Encoding.Unicode, "application/json")
-                    };
-
-
-                    HttpClient client = new HttpClient();
-                    var result = client.SendAsync(request).Result;
-                    client.Dispose();
-
-                    if (result.IsSuccessStatusCode == true)
-                    {
-                        MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
-                        msgDialog.ShowAsync();
-                        this.Frame.Navigate(typeof(JournalPage));
+                        profilejournal.ProfileJournalID = null;
                     }
                     else {
-                        MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                        profilejournal.ProfileJournalID = textprofilejournalid.Text;
+                    }
+
+                    profilejournal.ProfileID = App.userId;
+                    profilejournal.JournalTitle = txtvalue.Text;
+                    profilejournal.JournalInfo = txtjournalinfo.Text;
+                    profilejournal.JournalAsset = null;
+                    profilejournal.JournalTypeID = 1;
+                    profilejournal.LoggedInUser = App.userName;
+
+
+
+                    if (txtvalue.Text != "" || txtjournalinfo.Text != "")
+                    {
+                        var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
+                        var method = new HttpMethod("POST");
+                        var request = new HttpRequestMessage(method,
+                        App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
+                        // "http://localhost:53676//api/ProfileJournal/SaveProfileJournal")
+
+                        {
+                            Content = new StringContent(serializedPatchDoc,
+                            System.Text.Encoding.Unicode, "application/json")
+                        };
+
+
+                        HttpClient client = new HttpClient();
+                        var result = client.SendAsync(request).Result;
+                        client.Dispose();
+
+                        if (result.IsSuccessStatusCode == true)
+                        {
+                            MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
+                            msgDialog.ShowAsync();
+                            this.Frame.Navigate(typeof(JournalPage));
+                        }
+                        else {
+                            MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                            msgDialog.ShowAsync();
+                        }
+                    }
+                    else
+                    {
+                        MessageDialog msgDialog = new MessageDialog("Please enter both fields to proceed.", "Message");
                         msgDialog.ShowAsync();
                     }
+
                 }
-                else
+
+                catch (Exception ex)
                 {
-                    MessageDialog msgDialog = new MessageDialog("Please enter both fields to proceed.", "Message");
+                    string meg = ex.StackTrace;
+                    MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
                     msgDialog.ShowAsync();
                 }
-
             }
-
-            catch (Exception ex)
+            else
             {
-                string meg = ex.StackTrace;
-                MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
-
 
         }
 
