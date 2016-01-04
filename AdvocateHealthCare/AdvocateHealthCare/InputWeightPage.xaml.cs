@@ -91,8 +91,8 @@ namespace AdvocateHealthCare
                         else
                         {
                             objweight.calculatedweek = dateX;
-                            int week = (int)((DateTime.Now - objweight.LMPDATE).TotalDays) / 7;
-
+                            double week_ = ((DateTime.Now - objweight.LMPDATE).TotalDays) / 7;
+                            int week = Convert.ToInt32(Math.Round(week_));
                             currentweek.Text = Convert.ToString(week);
 
                             objWeightHelper.Add(objweight);

@@ -71,7 +71,7 @@ namespace AdvocateHealthCare
             }
             else
             {
-                Window.Current.Content = new LoginPage();
+                Window.Current.Content = new ProfilePage();
                 Window.Current.Activate();
             }
 
