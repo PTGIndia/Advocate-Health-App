@@ -21,22 +21,19 @@
         <Grid Background="#70729F">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.9*"></ColumnDefinition>
-                <ColumnDefinition Width="0.1*"/>
-                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="My Health Portal" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Margin="10,0,0,0"></TextBlock>
+            <TextBlock Text="My Health Portal" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Margin="10,0,0,0"></TextBlock>
 
-            <Grid x:ConnectionId='5' Grid.Column="1"                                 HorizontalAlignment="Right">
-                <Image x:ConnectionId='7' x:Name="notificationsImg" Source="/Assets/notifications.png" HorizontalAlignment="Right"  Height="30" Margin="0,0,35,0"/>
-
-                <Grid  Margin="0,0,30,5" HorizontalAlignment="Right">
-                    <Ellipse x:ConnectionId='8' Fill="#E5302B" x:Name="ec"  Width="20" Height="20"  Margin="0,1,0,1" />
-                    <TextBlock x:ConnectionId='9' x:Name="txtNotificationCount" Foreground="#ffffff"  Margin="7,6,0,0"></TextBlock>
-                </Grid>
-            </Grid>
-            <Grid Grid.Column="2">
-
-                <SearchBox x:ConnectionId='6'                                             Margin="0,0,20,0" x:Name="mySearchBox" PlaceholderText="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#ffffff"   Height="30" Width="200" />
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Grid>
+                        <Image x:ConnectionId='7' x:Name="notificationsImg"                                 Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                        <Ellipse x:ConnectionId='8' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
+                        <TextBlock x:ConnectionId='9' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
+                    </Grid>
+                    <SearchBox x:ConnectionId='6'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                </StackPanel>
             </Grid>
         </Grid>
         <Pivot Opacity="1" Grid.Row="1" Style="{StaticResource PivotStyle}" FontFamily="Segoe UI" FontSize="24"  >
@@ -71,7 +68,11 @@
                                 <Grid Grid.Row="0">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock  Text="Weight Tracker" Foreground="#E5673A" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="Week 7" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                        <!--<TextBlock  Text="{Binding currentweek}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>-->
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock  Text="Week- " FontSize="18" Foreground="Black"  ></TextBlock>
+                                            <TextBlock x:ConnectionId='5' x:Name="currentweek" Foreground="Black" FontSize="18" ></TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
                                 </Grid>
                                 <!--<Grid Grid.Row="1">
@@ -80,21 +81,21 @@
                                 </Grid>-->
                                 <Grid Grid.Row="1">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock  Margin="120,0,0,0" FontSize="14" Text="Date :"></TextBlock>
-                                        <CalendarDatePicker x:ConnectionId='4' Margin="0,7,0,0" x:Name="_WeightInputDate" HorizontalAlignment="Center" Height="34px" Width="262px"
+                                        <TextBlock   FontSize="14" Text="Date :" Padding="5" Margin="100,0,0,0" ></TextBlock>
+                                        <CalendarDatePicker x:ConnectionId='4' x:Name="_WeightInputDate" HorizontalAlignment="Center" VerticalAlignment="Center" Height="34px" Width="150"
 		    
-		    VerticalAlignment="Center"></CalendarDatePicker>
+		   ></CalendarDatePicker>
 
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Row="2">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Margin="120,8,0,8" FontSize="14" Text="Weight :"></TextBlock>
-                                        <TextBox x:ConnectionId='3' Margin="0,-7,0,0" x:Name="Weight" Height="34px" Width="262px" ></TextBox>
+                                        <TextBlock Margin="100,0,0,0" FontSize="14" Text="Weight :" Padding="5"></TextBlock>
+                                        <TextBox x:ConnectionId='3' VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="Weight" Height="34px" Width="150" ></TextBox>
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Row="3" Margin="0,10,0,0">
-                                    <Button x:ConnectionId='2' Background="#E5673A" Height="34px" Width="262px" Foreground="White"  VerticalAlignment="Top" HorizontalAlignment="Center"                           >InputWeight</Button>
+                                    <Button x:ConnectionId='2' Background="#E5673A" Height="34px" Width="150" Foreground="White"  VerticalAlignment="Top" HorizontalAlignment="Center"                           >Input Weight</Button>
                                 </Grid>
 
                             </Grid>
@@ -110,7 +111,7 @@
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0">
 
-                                        <TextBlock FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Health Weight  Gain during Pregnancy" Foreground="#E5673A"></TextBlock>
+                                        <TextBlock FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"  Text="Healthy Weight gain during pregnancy" Foreground="#E5673A"></TextBlock>
 
                                     </Grid>
                                     <Grid Grid.Row="1">
@@ -119,22 +120,7 @@
                                         French fries as you want, right? Wrong! You only need about
                                         300 extra calories a day during pregnancy to support your baby's growth and development. So you don't need to be chowing down everything in sight!
 
-
                                         </TextBlock>
-                                        <!--<StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="When you're pregnant, you get to eat as many "></TextBlock>
-                                <TextBlock Text="donuts and French fries as you want, right?  "></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Wrong! You only need about 300 extra calories  "></TextBlock>
-                                <TextBlock Text="a day during pregnancy to support your baby's   "></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="growth and development. So you don't need to   "></TextBlock>
-                                <TextBlock Text="be chowing down everything in sight! "></TextBlock>
-                            </StackPanel>
-                        </StackPanel>-->
                                     </Grid>
 
                                 </Grid>

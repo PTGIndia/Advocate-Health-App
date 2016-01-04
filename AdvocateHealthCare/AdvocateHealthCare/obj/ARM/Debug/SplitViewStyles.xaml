@@ -42,7 +42,7 @@
     <SolidColorBrush
     x:Key="PivotHeaderForegroundSelectedBrush"
     Color="#3ab2e1" />
-    <!--<Style TargetType="PivotHeaderItem" >
+    <Style TargetType="PivotHeaderItem" >
         <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}" />
         <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
         <Setter Property="CharacterSpacing" Value="{ThemeResource PivotHeaderItemCharacterSpacing}" />
@@ -68,12 +68,12 @@
 
                                     </Storyboard>
                                 </VisualState>
-                                --><!--<VisualState x:Name="UnselectedLocked">
+                                <!--<VisualState x:Name="UnselectedLocked">
                                             <Storyboard>
                                                 <DoubleAnimation Duration="0" To="{ThemeResource PhonePivotLockedTranslation}" Storyboard.TargetProperty="X" Storyboard.TargetName="ContentPresenterTranslateTransform" />
                                                 <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ContentPresenter" />
                                             </Storyboard>
-                                        </VisualState>--><!--
+                                        </VisualState>-->
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
@@ -95,7 +95,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
+    </Style>
 
     <!--Pivot Header-->
     <!--<Thickness x:Key="PivotPortraitThemePadding">19,38,0,0</Thickness>
