@@ -21,17 +21,45 @@ using Windows.UI.Xaml.Navigation;
 namespace AdvocateHealthCare
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// An empty page that can be used  on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class LoginPage : Page
     {
+        int checkBoxFlag = 0;
         public LoginPage()
         {
             this.InitializeComponent();
+            //if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["ChechedStatus"].ToString() == "True") {}
+            if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["ChechedStatus"] == null)
+            {
+                checkBoxFlag = 1;
+            }
+            else
+            {
+                userNameText.Text = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userMailAddress"].ToString();
+                pwdText.Password = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userPassword"].ToString();
+                cbCheckBox.IsChecked = true;
+            }
+
         }
         private Frame _rootFrame;
         private async void Login_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (cbCheckBox.IsChecked == true)
+            {
+                if (checkBoxFlag == 1)
+                {
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userMailAddress"] = userNameText.Text;
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userPassword"] = pwdText.Password;
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["ChechedStatus"] = "True";
+                }
+            }
+            else
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Remove("ChechedStatus");
+            }
+
+
             if (App.IsInternet() == true)
             {
                 try

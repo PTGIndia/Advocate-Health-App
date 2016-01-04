@@ -103,18 +103,16 @@ namespace AdvocateHealthCare
                     profilejournal.ProfileJournalID = null;
 
                     profilejournal.ProfileID = App.userId;
-
+                    profilejournal.JournalTitle = JorQtext.Text;
                     profilejournal.JournalInfo = JorQtext.Text;
                     profilejournal.JournalAsset = null;
                     if (qtapped == "2")
                     {
                         profilejournal.JournalTypeID = 2;
-                        profilejournal.JournalTitle = "QuestionEntry";
                     }
                     else
                     {
                         profilejournal.JournalTypeID = 1;
-                        profilejournal.JournalTitle = "JournalEntry";
                     }
                     profilejournal.LoggedInUser = App.userName;
 
@@ -297,5 +295,3 @@ namespace AdvocateHealthCare
 
     }
 }
-
-

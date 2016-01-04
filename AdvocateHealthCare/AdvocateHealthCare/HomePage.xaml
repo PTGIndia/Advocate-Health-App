@@ -28,8 +28,8 @@
 
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Grid>
-                        <Image x:Name="notificationsImg" Tapped="Notificationgridtapped" Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                    <Grid Tapped="Notificationgridtapped">
+                        <Image x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
                         <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,2,0,7" />
                         <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="19,7,0,5" ></TextBlock>
                     </Grid>
@@ -38,12 +38,12 @@
             </Grid>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Pivot  Style="{StaticResource PivotStyle}" Margin="0,0,0,0" SelectionChanged="Pivot_SelectionChanged" Opacity="1"  FontFamily="Segoe UI" FontSize="24" >
+            <Pivot Style="{StaticResource PivotStyle}"  SelectionChanged="Pivot_SelectionChanged"  FontFamily="Segoe UI" FontSize="20" >
+
                 <Pivot.HeaderTemplate>
                     <DataTemplate>
                         <Grid>
                             <TextBlock Text="{Binding}" FontFamily="Segoe UI"  FontSize="20" Margin="0,10,0,0" />
-
                         </Grid>
                     </DataTemplate>
                 </Pivot.HeaderTemplate>
@@ -53,7 +53,6 @@
                             <Grid.RowDefinitions >
                                 <RowDefinition Height="0.88*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
-                                <!--<RowDefinition Height="0.13*"></RowDefinition>-->
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" Margin="0,0,0,0">
                                 <Grid.ColumnDefinitions>

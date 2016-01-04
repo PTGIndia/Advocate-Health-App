@@ -62,7 +62,7 @@ namespace AdvocateHealthCare
             {
                 if (Window.Current.Content == null)
                 {
-                    Window.Current.Content = new LoginPage();
+                    Window.Current.Content = new ProfilePage();
 
                     Window.Current.Activate();
                     // _rootFrame.Navigate(typeof(ProfilePage));
@@ -109,9 +109,9 @@ namespace AdvocateHealthCare
             //_rootFrame.Navigate(typeof(HomePage));
 
 
-            // Window.Current.Content = new ProfilePage();
+            //Window.Current.Content = new ProfilePage();
 
-            //Window.Current.Activate();
+            //  Window.Current.Activate();
         }
         public static bool internet;
         public static bool IsInternet()

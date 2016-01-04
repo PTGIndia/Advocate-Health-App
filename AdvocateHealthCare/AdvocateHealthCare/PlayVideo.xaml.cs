@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.ComponentModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -72,40 +73,8 @@ namespace AdvocateHealthCare
                     break;
             }
 
-            //if (VideoId == 1)
-            //{
-            //    PlayYoutubeVideo("d9uAa9lECcA");
-            //}
-            //else if (VideoId == 2)
-            //{
-            //    PlayYoutubeVideo("CDJ7IebMo2A");
-            //}
-            //else if (VideoId == 3)
-            //{
-            //    PlayYoutubeVideo("Xb8aVX6nA88");
-            //}
-            //else if (VideoId == 4)
-            //{
-            //    PlayYoutubeVideo("U6118JszdCU");
-            //}
-            //else if (VideoId == 5)
-            //{
-            //    PlayYoutubeVideo("Xb8aVX6nA88");
-            //}
-            //else if (VideoId == 6)
-            //{
-            //    PlayYoutubeVideo("sjqfDru825I");
-            //}
-            //else if (VideoId == 7)
-            //{
-            //    PlayYoutubeVideo("PG81CP5U9iw");
-            //}
-            //else
-            //{
-            //    PlayYoutubeVideo("usrh-1bnXgE");
-            //}
         }
-
+        DispatcherTimer dispatcherTimer;
         public async void PlayYoutubeVideo(string _videoId)
         {
             var url = await YouTube.GetVideoUriAsync(_videoId, YouTubeQuality.Quality1080P);
@@ -113,8 +82,40 @@ namespace AdvocateHealthCare
             mediaYoutube.Source = url.Uri;
             mediaYoutube.Play();
             mediaYoutube.Volume = 40;
-        }
+            mediaYoutube.MediaOpened += new RoutedEventHandler(MediaYoutube_MediaOpened);
 
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+            //TimerStatus.Text = "dispatcherTimer.IsEnabled = " + dispatcherTimer.IsEnabled + "\n";
+            //System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            //dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            //dispatcherTimer.Interval = new TimeSpan(0, 5, 0);
+            //dispatcherTimer.Start();
+        }
+        int time;
+        private void MediaYoutube_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            time = (int)mediaYoutube.NaturalDuration.TimeSpan.TotalSeconds;
+            double inMinutes = time / 60;
+        }
+        void dispatcherTimer_Tick(object sender, object e)
+        {
+            if (time > 0)
+            {
+                time--;
+                int seconds = time % 60;
+                int minutes = time / 60;
+
+                if (seconds < 10)
+                //minutes = Convert.ToUInt16( "0" + minutes);
+                {
+                    seconds = Convert.ToInt16("0") + seconds;
+                }
+                txtCoutDown.Text = "Video Duration Left: " + minutes + ":" + seconds;
+            }
+        }
         public void PlayVideoFromPreviuosPage(Uri VideoUri)
         {
             mediaYoutube.Source = VideoUri;
@@ -123,21 +124,26 @@ namespace AdvocateHealthCare
         private void btnPause_Click(object sender, RoutedEventArgs e)
         {
             mediaYoutube.Pause();
+            imgPause.Visibility = Visibility.Visible;
+            dispatcherTimer.Stop();
         }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             mediaYoutube.Stop();
+            dispatcherTimer.Stop();
         }
 
         private void btnPLay_Click(object sender, RoutedEventArgs e)
         {
             mediaYoutube.Play();
+            imgPause.Visibility = Visibility.Collapsed;
+            dispatcherTimer.Start();
         }
 
         private void BackNav_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(HomePage));
+            this.Frame.Navigate(typeof(VideosPage));
         }
     }
 }

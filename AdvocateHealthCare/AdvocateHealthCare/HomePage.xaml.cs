@@ -233,6 +233,10 @@ namespace AdvocateHealthCare
                 {
                     this.Frame.Navigate(typeof(DietandPregnancy));
                 }
+                if (gridTitle == " My Advocate Portal")
+                {
+                    this.Frame.Navigate(typeof(MyAdvocatePage));
+                }
             }
             catch (Exception ex)
             {
