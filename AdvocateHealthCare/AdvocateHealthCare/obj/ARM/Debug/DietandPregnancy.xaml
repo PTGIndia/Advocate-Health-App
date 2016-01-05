@@ -29,12 +29,12 @@
 
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Grid>
-                        <Image x:ConnectionId='17' x:Name="notificationsImg"                                 Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
-                        <Ellipse x:ConnectionId='18' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,2,0,7" />
-                        <TextBlock x:ConnectionId='19' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="19,7,0,5" ></TextBlock>
+                    <Grid x:ConnectionId='16'                                >
+                        <Image x:ConnectionId='18' x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                        <Ellipse x:ConnectionId='19' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,2,0,7" />
+                        <TextBlock x:ConnectionId='20' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="19,7,0,5" ></TextBlock>
                     </Grid>
-                    <SearchBox x:ConnectionId='16'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                    <SearchBox x:ConnectionId='17'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -225,7 +225,7 @@ Your body becomes more efficient when you're pregnant, and makes even better use
                                         <RowDefinition Height="0.2*"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" Background="White">
-                                        <TextBox x:ConnectionId='7' x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your notes and questions here" VerticalAlignment="Top" Height="550" TextWrapping="Wrap" Margin="0,0,0,0" />
+                                        <TextBox x:ConnectionId='7' x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your notes or questions" VerticalAlignment="Top" Height="550" TextWrapping="Wrap" Margin="0,0,0,0" />
 
                                         <Button x:ConnectionId='8'                       Foreground="#ffffff"  HorizontalAlignment="Right"  Margin="0,240,0,0" Width="132" Background="#E5673A">Save</Button>
                                     </Grid>

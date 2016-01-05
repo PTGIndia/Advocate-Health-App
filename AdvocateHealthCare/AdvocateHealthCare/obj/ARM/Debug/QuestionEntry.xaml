@@ -27,12 +27,12 @@
 
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Grid>
-                        <Image x:ConnectionId='8' x:Name="notificationsImg"                                 Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
-                        <Ellipse x:ConnectionId='9' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
-                        <TextBlock x:ConnectionId='10' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
+                    <Grid x:ConnectionId='7'                                >
+                        <Image x:ConnectionId='9' x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                        <Ellipse x:ConnectionId='10' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
+                        <TextBlock x:ConnectionId='11' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
                     </Grid>
-                    <SearchBox x:ConnectionId='7'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                    <SearchBox x:ConnectionId='8'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -92,7 +92,7 @@
                             </TextBox>
                         </Grid>-->
                         <Grid Grid.Row="3" Margin="30,30,0,0">
-                            <TextBox x:ConnectionId='1'  BorderBrush="white" BorderThickness="0" x:Name="txtquestioninfo" FontSize="15"  PlaceholderText="Your Entry here...">
+                            <TextBox x:ConnectionId='1'  BorderBrush="white" BorderThickness="0" FontSize="15" x:Name="txtquestioninfo" PlaceholderText="Your Entry here...">
 
                             </TextBox>
                         </Grid>

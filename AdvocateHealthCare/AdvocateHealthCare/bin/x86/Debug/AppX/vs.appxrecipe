@@ -10,25 +10,25 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6</PackageIdentityName>
     <IntermediateOutputPath>C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\</IntermediateOutputPath>
-    <RegisteredManifestChecksum>B28B7D2000E8EB2464FA54D310B73C5B345027888782A1EC567AC2687FCD16D4</RegisteredManifestChecksum>
-    <RegisteredPackageMoniker>a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6_1.0.0.0_x86__nt1jht1bj1k9p</RegisteredPackageMoniker>
+    <RegisteredManifestChecksum>F4167C5D355BEC8BBA4113503C239376FAC9E2EF0AF7160B8F7ED37C4393EEE0</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6_1.0.2.0_x86__nt1jht1bj1k9p</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6_nt1jht1bj1k9p!App</RegisteredUserModeAppID>
     <RegisteredPackageID>a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6</RegisteredPackageID>
     <RegisteredPackagePublisher>CN=v-rata</RegisteredPackagePublisher>
-    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <RegisteredVersion>1.0.2.0</RegisteredVersion>
     <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
   </PropertyGroup>
   <ItemGroup>
     <AppXManifest Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-01-04T13:03:38.204</Modified>
+      <Modified>2016-01-05T05:12:20.277</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\AdvocateHealthCare.exe">
       <PackagePath>entrypoint\AdvocateHealthCare.exe</PackagePath>
-      <Modified>2016-01-04T13:03:37.005</Modified>
+      <Modified>2016-01-05T05:12:18.867</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sridhar\.nuget\packages\Microsoft.ApplicationInsights\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -694,11 +694,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-01-04T13:03:37.896</Modified>
+      <Modified>2016-01-05T05:12:19.945</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\Core\AdvocateHealthCare.exe">
       <PackagePath>AdvocateHealthCare.exe</PackagePath>
-      <Modified>2016-01-04T13:03:38.200</Modified>
+      <Modified>2016-01-05T05:12:20.271</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

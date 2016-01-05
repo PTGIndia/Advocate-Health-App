@@ -156,7 +156,7 @@ namespace AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[26];
+            _typeNameTable = new string[27];
             _typeNameTable[0] = "AdvocateHealthCare.DietandPregnancy";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
@@ -174,17 +174,18 @@ namespace AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo
             _typeNameTable[14] = "AdvocateHealthCare.JournalPage";
             _typeNameTable[15] = "AdvocateHealthCare.LoginPage";
             _typeNameTable[16] = "AdvocateHealthCare.MainPage";
-            _typeNameTable[17] = "AdvocateHealthCare.Notifications";
-            _typeNameTable[18] = "AdvocateHealthCare.PlayVideo";
-            _typeNameTable[19] = "AdvocateHealthCare.ProfilePage";
-            _typeNameTable[20] = "AdvocateHealthCare.QuestionEntry";
-            _typeNameTable[21] = "AdvocateHealthCare.Model.MyDataTemplateSelector2";
-            _typeNameTable[22] = "AdvocateHealthCare.QuestionsPage";
-            _typeNameTable[23] = "AdvocateHealthCare.SearchPage";
-            _typeNameTable[24] = "AdvocateHealthCare.SettingsPage";
-            _typeNameTable[25] = "AdvocateHealthCare.VideosPage";
+            _typeNameTable[17] = "AdvocateHealthCare.MyAdvocatePage";
+            _typeNameTable[18] = "AdvocateHealthCare.Notifications";
+            _typeNameTable[19] = "AdvocateHealthCare.PlayVideo";
+            _typeNameTable[20] = "AdvocateHealthCare.ProfilePage";
+            _typeNameTable[21] = "AdvocateHealthCare.QuestionEntry";
+            _typeNameTable[22] = "AdvocateHealthCare.Model.MyDataTemplateSelector2";
+            _typeNameTable[23] = "AdvocateHealthCare.QuestionsPage";
+            _typeNameTable[24] = "AdvocateHealthCare.SearchPage";
+            _typeNameTable[25] = "AdvocateHealthCare.SettingsPage";
+            _typeNameTable[26] = "AdvocateHealthCare.VideosPage";
 
-            _typeTable = new global::System.Type[26];
+            _typeTable = new global::System.Type[27];
             _typeTable[0] = typeof(global::AdvocateHealthCare.DietandPregnancy);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
@@ -202,15 +203,16 @@ namespace AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo
             _typeTable[14] = typeof(global::AdvocateHealthCare.JournalPage);
             _typeTable[15] = typeof(global::AdvocateHealthCare.LoginPage);
             _typeTable[16] = typeof(global::AdvocateHealthCare.MainPage);
-            _typeTable[17] = typeof(global::AdvocateHealthCare.Notifications);
-            _typeTable[18] = typeof(global::AdvocateHealthCare.PlayVideo);
-            _typeTable[19] = typeof(global::AdvocateHealthCare.ProfilePage);
-            _typeTable[20] = typeof(global::AdvocateHealthCare.QuestionEntry);
-            _typeTable[21] = typeof(global::AdvocateHealthCare.Model.MyDataTemplateSelector2);
-            _typeTable[22] = typeof(global::AdvocateHealthCare.QuestionsPage);
-            _typeTable[23] = typeof(global::AdvocateHealthCare.SearchPage);
-            _typeTable[24] = typeof(global::AdvocateHealthCare.SettingsPage);
-            _typeTable[25] = typeof(global::AdvocateHealthCare.VideosPage);
+            _typeTable[17] = typeof(global::AdvocateHealthCare.MyAdvocatePage);
+            _typeTable[18] = typeof(global::AdvocateHealthCare.Notifications);
+            _typeTable[19] = typeof(global::AdvocateHealthCare.PlayVideo);
+            _typeTable[20] = typeof(global::AdvocateHealthCare.ProfilePage);
+            _typeTable[21] = typeof(global::AdvocateHealthCare.QuestionEntry);
+            _typeTable[22] = typeof(global::AdvocateHealthCare.Model.MyDataTemplateSelector2);
+            _typeTable[23] = typeof(global::AdvocateHealthCare.QuestionsPage);
+            _typeTable[24] = typeof(global::AdvocateHealthCare.SearchPage);
+            _typeTable[25] = typeof(global::AdvocateHealthCare.SettingsPage);
+            _typeTable[26] = typeof(global::AdvocateHealthCare.VideosPage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -255,15 +257,16 @@ namespace AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo
         private object Activate_13_MyDataTemplateSelector3() { return new global::AdvocateHealthCare.Model.MyDataTemplateSelector3(); }
         private object Activate_14_JournalPage() { return new global::AdvocateHealthCare.JournalPage(); }
         private object Activate_15_LoginPage() { return new global::AdvocateHealthCare.LoginPage(); }
-        private object Activate_17_Notifications() { return new global::AdvocateHealthCare.Notifications(); }
-        private object Activate_18_PlayVideo() { return new global::AdvocateHealthCare.PlayVideo(); }
-        private object Activate_19_ProfilePage() { return new global::AdvocateHealthCare.ProfilePage(); }
-        private object Activate_20_QuestionEntry() { return new global::AdvocateHealthCare.QuestionEntry(); }
-        private object Activate_21_MyDataTemplateSelector2() { return new global::AdvocateHealthCare.Model.MyDataTemplateSelector2(); }
-        private object Activate_22_QuestionsPage() { return new global::AdvocateHealthCare.QuestionsPage(); }
-        private object Activate_23_SearchPage() { return new global::AdvocateHealthCare.SearchPage(); }
-        private object Activate_24_SettingsPage() { return new global::AdvocateHealthCare.SettingsPage(); }
-        private object Activate_25_VideosPage() { return new global::AdvocateHealthCare.VideosPage(); }
+        private object Activate_17_MyAdvocatePage() { return new global::AdvocateHealthCare.MyAdvocatePage(); }
+        private object Activate_18_Notifications() { return new global::AdvocateHealthCare.Notifications(); }
+        private object Activate_19_PlayVideo() { return new global::AdvocateHealthCare.PlayVideo(); }
+        private object Activate_20_ProfilePage() { return new global::AdvocateHealthCare.ProfilePage(); }
+        private object Activate_21_QuestionEntry() { return new global::AdvocateHealthCare.QuestionEntry(); }
+        private object Activate_22_MyDataTemplateSelector2() { return new global::AdvocateHealthCare.Model.MyDataTemplateSelector2(); }
+        private object Activate_23_QuestionsPage() { return new global::AdvocateHealthCare.QuestionsPage(); }
+        private object Activate_24_SearchPage() { return new global::AdvocateHealthCare.SearchPage(); }
+        private object Activate_25_SettingsPage() { return new global::AdvocateHealthCare.SettingsPage(); }
+        private object Activate_26_VideosPage() { return new global::AdvocateHealthCare.VideosPage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -381,68 +384,75 @@ namespace AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 17:   //  AdvocateHealthCare.Notifications
+            case 17:   //  AdvocateHealthCare.MyAdvocatePage
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_17_Notifications;
+                userType.Activator = Activate_17_MyAdvocatePage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 18:   //  AdvocateHealthCare.PlayVideo
+            case 18:   //  AdvocateHealthCare.Notifications
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_18_PlayVideo;
+                userType.Activator = Activate_18_Notifications;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 19:   //  AdvocateHealthCare.ProfilePage
+            case 19:   //  AdvocateHealthCare.PlayVideo
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_19_ProfilePage;
+                userType.Activator = Activate_19_PlayVideo;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 20:   //  AdvocateHealthCare.ProfilePage
+                userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_20_ProfilePage;
                 userType.AddMemberName("ImageToServerString");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 20:   //  AdvocateHealthCare.QuestionEntry
+            case 21:   //  AdvocateHealthCare.QuestionEntry
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_20_QuestionEntry;
+                userType.Activator = Activate_21_QuestionEntry;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 21:   //  AdvocateHealthCare.Model.MyDataTemplateSelector2
+            case 22:   //  AdvocateHealthCare.Model.MyDataTemplateSelector2
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.DataTemplateSelector"));
-                userType.Activator = Activate_21_MyDataTemplateSelector2;
+                userType.Activator = Activate_22_MyDataTemplateSelector2;
                 userType.AddMemberName("FirstItemStyle");
                 userType.AddMemberName("ItemStyle");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 22:   //  AdvocateHealthCare.QuestionsPage
+            case 23:   //  AdvocateHealthCare.QuestionsPage
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_22_QuestionsPage;
+                userType.Activator = Activate_23_QuestionsPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 23:   //  AdvocateHealthCare.SearchPage
+            case 24:   //  AdvocateHealthCare.SearchPage
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_23_SearchPage;
+                userType.Activator = Activate_24_SearchPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 24:   //  AdvocateHealthCare.SettingsPage
+            case 25:   //  AdvocateHealthCare.SettingsPage
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_24_SettingsPage;
+                userType.Activator = Activate_25_SettingsPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 25:   //  AdvocateHealthCare.VideosPage
+            case 26:   //  AdvocateHealthCare.VideosPage
                 userType = new global::AdvocateHealthCare.AdvocateHealthCare_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_25_VideosPage;
+                userType.Activator = Activate_26_VideosPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;

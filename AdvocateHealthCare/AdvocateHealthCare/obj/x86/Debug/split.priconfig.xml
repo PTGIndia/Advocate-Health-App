@@ -5,7 +5,7 @@
     <autoResourcePackage qualifier="Scale" />
     <autoResourcePackage qualifier="DXFeatureLevel" />
   </packaging>
-  <index root="\" startIndexAt="C:\Users\v-rata\Documents\Visual Studio 2015\Projects\AdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\resources.pri">
+  <index root="\" startIndexAt="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\resources.pri">
     <default>
       <qualifier name="Language" value="en-US" />
       <qualifier name="Contrast" value="standard" />

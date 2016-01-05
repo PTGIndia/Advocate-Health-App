@@ -62,7 +62,17 @@
 					<Base64Value>[Embedded Binary Data]</Base64Value>
 				</Candidate>
 			</NamedResource>
+			<NamedResource name="LoginPage.xbf" uri="ms-resource://a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6/Files/LoginPage.xbf">
+				<Candidate type="EmbeddedData">
+					<Base64Value>[Embedded Binary Data]</Base64Value>
+				</Candidate>
+			</NamedResource>
 			<NamedResource name="MainPage.xbf" uri="ms-resource://a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6/Files/MainPage.xbf">
+				<Candidate type="EmbeddedData">
+					<Base64Value>[Embedded Binary Data]</Base64Value>
+				</Candidate>
+			</NamedResource>
+			<NamedResource name="MyAdvocatePage.xbf" uri="ms-resource://a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6/Files/MyAdvocatePage.xbf">
 				<Candidate type="EmbeddedData">
 					<Base64Value>[Embedded Binary Data]</Base64Value>
 				</Candidate>
@@ -191,6 +201,11 @@
 				<NamedResource name="LockScreenLogo.png" uri="ms-resource://a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6/Files/Assets/LockScreenLogo.png">
 					<Candidate qualifiers="Scale-200" isDefault="true" type="Path">
 						<Value>Assets\LockScreenLogo.scale-200.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="login_bg.png" uri="ms-resource://a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6/Files/Assets/login_bg.png">
+					<Candidate type="Path">
+						<Value>Assets\login_bg.png</Value>
 					</Candidate>
 				</NamedResource>
 				<NamedResource name="logo.png" uri="ms-resource://a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6/Files/Assets/logo.png">

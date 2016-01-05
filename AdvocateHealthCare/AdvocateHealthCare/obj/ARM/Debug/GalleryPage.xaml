@@ -70,12 +70,12 @@
 
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Grid>
-                        <Image x:ConnectionId='4' x:Name="notificationsImg"                                 Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
-                        <Ellipse x:ConnectionId='5' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
-                        <TextBlock x:ConnectionId='6' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
+                    <Grid x:ConnectionId='3'                                >
+                        <Image x:ConnectionId='5' x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                        <Ellipse x:ConnectionId='6' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
+                        <TextBlock x:ConnectionId='7' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
                     </Grid>
-                    <SearchBox x:ConnectionId='3'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                    <SearchBox x:ConnectionId='4'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
                 </StackPanel>
             </Grid>
         </Grid>

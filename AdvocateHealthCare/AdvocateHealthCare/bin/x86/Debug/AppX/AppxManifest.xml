@@ -7,7 +7,7 @@
 
     For more information on package manifest files, see http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6" Publisher="CN=v-rata" Version="1.0.0.0" ProcessorArchitecture="x86" />
+  <Identity Name="a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6" Publisher="CN=v-rata" Version="1.0.2.0" ProcessorArchitecture="x86" />
   <mp:PhoneIdentity PhoneProductId="a47df9ce-c1d8-4e24-b6c7-8d7fad62f3d6" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>AdvocateHealthCare</DisplayName>

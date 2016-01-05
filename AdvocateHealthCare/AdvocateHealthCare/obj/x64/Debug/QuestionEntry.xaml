@@ -21,34 +21,32 @@
         <Grid Background="#70729F">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.9*"></ColumnDefinition>
-                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Questions for care Provider" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Margin="10,0,0,0"></TextBlock>
-            <!--<TextBlock  Text="4" Margin="0,0,0,0"  HorizontalAlignment="Right" VerticalAlignment="Top" ></TextBlock>-->
+            <TextBlock Text="Questions for my care provider" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Margin="10,0,0,0"></TextBlock>
 
-
-
-            <Grid x:ConnectionId='6' Grid.Column="2"                              >
-                <Image x:ConnectionId='7' x:Name="notificationsImg" Source="/Assets/notifications.png" HorizontalAlignment="Right" Height="40" Margin="0,0,35,-11"/>
-                <Grid  Margin="0,0,30,5" HorizontalAlignment="Right">
-                    <Ellipse x:ConnectionId='8' Fill="#E5302B" x:Name="ec"  Width="22" Height="22"  Margin="0,1,0,1" />
-                    <TextBlock x:ConnectionId='9' x:Name="txtNotificationCount" Foreground="Yellow"  Margin="7,13,-20,0"></TextBlock>
-                </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Grid x:ConnectionId='7'                                >
+                        <Image x:ConnectionId='9' x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                        <Ellipse x:ConnectionId='10' Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
+                        <TextBlock x:ConnectionId='11' x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
+                    </Grid>
+                    <SearchBox x:ConnectionId='8'                                             Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                </StackPanel>
             </Grid>
-
-
         </Grid>
         <Pivot Style="{StaticResource PivotStyle}" Opacity="1"  FontFamily="Segoe UI" FontSize="24" Grid.Row="1"  >
             <Pivot.HeaderTemplate >
                 <DataTemplate>
                     <Grid>
-                        <TextBlock Text="{Binding}"  FontFamily="Segoe UI" FontSize="20" Foreground="#ffffff" />
+                        <TextBlock Text="{Binding}"  FontFamily="Segoe UI" FontSize="20" Margin="0,10,0,0" Foreground="#ffffff" />
                     </Grid>
                 </DataTemplate>
             </Pivot.HeaderTemplate>
 
             <Pivot.Items>
-                <PivotItem Header=" New Question" FontSize="16">
+                <PivotItem Header="New Question" FontSize="16">
 
 
                     <Grid Background="White">
@@ -66,29 +64,38 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" Margin="30,0,0,0">
                                 <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:ConnectionId='4' x:Name="textprofilejournalid" Visibility="Collapsed"></TextBlock>
                                     <Image Source="/Assets/calendar.png"  Height="30" Width="30" ></Image>
-                                    <TextBox x:ConnectionId='4' BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" x:Name="txtdate" ></TextBox>
-                                    <TextBox x:ConnectionId='5' BorderThickness="0" BorderBrush="White"  x:Name="ProfileJournalID" Visibility="Collapsed" ></TextBox>
+                                    <TextBox x:ConnectionId='5' BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" x:Name="txtdate" ></TextBox>
+                                    <TextBox x:ConnectionId='6' BorderThickness="0" BorderBrush="White"  x:Name="ProfileJournalID" Visibility="Collapsed" ></TextBox>
                                 </StackPanel>
-
                             </Grid>
                             <Grid Grid.Column="1">
-                                <Button x:ConnectionId='3'  Margin="500,0,0,0" Width="85" Foreground="#ffffff" Background="#E5673A"                              >Save</Button>
+                                <Button x:ConnectionId='3'  Margin="0,0,5,0" HorizontalAlignment="Right" Width="85" Foreground="#ffffff" Background="#E5673A"                              >Save</Button>
                             </Grid>
                         </Grid>
+                        <!--<Grid Grid.Row="2"  Margin="30,20,0,0">
+                            <TextBox BorderBrush="#E6D6B9" BorderThickness="0,0,0,1" Height="30" FontSize="18"   x:Name="txtquestionvalue"  PlaceholderText="Enter Title....">
+                            </TextBox>
+                        </Grid>-->
                         <Grid Grid.Row="2">
-                            <TextBox x:ConnectionId='2' Margin="30,20,0,0" BorderBrush="#E6D6B9" BorderThickness="0,0,0,1" Height="30" FontSize="18"   x:Name="txtquestionvalue"  PlaceholderText="Enter Title....">
+
+                            <TextBox x:ConnectionId='2'  Margin="30,20,0,0" BorderBrush="#E6D6B9" BorderThickness="0,0,0,1" FontSize="18"  x:Name="txtquestionvalue"  PlaceholderText="Enter Title....">
+                            </TextBox>
+
+
+
+                        </Grid>
+                        <!--<Grid Grid.Row="3" Margin="30,30,0,0">
+                            <TextBox   BorderBrush="white" BorderThickness="0" x:Name="txtquestioninfo" FontSize="15"  PlaceholderText="Your Entry here...">
+
+                            </TextBox>
+                        </Grid>-->
+                        <Grid Grid.Row="3" Margin="30,30,0,0">
+                            <TextBox x:ConnectionId='1'  BorderBrush="white" BorderThickness="0" FontSize="15" x:Name="txtquestioninfo" PlaceholderText="Your Entry here...">
+
                             </TextBox>
                         </Grid>
-                        <Grid Grid.Row="3">
-                            <TextBox x:ConnectionId='1'  Margin="30,20,0,0" BorderBrush="white" BorderThickness="0" x:Name="txtquestioninfo"  PlaceholderText="Your Entry here...">
-
-                            </TextBox>
-                        </Grid>
-
-
-
-
                     </Grid>
                 </PivotItem>
             </Pivot.Items>
