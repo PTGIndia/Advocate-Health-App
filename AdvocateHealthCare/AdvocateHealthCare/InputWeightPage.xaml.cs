@@ -91,9 +91,11 @@ namespace AdvocateHealthCare
                         else
                         {
                             objweight.calculatedweek = dateX;
-                            double week_ = ((DateTime.Now - objweight.LMPDATE).TotalDays) / 7;
-                            int week = Convert.ToInt32(Math.Round(week_));
-                            currentweek.Text = Convert.ToString(week);
+                            //double week_ = ((DateTime.Now - objweight.LMPDATE).TotalDays) / 7;
+                            //int week = Convert.ToInt32(Math.Round(week_));
+                            //currentweek.Text = Convert.ToString(week);
+                            int week1_ = (int)((DateTime.Now - objweight.LMPDATE).TotalDays) /7;
+                            currentweek.Text = Convert.ToString(week1_);
 
                             objWeightHelper.Add(objweight);
                             dateweek = objweight.calculatedweek;
@@ -101,13 +103,11 @@ namespace AdvocateHealthCare
                     }
                     gridWeight.ItemsSource = objWeightHelper;
 
-                    var dateAndTime = DateTime.Now;
-                    string date = Convert.ToString(dateAndTime.Date).Split(' ')[0];
-                    DateTime currentDateTime = Convert.ToDateTime(date);
-                    DateTime lmp = Convert.ToDateTime(missedDate);
+                    //var dateAndTime = DateTime.Now;
+                    //string date = Convert.ToString(dateAndTime.Date).Split(' ')[0];
+                    //DateTime currentDateTime = Convert.ToDateTime(date);
+                    //DateTime lmp = Convert.ToDateTime(missedDate);
 
-                    //int numberOfDays = Convert.ToInt16( (currentDateTime - lmp));
-                    //var weekNumber = numberOfDays / 7;
                 }
                 catch (Exception ex)
                 {
