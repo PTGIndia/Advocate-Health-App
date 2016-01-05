@@ -77,8 +77,8 @@ namespace AdvocateHealthCare
 
                         objweight.LMPDATE = (DateTime)item["LMPDATE"];
 
-                        missedDate = (string)item["LMPDATE"];
-                        missedDate = missedDate.Split(' ')[0];
+                        //missedDate = (string)item["LMPDATE"];
+                        //missedDate = missedDate.Split(' ')[0];
 
                         int dateX = (int)((objweight.dt - objweight.LMPDATE).TotalDays) / 7;//cal.GetWeekOfYear(dt, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
 
@@ -91,11 +91,11 @@ namespace AdvocateHealthCare
                         else
                         {
                             objweight.calculatedweek = dateX;
-                            //double week_ = ((DateTime.Now - objweight.LMPDATE).TotalDays) / 7;
-                            //int week = Convert.ToInt32(Math.Round(week_));
-                            //currentweek.Text = Convert.ToString(week);
-                            int week1_ = (int)((DateTime.Now - objweight.LMPDATE).TotalDays) /7;
-                            currentweek.Text = Convert.ToString(week1_);
+                            double week_ = ((DateTime.Now - objweight.LMPDATE).TotalDays) / 7;
+                            int week = Convert.ToInt32(Math.Round(week_));
+                            currentweek.Text = Convert.ToString(week);
+                            //int week1_ = (int)((DateTime.Now - objweight.LMPDATE).TotalDays) /7;
+                            //currentweek.Text = Convert.ToString(week1_);
 
                             objWeightHelper.Add(objweight);
                             dateweek = objweight.calculatedweek;
