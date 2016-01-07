@@ -28,12 +28,12 @@
 
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Grid>
-                        <Image x:Name="notificationsImg" Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
-                        <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
-                        <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
+                    <Grid Tapped="Notificationgridtapped">
+                        <Image x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
+                        <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,2,0,7" />
+                        <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="19,7,0,5" ></TextBlock>
                     </Grid>
-                    <SearchBox Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                    <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -66,7 +66,7 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" >
                                 <TextBlock FontSize="35" Foreground="#E6673A" Text="MyAdvocate"  Margin="25,25,0,0"></TextBlock>
-                                <Image Source=" /Assets/redirect.png" x:Name="getback" HorizontalAlignment="right"  Tapped="GetbackButton_Click" Height="50"  Margin="0,0,0,0"></Image>
+                                <Image Source=" /Assets/redirect.png" x:Name="getback" HorizontalAlignment="right"  Tapped="GetbackButton_Click" Height="30"  Margin="0,0,0,0"></Image>
                             </Grid>
                             <Grid Grid.Row="1"></Grid>
                             <TextBlock FontSize="20" TextWrapping="Wrap" Text="When you make an appointment with one of Advocate Medical Group's 1,200 top doctors, you gain access to MyAdvocate, our patient information portal. And now with our mobile app, whether you're at work or working out you can quickly and easily manage your personal health infoocate" Grid.Row="2" Margin="30,0,0,0"></TextBlock>
@@ -121,7 +121,8 @@
                             <TextBlock FontSize="20" TextWrapping="Wrap" Text="Advocate Medical Group is making it easier than ever to live your healthiest life and get back to the moments that matter!" Grid.Row="6" Margin="30,0,0,0" HorizontalAlignment="Center"><Hyperlink NavigateUri="https://myadvocate.advocatehealth.com/patientApp/login.do;jsessionid=AACAD06EC50EA964606B73BD7FA071FB"> Go to MyAdvocate</Hyperlink></TextBlock>
                         </Grid>
                         <!--WOrking on above-->
-                        <Grid Grid.Column="1" x:Name="grdAddNotes" Background="Green">
+                        <Grid Grid.Column="1" x:Name="grdAddNotes">
+
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" ></RowDefinition>
                                 <RowDefinition  Height="40" ></RowDefinition>
@@ -138,48 +139,84 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel   Height="50" Width="30" Grid.Column="0" Margin="0,10,0,0" >
-                                    <Viewbox  Height="20" Tapped="Viewbox_Tapped" HorizontalAlignment="Left" >
+                                <StackPanel   Height="50" Width="30" Grid.Column="0" Margin="5,8,0,0" HorizontalAlignment="Left"  Tapped="CloseImage_Tapped"  >
+                                    <Viewbox  Height="20" >
                                         <Path Fill="black" Data="M594.93,35.77L560.57,1.48 298.5,263.05 36.42,1.48 2.06,35.77 264.14,297.35 2.06,558.91 36.42,593.18 298.5,331.66 560.57,593.18 594.93,558.91 332.86,297.35z" UseLayoutRounding="False"></Path>
                                     </Viewbox>
+
+
                                 </StackPanel>
-                                <TextBlock TextWrapping="Wrap" Grid.Column="1"   Text=" Add your Notes." VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+
+                                <TextBlock TextWrapping="Wrap"   Text=" Add your Notes." VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="39,8,0,9"/>
+
                             </Grid>
+                            <!--</Border>-->
+
+
+
                             <Grid Grid.Row="1" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.20*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
+
                                 <Grid Grid.Column="0" Background="White"></Grid>
-                                <Grid Grid.Column="1" Background="#E5673A" x:Name="text"   Tapped="Journaltext_Tapped">
+
+
+                                <Grid Grid.Column="1" Background="#E5673A" x:Name="text" Tapped="Journaltext_Tapped" >
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Journal" x:Name="txtjournal" Foreground="White" ></TextBlock>
                                 </Grid>
+
                                 <Grid Grid.Column="2" Background="#B4B4B5" x:Name="text2" Tapped="Questionstext_Tapped">
                                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text=" Questions" x:Name="txtquestions" Foreground="Black"></TextBlock>
+
                                 </Grid>
+
+
+
                             </Grid>
+
+
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.1*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0" Background="White">
+
                                 </Grid>
+
+                                <!--<Grid BorderBrush="#D0D2D3" BorderThickness="1" Grid.Column="1" >-->
                                 <Grid Grid.Column="1" >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="0.2*"></RowDefinition>
+                                        <!--<RowDefinition Height="0.3*"></RowDefinition>-->
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" Background="White">
-                                        <TextBox x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your notes and questions here" VerticalAlignment="Top" Height="550" TextWrapping="Wrap" Margin="0,0,0,0" />
-                                        <Button  Click="saveJorQnotes" Foreground="#ffffff"  HorizontalAlignment="Right"  Margin="0,240,0,0" Width="132" Background="#E5673A">Save</Button>
+                                        <StackPanel  >
+                                            <TextBox x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your notes or questions" VerticalAlignment="Top" Height="500"  TextWrapping="Wrap" Margin="0,0,0,0" />
+
+                                            <Button Click="saveJorQnotes" Foreground="#ffffff"  HorizontalAlignment="Right" Margin="0,-35,0,0"  Width="132"  Background="#E5673A">Save</Button>
+                                        </StackPanel>
                                     </Grid>
-                                    <Grid  Grid.Row="1" Background="white">
-                                    </Grid>
+                                    <!--<Grid  Grid.Row="1" Background="Red">
+
+                                    </Grid>-->
                                 </Grid>
+
+
                             </Grid>
+
+
+
+                            <!--<Grid Grid.Row="3" Background="White">
+
+                                </Grid>-->
+
+
                         </Grid>
+
                     </Grid>
                 </PivotItem>
                 <PivotItem Header="Pre Delivery">

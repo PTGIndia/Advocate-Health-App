@@ -258,5 +258,25 @@ namespace AdvocateHealthCare
             JorQtext.Text = string.Empty;
         }
 
+        private void Notificationgridtapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Notifications));
+        }
+
+        private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
+        {
+            this.Frame.Navigate(typeof(SearchPage), args.QueryText);
+        }
+
+        private void CloseImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (grdAddNotes.Visibility == Visibility.Visible)
+            {
+                grdAddNotes.Visibility = Visibility.Collapsed;
+                GridDiet.ColumnDefinitions.RemoveAt(1);
+                getback.Visibility = Visibility.Visible;
+            }
+        }
+
     }
 }

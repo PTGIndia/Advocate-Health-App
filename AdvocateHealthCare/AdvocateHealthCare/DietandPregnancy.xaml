@@ -58,7 +58,7 @@
                         <!--<Border BorderThickness="1" BorderBrush="Red">-->
                         <Grid Grid.Column="0" Background="White" >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="35"></RowDefinition>
+                                <RowDefinition Height="0.2*"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
 
                                 <RowDefinition Height="*"></RowDefinition>
@@ -67,10 +67,10 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Diet and Pregnancy" Foreground="#E8764D" FontSize="20" Margin="0,8,0,0"></TextBlock>
-                                    <Image Source="Assets/share.png" x:Name="dietAndPregnancyShare"  Height="25" Tapped="dietAndPregnancyShare_Tapped" Margin="10,8,0,0"></Image>
+                                    <TextBlock Text="Diet and Pregnancy" Foreground="#E8764D" FontSize="20" Margin="0,7,0,0"></TextBlock>
+                                    <Image Source="Assets/share.png" x:Name="dietAndPregnancyShare"  Height="25" Tapped="dietAndPregnancyShare_Tapped" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"></Image>
                                 </StackPanel>
-                                <Image Source=" /Assets/redirect.png" x:Name="getback" HorizontalAlignment="right" VerticalAlignment="Stretch" Tapped="GetbackButton_Click" RenderTransformOrigin="0.505,0.5" Margin="0,0,0,0"></Image>
+                                <Image Source=" /Assets/redirect.png" x:Name="getback" HorizontalAlignment="right" VerticalAlignment="Center" Height="30" Tapped="GetbackButton_Click" RenderTransformOrigin="0.505,0.5" Margin="0,0,0,0"></Image>
                                 <!--<Button Background="red" x:Name="getback" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="GetbackButton_Click" RenderTransformOrigin="0.505,0.5" Margin="0,0,0,3">getback</Button>-->
                             </Grid>
                             <Grid Grid.Row="1">
@@ -100,21 +100,20 @@
      Now that you're a mum-to-be, it is important to eat well. This will make sure you get all the nutrients you and your developing baby need.
                                             </TextBlock>
                                             <TextBlock TextWrapping="Wrap" Padding="4">
-                                       
-If you know you haven't been eating as well as you could, it is even more important to start having nutritious, well-balanced meals. Your daily meals should include a variety of foods from the four main food groups shown in the Food Standards Agency's eatwell plate:
+                                       If you know you haven't been eating as well as you could,it is even more important to start having nutritious,well-balanced meals.Your daily meals should include a variety of foods from the four main food groups shown in the Food Standards Agency's eatwell plate:
                                             </TextBlock>
                                             <TextBlock TextWrapping="Wrap" Padding="4" >
-                                        <Bold > Fruits and vegetables.</Bold>  You can buy these fresh, frozen, tinned, dried or juiced. Aim for at least five portions each day.
+                                       <Bold > Fruits and vegetables.</Bold>  You can buy these fresh, frozen, tinned, dried or juiced. Aim for at least five portions each day.
                                             </TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Padding="4">
+                                            <!--<TextBlock TextWrapping="Wrap" Padding="4">
+<Bold> Starchy food.</Bold>  These include bread, pasta, rice and potatoes. Try to choose wholegrain options
+                                            </TextBlock>-->
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Padding="5">
+                                            <TextBlock TextWrapping="Wrap">
 <Bold> Starchy food.</Bold>  These include bread, pasta, rice and potatoes. Try to choose wholegrain options
                                             </TextBlock>
                                         </StackPanel>
-                                        <!--<StackPanel Orientation="Vertical" Padding="5">
-                                            <TextBlock TextWrapping="Wrap">
-<Bold> Starchy food.</Bold>  These include bread, pasta, rice and potatoes. Try to choose wholegrain options
-                                    </TextBlock>
-                                            </StackPanel>-->
 
                                     </StackPanel>
 
@@ -170,7 +169,7 @@ Your body becomes more efficient when you're pregnant, and makes even better use
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel   Height="50" Width="30" Grid.Column="0" Margin="5,10,0,0" HorizontalAlignment="Left"  Tapped="CloseImage_Tapped"  >
+                                <StackPanel   Height="50" Width="30" Grid.Column="0" Margin="5,8,0,0" HorizontalAlignment="Left"  Tapped="CloseImage_Tapped"  >
                                     <Viewbox  Height="20" >
                                         <Path Fill="black" Data="M594.93,35.77L560.57,1.48 298.5,263.05 36.42,1.48 2.06,35.77 264.14,297.35 2.06,558.91 36.42,593.18 298.5,331.66 560.57,593.18 594.93,558.91 332.86,297.35z" UseLayoutRounding="False"></Path>
                                     </Viewbox>
@@ -178,7 +177,7 @@ Your body becomes more efficient when you're pregnant, and makes even better use
 
                                 </StackPanel>
 
-                                <TextBlock TextWrapping="Wrap"   Text=" Add your Notes." VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="39,10,0,9"/>
+                                <TextBlock TextWrapping="Wrap"   Text=" Add your Notes." VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="39,8,0,9"/>
 
                             </Grid>
                             <!--</Border>-->
@@ -222,16 +221,18 @@ Your body becomes more efficient when you're pregnant, and makes even better use
                                 <Grid Grid.Column="1" >
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="0.2*"></RowDefinition>
+                                        <!--<RowDefinition Height="0.3*"></RowDefinition>-->
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0" Background="White">
-                                        <TextBox x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your notes or questions" VerticalAlignment="Top" Height="550" TextWrapping="Wrap" Margin="0,0,0,0" />
+                                        <StackPanel  >
+                                            <TextBox x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your notes or questions" VerticalAlignment="Top" Height="500"  TextWrapping="Wrap" Margin="0,0,0,0" />
 
-                                        <Button Click="saveJorQnotes" Foreground="#ffffff"  HorizontalAlignment="Right"  Margin="0,240,0,0" Width="132" Background="#E5673A">Save</Button>
+                                            <Button Click="saveJorQnotes" Foreground="#ffffff"  HorizontalAlignment="Right" Margin="0,-35,0,0"  Width="132"  Background="#E5673A">Save</Button>
+                                        </StackPanel>
                                     </Grid>
-                                    <Grid  Grid.Row="1" Background="white">
+                                    <!--<Grid  Grid.Row="1" Background="Red">
 
-                                    </Grid>
+                                    </Grid>-->
                                 </Grid>
 
 

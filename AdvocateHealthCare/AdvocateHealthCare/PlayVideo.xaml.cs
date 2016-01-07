@@ -107,13 +107,16 @@ namespace AdvocateHealthCare
                 time--;
                 int seconds = time % 60;
                 int minutes = time / 60;
-
+                bool cond = true;
                 if (seconds < 10)
                 //minutes = Convert.ToUInt16( "0" + minutes);
                 {
-                    seconds = Convert.ToInt16("0") + seconds;
+                    // seconds = Convert.ToInt16("0") + seconds;
+                    txtCoutDown.Text = "Video Duration Left: " + minutes + ":0" + seconds;
+                    cond = false;
                 }
-                txtCoutDown.Text = "Video Duration Left: " + minutes + ":" + seconds;
+                if (cond)
+                    txtCoutDown.Text = "Video Duration Left: " + minutes + ":" + seconds;
             }
         }
         public void PlayVideoFromPreviuosPage(Uri VideoUri)

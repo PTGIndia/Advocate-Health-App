@@ -35,12 +35,13 @@ namespace AdvocateHealthCare
     {
         ListView objListView = new ListView();
         JArray jArr;
-        NotificationDetails objNotificationDetails = new NotificationDetails();
+        static NotificationDetails objNotificationDetails = new NotificationDetails();
         static List<NotificationDetails> objListNotificationDetails = new List<NotificationDetails>();
         public Notifications()
         {
             this.InitializeComponent();
             this.Loaded += Notifications_Loaded;
+            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
         }
 
         ////All notifications details are assigned to below properties in Notifications_Loaded event handler.
@@ -163,6 +164,22 @@ namespace AdvocateHealthCare
 
 
         private void SearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
+        {
+            this.Frame.Navigate(typeof(SearchPage), args.QueryText);
+        }
+
+        private void grdNotifications_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //this.Frame.Navigate(typeof(NotificationDetailsPage));
+
+        }
+
+        private void Notificationgridtapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Notifications));
+        }
+
+        private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
         {
             this.Frame.Navigate(typeof(SearchPage), args.QueryText);
         }

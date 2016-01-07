@@ -30,6 +30,7 @@ namespace AdvocateHealthCare
         public SearchPage()
         {
             this.InitializeComponent();
+            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
         }
         public class SearchHelper
         {

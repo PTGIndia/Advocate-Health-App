@@ -23,14 +23,14 @@
                 <ColumnDefinition Width="0.9*"></ColumnDefinition>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Questions for my care provider" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Margin="10,0,0,0"></TextBlock>
+            <TextBlock Text="Questions for mycare provider" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Margin="10,0,0,0"></TextBlock>
 
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Grid Tapped="Notificationgridtapped">
                         <Image x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
-                        <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,5,0,7" />
-                        <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="18,12,0,5" ></TextBlock>
+                        <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,2,0,7" />
+                        <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="19,7,0,5" ></TextBlock>
                     </Grid>
                     <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
                 </StackPanel>
@@ -80,7 +80,7 @@
                         </Grid>-->
                         <Grid Grid.Row="2">
 
-                            <TextBox  Margin="30,20,0,0" BorderBrush="#E6D6B9" BorderThickness="0,0,0,1" FontSize="18"  x:Name="txtquestionvalue"  PlaceholderText="Enter Title....">
+                            <TextBox  Margin="30,20,0,0" BorderBrush="#E6D6B9" BorderThickness="0,0,0,1" FontSize="18"  x:Name="txtquestionvalue" TextWrapping="Wrap" PlaceholderText="Enter Title....">
                             </TextBox>
 
 
@@ -92,9 +92,10 @@
                             </TextBox>
                         </Grid>-->
                         <Grid Grid.Row="3" Margin="30,30,0,0">
-                            <TextBox  BorderBrush="white" BorderThickness="0" FontSize="15" x:Name="txtquestioninfo" PlaceholderText="Your Entry here...">
+                            <TextBox  BorderBrush="white" BorderThickness="0" FontSize="15" x:Name="txtquestioninfo"  TextWrapping="Wrap" PlaceholderText="Your Entry here...">
 
                             </TextBox>
+
                         </Grid>
                     </Grid>
                 </PivotItem>
