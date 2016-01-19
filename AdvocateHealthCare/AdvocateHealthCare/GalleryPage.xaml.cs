@@ -15,6 +15,7 @@ using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -63,56 +64,81 @@ namespace AdvocateHealthCare
 
             this.InitializeComponent();
             this.Loaded += JournalPage_Loaded;
-            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
+            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString(); //Displays the notification count
         }
         public string ImageToServerString { get; set; }
+
+        //gets all the user saved images based on userid
         async void JournalPage_Loaded(object sender, RoutedEventArgs e)
         {
-            List<GalleryHelper> objListGallery = new List<GalleryHelper>();
-            //string ServiceCall = App.BASE_URL + "/api/UserSavedImages/GetUserSavedImages?UserId=2";
-            string ServiceCall = App.BASE_URL + "/api/UserSavedImages/GetUserSavedImages?UserId=" + App.userId;
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
-            var jsonString = await response.Content.ReadAsStringAsync();
-            JArray jobject = JArray.Parse(jsonString);
-            foreach (var item in jobject)
+            if (App.IsInternet() == true)
             {
-                GalleryHelper objGallery = new GalleryHelper();
-                objGallery._id = (string)item["$id"];
-                objGallery.CreatedDate = (string)item["CreatedDate"];
-                string imagePath = App.BASE_URL + (string)item["JournalAsset"];
-                objGallery.ProfileName = (string)item["ProfileName"];
-
-                if (imagePath != string.Empty)
+                try
                 {
-                    objGallery.imgProp = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
-                }
-                objListGallery.Add(objGallery);
+                    List<GalleryHelper> objListGallery = new List<GalleryHelper>();
+                    //string ServiceCall = App.BASE_URL + "/api/UserSavedImages/GetUserSavedImages?UserId=2";
+                    string ServiceCall = App.BASE_URL + "/api/UserSavedImages/GetUserSavedImages?UserId=" + App.userId;
+                    var client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(new Uri(ServiceCall));
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    JArray jobject = JArray.Parse(jsonString);
+                    foreach (var item in jobject)
+                    {
+                        GalleryHelper objGallery = new GalleryHelper();
+                        objGallery._id = (string)item["$id"];
+                        objGallery.CreatedDate = (string)item["CreatedDate"];
+                        string imagePath = App.BASE_URL + (string)item["JournalAsset"];
+                        objGallery.ProfileName = (string)item["ProfileName"];
 
+                        if (imagePath != string.Empty)
+                        {
+                            objGallery.imgProp = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                        }
+                        objListGallery.Add(objGallery);
+
+                    }
+
+                    gridGallary.ItemsSource = objListGallery;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            else
+            {
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
+                msgDialog.ShowAsync();
             }
 
-            gridGallary.ItemsSource = objListGallery;
-
         }
-
+        //converts photo to stream
         private async Task<BitmapImage> getImageFromString(string ImageToServer)
         {
-            int NumberChars = ImageToServer.Length;
-            byte[] imageinbyte = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
-                imageinbyte[i / 2] = Convert.ToByte(ImageToServer.Substring(i, 2), 16);
-            MemoryStream streams = new MemoryStream(imageinbyte);
-            BitmapImage image = new BitmapImage();
+            try
+            {
+                int NumberChars = ImageToServer.Length;
+                byte[] imageinbyte = new byte[NumberChars / 2];
+                for (int i = 0; i < NumberChars; i += 2)
+                    imageinbyte[i / 2] = Convert.ToByte(ImageToServer.Substring(i, 2), 16);
+                MemoryStream streams = new MemoryStream(imageinbyte);
+                BitmapImage image = new BitmapImage();
 
 
-            InMemoryRandomAccessStream randomAccessStream = new InMemoryRandomAccessStream();
-            await randomAccessStream.WriteAsync(imageinbyte.AsBuffer());
-            randomAccessStream.Seek(0);
+                InMemoryRandomAccessStream randomAccessStream = new InMemoryRandomAccessStream();
+                await randomAccessStream.WriteAsync(imageinbyte.AsBuffer());
+                randomAccessStream.Seek(0);
 
 
-            BitmapImage img = new BitmapImage();
-            await img.SetSourceAsync(randomAccessStream);
-            return img;
+                BitmapImage img = new BitmapImage();
+                await img.SetSourceAsync(randomAccessStream);
+                return img;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
 
@@ -136,87 +162,111 @@ namespace AdvocateHealthCare
         {
             this.Frame.Navigate(typeof(Notifications));
         }
-
+        //launches the camera to capture image
         private async void gridGallary_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GalleryHelper objGHelper = (GalleryHelper)(sender as GridView).SelectedValue;
-            if (objGHelper._id == "1")
+            ProfilePage.userid = App.userId.ToString();
+            try
             {
-                CameraCaptureUI captureUI = new CameraCaptureUI();
-                captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
-                captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
-
-                StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
-
-                if (photo != null)
+                GalleryHelper objGHelper = (GalleryHelper)(sender as GridView).SelectedValue;
+                if (objGHelper._id == "1")
                 {
-                    byte[] ImageToServer = await BufferFromImage(photo);
+                    CameraCaptureUI captureUI = new CameraCaptureUI();
+                    captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+                    captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
+
+                    StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+
+                    if (photo == null)
+                    {
+                        byte[] ImageToServer = await BufferFromImage(photo);
 
 
-                    StringBuilder hex = new StringBuilder(ImageToServer.Length * 2);
-                    foreach (byte b in ImageToServer)
-                        hex.AppendFormat("{0:x2}", b);
+                        StringBuilder hex = new StringBuilder(ImageToServer.Length * 2);
+                        foreach (byte b in ImageToServer)
+                            hex.AppendFormat("{0:x2}", b);
 
-                    ImageToServerString = hex.ToString();
+                        ImageToServerString = hex.ToString();
+                    }
+
+
+                    {
+
+                    }
+
+
+                    ProfileJournal objGalley = new ProfileJournal()
+                    {
+                        JournalAsset = ImageToServerString,
+                        ProfileID = App.userId,
+                        JournalTypeID = 1
+                    };
+
+                    var serializedPatchDoc = JsonConvert.SerializeObject(objGalley);
+                    var method = new HttpMethod("POST");
+                    var request = new HttpRequestMessage(method,
+                       App.BASE_URL + "api/ProfileJournal/SaveProfileJournal")
+
+                    //"http://localhost:53676/api/ProfileJournal/SaveProfileJournal")
+                    //"http://localhost:53676/api/ProfileInfo/SaveProfileInfo")
+
+                    {
+                        Content = new StringContent(serializedPatchDoc,
+                        System.Text.Encoding.Unicode, "application/json")
+                    };
+                    HttpClient client = new HttpClient();
+                    var result = client.SendAsync(request).Result;
+                    client.Dispose();
+
+                    if (photo != null)
+                    {
+                        IRandomAccessStream stream = await photo.OpenAsync(FileAccessMode.Read);
+                        BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                        SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+                        SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
+                        BitmapPixelFormat.Bgra8,
+                        BitmapAlphaMode.Premultiplied);
+                        SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
+                        await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
+
+                    }
+
                 }
-
-
-                ProfileJournal objGalley = new ProfileJournal()
-                {
-                    JournalAsset = ImageToServerString,
-                    ProfileID = App.userId,
-                    JournalTypeID = 1
-                };
-
-                var serializedPatchDoc = JsonConvert.SerializeObject(objGalley);
-                var method = new HttpMethod("POST");
-                var request = new HttpRequestMessage(method,
-                   App.BASE_URL + "api/ProfileJournal/SaveProfileJournal")
-
-                //"http://localhost:53676/api/ProfileJournal/SaveProfileJournal")
-                //"http://localhost:53676/api/ProfileInfo/SaveProfileInfo")
-
-                {
-                    Content = new StringContent(serializedPatchDoc,
-                    System.Text.Encoding.Unicode, "application/json")
-                };
-                HttpClient client = new HttpClient();
-                var result = client.SendAsync(request).Result;
-                client.Dispose();
-
-                if (photo != null)
-                {
-                    IRandomAccessStream stream = await photo.OpenAsync(FileAccessMode.Read);
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                    SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-                    SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
-                    BitmapPixelFormat.Bgra8,
-                    BitmapAlphaMode.Premultiplied);
-                    SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
-                    await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
-
-                }
-
+                this.Frame.Navigate(typeof(GalleryPage));
             }
-            this.Frame.Navigate(typeof(GalleryPage));
+            catch (Exception ex)
+            {
+
+                ProfilePage.ErrorLog(ex.Message);
+            }
         }
 
+        //converts photo to byte array
         public async Task<byte[]> BufferFromImage(StorageFile imageSource)
         {
-            byte[] fileBytes = null;
-            if (imageSource != null)
+            try
             {
-                using (IRandomAccessStreamWithContentType streamsource = await imageSource.OpenReadAsync())
+                byte[] fileBytes = null;
+                if (imageSource != null)
                 {
-                    fileBytes = new byte[streamsource.Size];
-                    using (DataReader reader = new DataReader(streamsource))
+                    using (IRandomAccessStreamWithContentType streamsource = await imageSource.OpenReadAsync())
                     {
-                        await reader.LoadAsync((uint)streamsource.Size);
-                        reader.ReadBytes(fileBytes);
+                        fileBytes = new byte[streamsource.Size];
+                        using (DataReader reader = new DataReader(streamsource))
+                        {
+                            await reader.LoadAsync((uint)streamsource.Size);
+                            reader.ReadBytes(fileBytes);
+                        }
                     }
                 }
+                return fileBytes;
             }
-            return fileBytes;
+            catch (Exception ex)
+            {
+
+                throw;
+
+            }
         }
     }
 }

@@ -52,8 +52,9 @@ namespace AdvocateHealthCare
         {
             public string HospitalName { get; set; }
             public int HospitalID { get; set; }
+            public int MyProperty { get; set; }
         }
-
+        //loads the hospitals lists to combobox
         async void ProfilePage_Loaded(object sender, RoutedEventArgs e)
         {
             //IsInternet();
@@ -68,10 +69,11 @@ namespace AdvocateHealthCare
                     var jsonString = await response.Content.ReadAsStringAsync();
                     JArray objJArray = JArray.Parse(jsonString);
                     var len = objJArray.Count;
-                    ComboBoxitemsTest.ItemsSource = null;
+
                     ProfileSetup objProfileSetup = new ProfileSetup();
 
-                    objProfileSetup.HospitalID = 000;
+                    objProfileSetup.HospitalID = 0;
+
                     objProfileSetup.HospitalName = "Choose your primary care hospital...";
                     objlistProfileSetup.Add(objProfileSetup);
                     for (int x = 0; x < objJArray.Count; x++)
@@ -81,8 +83,9 @@ namespace AdvocateHealthCare
                         objProfileSetup.HospitalName = (string)objJArray[x]["HospitalName"];
                         objlistProfileSetup.Add(objProfileSetup);
                     }
+                    ComboBoxitemsTest.ItemsSource = null;
                     ComboBoxitemsTest.ItemsSource = objlistProfileSetup;
-                    ComboBoxitemsTest.SelectedIndex = 0;
+                    ComboBoxitemsTest.SelectedIndex = -1;
                 }
 
                 catch (Exception ex)
@@ -109,7 +112,7 @@ namespace AdvocateHealthCare
             public DateTime? LMPdate { get; set; }
             public string Picture { get; set; }
             public int HospitalID { get; set; }
-            public DateTime CreatedDate { get; set; }
+            public string CreatedDate { get; set; }
             public string CreatedBy { get; set; }
             public string LoggedInUser { get; set; }
             public byte[] PostUserImage { get; set; }
@@ -122,7 +125,15 @@ namespace AdvocateHealthCare
         {
 
             SelectedHosPitalId = (int)ComboBoxitemsTest.SelectedValue;
+            //  var  SelectedHosPitalIds = ComboBoxitemsTest.SelectedItem;
+            if (SelectedHosPitalId == 100)
+            {
+                ComboBoxitemsTest.SelectedIndex = 100;
+            }
+
+
         }
+        //email validation
         private string DomainMapper(Match match)
         {
             // IdnMapping class with default property values.
@@ -175,12 +186,130 @@ namespace AdvocateHealthCare
 
 
 
-        private void bottonsetup_Tapped(object sender, TappedRoutedEventArgs e)
+
+
+        static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
+        static string GetString(byte[] bytes)
+        {
+            char[] chars = new char[bytes.Length / sizeof(char)];
+            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            return new string(chars);
+        }
+        CameraCaptureUI captureUI = new CameraCaptureUI();
+        //enable camera to capture images from device
+        public static string userid;
+        private async void CapturePhoto_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+            userid = App.userId.ToString();
+            if (userid == "0")
+            {
+                userid = null;
+            }
+
+            try
+            {
+                captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+                captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
+
+                StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+
+                if (photo != null)
+                {
+                    byte[] ImageToServer = await BufferFromImage(photo);
+
+
+                    StringBuilder hex = new StringBuilder(ImageToServer.Length * 2);
+                    foreach (byte b in ImageToServer)
+                        hex.AppendFormat("{0:x2}", b);
+
+                    ImageToServerString = hex.ToString();
+                    IRandomAccessStream stream = await photo.OpenAsync(FileAccessMode.Read);
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                    SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+                    SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
+                    BitmapPixelFormat.Bgra8,
+                    BitmapAlphaMode.Premultiplied);
+                    SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
+                    await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
+                    imageControl.Source = bitmapSource;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorLog(ex.Message);
+
+            }
+
+        }
+        public static void ErrorLog(string message)
+        {
+            var msg = message;
+            //string profileid = null;
+
+
+            var serializedPatchDoc = JsonConvert.SerializeObject(msg);
+            var method = new HttpMethod("POST");
+            var request = new HttpRequestMessage(method,
+          App.BASE_URL + "/api/LogErrorMessage/LogErrorMessage?Message=" + msg + "&&ProfileID" + userid)
+            //"http://localhost:53676//api/LogErrorMessage/LogErrorMessage")
+            {
+                Content = new StringContent(serializedPatchDoc,
+                System.Text.Encoding.Unicode, "application/json")
+            };
+            HttpClient client = new HttpClient();
+            var result = client.SendAsync(request).Result;
+            client.Dispose();
+        }
+        //converts images to byte array
+        public async Task<byte[]> BufferFromImage(StorageFile imageSource)
+        {
+            try
+            {
+
+
+                byte[] fileBytes = null;
+                if (imageSource != null)
+                {
+                    using (IRandomAccessStreamWithContentType streamsource = await imageSource.OpenReadAsync())
+                    {
+                        fileBytes = new byte[streamsource.Size];
+                        using (DataReader reader = new DataReader(streamsource))
+                        {
+                            await reader.LoadAsync((uint)streamsource.Size);
+                            reader.ReadBytes(fileBytes);
+                        }
+                    }
+                }
+                return fileBytes;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (App.IsInternet() == true)
             {
+                //Regex r = new Regex("^[a-zA-Z\\s]+");
                 try
                 {
+                    Regex r = new Regex(@"^[A-z][A-z|\.|\s]+$");
+
+                    string namevalidation = txtfirstname.Text;
+                    string namelvalidation = txtlastname.Text;
+                    //if (r.IsMatch(namevalidation) && r.IsMatch(namelvalidation))
+                    //{
                     if (txtfirstname.Text.Trim() != "" && txtlastname.Text.Trim() != "" && txtemail.Text.Trim() != "" && txtpassword.Password.Trim() != "" && txtcpassword.Password.Trim() != "" && txtdatemissed.Date.HasValue == true && ComboBoxitemsTest.SelectedItem != null)
                     {
                         if (IsValidEmail(txtemail.Text))
@@ -199,6 +328,7 @@ namespace AdvocateHealthCare
                                     objProfileInfo.LastName = txtlastname.Text;
                                     objProfileInfo.Email = txtemail.Text;
                                     objProfileInfo.Password = txtpassword.Password;
+                                    objProfileInfo.CreatedDate = Convert.ToString(DateTime.Now);
 
                                     objProfileInfo.LMPdate = Convert.ToDateTime(txtdatemissed.Date.ToString());
                                     objProfileInfo.HospitalID = SelectedHosPitalId;
@@ -218,18 +348,33 @@ namespace AdvocateHealthCare
                                     };
                                     HttpClient client = new HttpClient();
                                     var result = client.SendAsync(request).Result;
-                                    client.Dispose();
-
-                                    if (result.IsSuccessStatusCode == true)
+                                    var jsonString = result.Content.ReadAsStringAsync();
+                                    var userAlreadyExist = jsonString.Result;
+                                    if (userAlreadyExist != "0")
                                     {
-                                        var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                                        localSettings.Values["IsFirstTimeLogin"] = "True";
-                                        localSettings.Values["userName"] = txtfirstname.Text;
-                                        Window.Current.Content = new LoginPage();
+                                        client.Dispose();
+
+                                        if (result.IsSuccessStatusCode == true)
+                                        {
+                                            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                                            localSettings.Values["IsFirstTimeLogin"] = "True";
+                                            localSettings.Values["userName"] = txtfirstname.Text;
+                                            localSettings.Values["LMPDATE"] = txtdatemissed.Date.ToString();
+
+
+                                            Window.Current.Content = new LoginPage();
+
+                                        }
+
+                                        else {
+                                            MessageDialog msgDialog = new MessageDialog("Unsuccessfull", "Failure");
+                                            msgDialog.ShowAsync();
+                                        }
 
                                     }
-                                    else {
-                                        MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                                    else
+                                    {
+                                        MessageDialog msgDialog = new MessageDialog("User Already Exists", "Message");
                                         msgDialog.ShowAsync();
                                     }
 
@@ -238,14 +383,14 @@ namespace AdvocateHealthCare
                             }
                             else
                             {
-                                MessageDialog msgDialog = new MessageDialog("Password and Conform Password din't match", "Password Mismatch");
+                                MessageDialog msgDialog = new MessageDialog("Password and Confirm Password didn't match", "Password Mismatch");
                                 msgDialog.ShowAsync();
                             }
 
                         }
                         else
                         {
-                            MessageDialog msgDialog = new MessageDialog("Email id format is incorrect. Please enter correct mail id. (Example - John@gmail.com)", "Profile creation failed");
+                            MessageDialog msgDialog = new MessageDialog("Email id format is incorrect. Please enter correct mail id. (Example - John@outlook.com)", "Profile creation failed");
                             msgDialog.ShowAsync();
                         }
                     }
@@ -255,7 +400,14 @@ namespace AdvocateHealthCare
                         msgDialog.ShowAsync();
 
                     }
+                    //}
+                    //else
+                    //{
+                    //    MessageDialog msgDialog = new MessageDialog("Please fill all the details correctly ", "Incorrect data");
+                    //    msgDialog.ShowAsync();
+                    //}
                 }
+                //}
                 catch (Exception ex)
                 {
                     string meg = ex.StackTrace;
@@ -277,71 +429,6 @@ namespace AdvocateHealthCare
             }
 
         }
-
-        static byte[] GetBytes(string str)
-        {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
-        }
-
-        static string GetString(byte[] bytes)
-        {
-            char[] chars = new char[bytes.Length / sizeof(char)];
-            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
-            return new string(chars);
-        }
-
-        private async void CapturePhoto_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-            CameraCaptureUI captureUI = new CameraCaptureUI();
-            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
-            captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
-
-            StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
-
-            if (photo != null)
-            {
-                byte[] ImageToServer = await BufferFromImage(photo);
-
-
-                StringBuilder hex = new StringBuilder(ImageToServer.Length * 2);
-                foreach (byte b in ImageToServer)
-                    hex.AppendFormat("{0:x2}", b);
-
-                ImageToServerString = hex.ToString();
-                IRandomAccessStream stream = await photo.OpenAsync(FileAccessMode.Read);
-                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-                SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
-                BitmapPixelFormat.Bgra8,
-                BitmapAlphaMode.Premultiplied);
-                SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
-                await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
-                imageControl.Source = bitmapSource;
-            }
-
-        }
-
-        public async Task<byte[]> BufferFromImage(StorageFile imageSource)
-        {
-            byte[] fileBytes = null;
-            if (imageSource != null)
-            {
-                using (IRandomAccessStreamWithContentType streamsource = await imageSource.OpenReadAsync())
-                {
-                    fileBytes = new byte[streamsource.Size];
-                    using (DataReader reader = new DataReader(streamsource))
-                    {
-                        await reader.LoadAsync((uint)streamsource.Size);
-                        reader.ReadBytes(fileBytes);
-                    }
-                }
-            }
-            return fileBytes;
-        }
-
     }
 }
 

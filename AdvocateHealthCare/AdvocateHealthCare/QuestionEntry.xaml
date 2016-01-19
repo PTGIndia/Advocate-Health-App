@@ -15,10 +15,10 @@
     </Page.Resources>
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.055*"/>
+            <RowDefinition Height="48*" MaxHeight="48"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Background="#70729F">
+        <Grid Background="#70729E">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.9*"></ColumnDefinition>
                 <ColumnDefinition Width="*"/>
@@ -26,13 +26,13 @@
             <TextBlock Text="Questions for mycare provider" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="20" Margin="10,0,0,0"></TextBlock>
 
             <Grid Grid.Column="1">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Grid Tapped="Notificationgridtapped">
-                        <Image x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
-                        <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,2,0,7" />
-                        <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="19,7,0,5" ></TextBlock>
-                    </Grid>
-                    <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <Canvas  Margin="0,0,30,0" Tapped="Notificationgridtapped"  >
+                        <Image  x:Name="notificationsImg" Source="/Assets/notifications.png" />
+                        <Ellipse Canvas.Left="10" Fill="#E5302B" x:Name="ec"  Width="15" Height="18" />
+                        <TextBlock Canvas.Left="13" Canvas.Top="0" Margin="0,0,0,0" x:Name="txtNotificationCount" Foreground="#ffffff"></TextBlock>
+                    </Canvas>
+                    <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="10,0,5,0" VerticalAlignment="Center" x:Name="mySearchBox" BorderThickness="0" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -66,7 +66,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock x:Name="textprofilejournalid" Visibility="Collapsed"></TextBlock>
                                     <Image Source="/Assets/calendar.png"  Height="30" Width="30" ></Image>
-                                    <TextBox BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" x:Name="txtdate" ></TextBox>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="txtdate" Margin="5,0,0,0" ></TextBlock>
                                     <TextBox BorderThickness="0" BorderBrush="White"  x:Name="ProfileJournalID" Visibility="Collapsed" ></TextBox>
                                 </StackPanel>
                             </Grid>
@@ -80,7 +80,7 @@
                         </Grid>-->
                         <Grid Grid.Row="2">
 
-                            <TextBox  Margin="30,20,0,0" BorderBrush="#E6D6B9" BorderThickness="0,0,0,1" FontSize="18"  x:Name="txtquestionvalue" TextWrapping="Wrap" PlaceholderText="Enter Title....">
+                            <TextBox  Margin="30,20,0,0" BorderBrush="#E6D6B9" BorderThickness="0,0,0,1" FontSize="18"  x:Name="txtquestionvalue" TextWrapping="Wrap" PlaceholderText="Entry Title....">
                             </TextBox>
 
 

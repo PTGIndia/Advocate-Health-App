@@ -28,13 +28,13 @@
 
 
             <Grid Grid.Column="1">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Grid Tapped="Notificationgridtapped">
-                        <Image x:Name="notificationsImg"  Source="/Assets/notifications.png" Height="30" Margin="0,0,10,0"/>
-                        <Ellipse Fill="#E5302B" x:Name="ec"  Width="18" Height="18" Margin="5,2,0,7" />
-                        <TextBlock x:Name="txtNotificationCount" Foreground="#ffffff" Margin="19,7,0,5" ></TextBlock>
-                    </Grid>
-                    <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="0,0,5,0" x:Name="mySearchBox" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <Canvas  Margin="0,0,30,0" Tapped="Notificationgridtapped" >
+                        <Image  x:Name="notificationsImg"  Source="/Assets/notifications.png" />
+                        <Ellipse Canvas.Left="10" Fill="#E5302B" x:Name="ec"  Width="15" Height="18" />
+                        <TextBlock Canvas.Left="13" Canvas.Top="0" Margin="0,0,0,0" x:Name="txtNotificationCount" Foreground="#ffffff"></TextBlock>
+                    </Canvas>
+                    <SearchBox QuerySubmitted="mySearchBox_QuerySubmitted" Margin="10,0,5,0" VerticalAlignment="Center" x:Name="mySearchBox" BorderThickness="0" PlaceholderText="Search" Background="#ffffff"  Height="30" Width="200" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -50,206 +50,221 @@
             <Pivot.Items>
                 <PivotItem Header="General" FontSize="16">
                     <!--<Border BorderThickness="1" BorderBrush="Red">-->
-                    <Grid   x:Name="GridDiet">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.65*"/>
-                            <ColumnDefinition Width="0.35*"/>
-                        </Grid.ColumnDefinitions>
-                        <!--<Border BorderThickness="1" BorderBrush="Red">-->
-                        <Grid Grid.Column="0" Background="White" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.2*"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-
-                                <RowDefinition Height="*"></RowDefinition>
+                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <Grid   x:Name="GridDiet">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.65*"/>
+                                <ColumnDefinition Width="0.35*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--<Border BorderThickness="1" BorderBrush="Red">-->
 
 
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Diet and Pregnancy" Foreground="#E8764D" FontSize="20" Margin="0,7,0,0"></TextBlock>
-                                    <Image Source="Assets/share.png" x:Name="dietAndPregnancyShare"  Height="25" Tapped="dietAndPregnancyShare_Tapped" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"></Image>
-                                </StackPanel>
-                                <Image Source=" /Assets/redirect.png" x:Name="getback" HorizontalAlignment="right" VerticalAlignment="Center" Height="30" Tapped="GetbackButton_Click" RenderTransformOrigin="0.505,0.5" Margin="0,0,0,0"></Image>
-                                <!--<Button Background="red" x:Name="getback" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="GetbackButton_Click" RenderTransformOrigin="0.505,0.5" Margin="0,0,0,3">getback</Button>-->
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
 
-                                    <ColumnDefinition Width="*"/>
+                            <Grid Grid.Column="0" Background="White" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.2*"></RowDefinition>
 
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0" >
-                                    <StackPanel   Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+
+                                    <RowDefinition Height="*"></RowDefinition>
+
+                                    <RowDefinition Height="*"></RowDefinition>
+
+
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+
+                                    <!--<StackPanel Orientation="Horizontal">-->
+                                    <TextBlock Text="Diet and Pregnancy" Foreground="#E8764D" FontSize="20" Margin="0,0,0,0" HorizontalAlignment="Left"  VerticalAlignment="Center"></TextBlock>
+                                    <Image Source="Assets/share.png" x:Name="dietAndPregnancyShare"  Height="25" Tapped="dietAndPregnancyShare_Tapped" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="175,0,0,0"></Image>
+                                    <Image Source=" /Assets/redirect.png" x:Name="getback" Height="30"  HorizontalAlignment="Right" Tapped="GetbackButton_Click" Margin="0,5,0,0"/>
+                                    <!--</StackPanel>-->
+
+                                    <!--<Button Background="red" x:Name="getback" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="GetbackButton_Click" RenderTransformOrigin="0.505,0.5" Margin="0,0,0,3">getback</Button>-->
+
+                                </Grid>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="*"/>
+
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--<Grid Grid.Column="0" >
+                                    <StackPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
                                         <Image  Source="/Assets/img2.png" />
                                     </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Vertical" Padding="5">
-                                            <TextBlock TextWrapping="Wrap"  >
-                                        
-                                   <Span FontWeight="Bold"> Should I eat differently now I'm pregnant?</Span>
+                                </Grid>-->
+                                    <Image  Grid.Column="0" Stretch="Fill" Source="/Assets/img2.png" />
+                                    <Grid Grid.Column="2">
 
-                                            </TextBlock>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" Padding="5">
-                                            <TextBlock TextWrapping="Wrap" >
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Vertical" Padding="5">
+                                                <TextBlock TextWrapping="Wrap">                                        
+                                   <Span FontWeight="Bold"> Should I eat differently now I'm pregnant?</Span>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" Padding="5">
+                                                <TextBlock TextWrapping="Wrap" >
                                         
      Now that you're a mum-to-be, it is important to eat well. This will make sure you get all the nutrients you and your developing baby need.
-                                            </TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Padding="4">
+                                                </TextBlock>
+                                                <TextBlock TextWrapping="Wrap" Padding="4">
                                        If you know you haven't been eating as well as you could,it is even more important to start having nutritious,well-balanced meals.Your daily meals should include a variety of foods from the four main food groups shown in the Food Standards Agency's eatwell plate:
-                                            </TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Padding="4" >
+                                                </TextBlock>
+                                                <TextBlock TextWrapping="Wrap" Padding="4" >
                                        <Bold > Fruits and vegetables.</Bold>  You can buy these fresh, frozen, tinned, dried or juiced. Aim for at least five portions each day.
-                                            </TextBlock>
-                                            <!--<TextBlock TextWrapping="Wrap" Padding="4">
+                                                </TextBlock>
+                                                <!--<TextBlock TextWrapping="Wrap" Padding="4">
 <Bold> Starchy food.</Bold>  These include bread, pasta, rice and potatoes. Try to choose wholegrain options
                                             </TextBlock>-->
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" Padding="5">
-                                            <TextBlock TextWrapping="Wrap">
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" Padding="5">
+                                                <TextBlock TextWrapping="Wrap">
 <Bold> Starchy food.</Bold>  These include bread, pasta, rice and potatoes. Try to choose wholegrain options
-                                            </TextBlock>
+                                                </TextBlock>
+                                            </StackPanel>
+
                                         </StackPanel>
 
-                                    </StackPanel>
 
-
+                                    </Grid>
                                 </Grid>
-                            </Grid>
 
-                            <Grid Grid.Row="2">
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Vertical" Padding="5">
+                                <Grid Grid.Row="2">
+
+                                    <StackPanel Orientation="Vertical">
+                                        <!--<StackPanel Orientation="Vertical" Padding="5">-->
                                         <TextBlock TextWrapping="wrap">
                                  
                                   <Bold >Foods rich in protein.</Bold> These include lean meat and chicken, fish, eggs and pulses (such as beans and lentils). Try to aim for at least two portions of fish a week, including of oily fish.</TextBlock>
                                         <TextBlock TextWrapping="Wrap" Padding="5">
                                         <Bold>Dairy foods.</Bold> These include milk, cheese and yoghurt, which contain calcium. Dairy products, along with sea fish and sea saltare all good sources of iodine. You need plenty of iodine in your diet to help your baby's development.
                                         </TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical">
+                                        <!--</StackPanel>-->
+                                        <!--<StackPanel Orientation="Vertical">-->
                                         <TextBlock TextWrapping="Wrap" Padding="5">
                                         <Bold> Do I need to eat more now I’m pregnant?</Bold>  
 Your body becomes more efficient when you're pregnant, and makes even better use of the energy you get from your food. This means you don’t actually need any extra calories for the first six months of pregnancy. Then you only need about 200 extra calories per day for the last three months. Two hundred calories is equivalent to:
                                         </TextBlock>
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock TextWrapping="Wrap">
+                                        <!--<StackPanel Orientation="Vertical">-->
+                                        <TextBlock TextWrapping="Wrap">
 - a slice of wholemeal toast with a small can of baked beans</TextBlock>
-                                            <TextBlock TextWrapping="Wrap">- a toasted pitta bread with two tablespoons of reduced-fat hummus - a slice of malt loaf or fruit scone with butter or spread</TextBlock>
-                                        </StackPanel>
+                                        <TextBlock TextWrapping="Wrap">- a toasted pitta bread with two tablespoons of reduced-fat hummus - a slice of malt loaf or fruit scone with butter or spread</TextBlock>
                                     </StackPanel>
-                                </StackPanel>
+                                    <!--</StackPanel>-->
+                                    <!--</StackPanel>-->
+
+                                </Grid>
+
+                            </Grid>
+
+                            <!--</Border>-->
+
+
+
+                            <Grid Grid.Column="1" x:Name="grdAddNotes">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" ></RowDefinition>
+                                    <RowDefinition  Height="40" ></RowDefinition>
+                                    <RowDefinition Height="*" ></RowDefinition>
+                                    <!--<RowDefinition Height="30" ></RowDefinition>-->
+
+                                </Grid.RowDefinitions>
+                                <!--<Border BorderThickness="1" BorderBrush="#E5E6E7">-->
+                                <Grid BorderThickness="1" BorderBrush="#D0D2D3" Grid.Row="0" Background="White">
+
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid  Grid.Column="0" Tapped="CloseImage_Tapped"  >
+                                        <!--<StackPanel Grid.Column="0"  Tapped="CloseImage_Tapped"   Margin="5,8,0,0" HorizontalAlignment="Left" >-->
+                                        <Image Source="Assets/1453150913_ic_close_48px.png" Margin="0,0,10,0"/>
+                                        <!--<Viewbox Height="20" Tapped="CloseImage_Tapped" >
+                                        <Path Fill="Black"  Data="M594.93,35.77L560.57,1.48 298.5,263.05 36.42,1.48 2.06,35.77 264.14,297.35 2.06,558.91 36.42,593.18 298.5,331.66 560.57,593.18 594.93,558.91 332.86,297.35z" UseLayoutRounding="False"></Path>
+                                    </Viewbox>-->
+
+
+                                        <!--</StackPanel>-->
+                                    </Grid>
+
+                                    <TextBlock Grid.Column="1" TextWrapping="Wrap"   Text=" Add your notes" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="0,8,0,9"/>
+
+                                </Grid>
+                                <!--</Border>-->
+
+
+
+                                <Grid Grid.Row="1" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0" Background="White"></Grid>
+
+
+                                    <Grid Grid.Column="1" Background="#E5673A" x:Name="text" Tapped="Journaltext_Tapped" >
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Journal" x:Name="txtjournal" Foreground="White" ></TextBlock>
+                                    </Grid>
+
+                                    <Grid Grid.Column="2" Background="#B4B4B5" x:Name="text2" Tapped="Questionstext_Tapped">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text=" Questions" x:Name="txtquestions" Foreground="Black"></TextBlock>
+
+                                    </Grid>
+
+
+
+                                </Grid>
+
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Background="White">
+
+                                    </Grid>
+
+                                    <!--<Grid BorderBrush="#D0D2D3" BorderThickness="1" Grid.Column="1" >-->
+                                    <Grid Grid.Column="1" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <!--<RowDefinition Height="0.3*"></RowDefinition>-->
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0" Background="White">
+                                            <StackPanel>
+                                                <TextBox x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" Visibility="Visible" PlaceholderText="Add your notes here..." VerticalAlignment="Top" Height="400"  TextWrapping="Wrap" Margin="0,0,0,0" />
+                                                <TextBox x:Name="JorQtext1" BorderThickness="1" Visibility="Collapsed" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your questions here..." VerticalAlignment="Top" Height="400"  TextWrapping="Wrap" Margin="0,0,0,0" />
+                                                <Button Click="saveJorQnotes" Foreground="#ffffff"  HorizontalAlignment="Right" Margin="0,-35,0,0"  Width="132"  Background="#E5673A">Save</Button>
+                                            </StackPanel>
+                                        </Grid>
+                                        <!--<Grid  Grid.Row="1" Background="Red">
+
+                                    </Grid>-->
+                                    </Grid>
+
+
+                                </Grid>
+
+
+
+                                <!--<Grid Grid.Row="3" Background="White">
+
+                                </Grid>-->
+
+
                             </Grid>
 
 
                         </Grid>
                         <!--</Border>-->
-
-
-
-                        <Grid Grid.Column="1" x:Name="grdAddNotes">
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" ></RowDefinition>
-                                <RowDefinition  Height="40" ></RowDefinition>
-                                <RowDefinition Height="*" ></RowDefinition>
-                                <!--<RowDefinition Height="30" ></RowDefinition>-->
-
-                            </Grid.RowDefinitions>
-                            <!--<Border BorderThickness="1" BorderBrush="#E5E6E7">-->
-                            <Grid BorderThickness="1" BorderBrush="#D0D2D3" Grid.Row="0" Background="White">
-
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel   Height="50" Width="30" Grid.Column="0" Margin="5,8,0,0" HorizontalAlignment="Left"  Tapped="CloseImage_Tapped"  >
-                                    <Viewbox  Height="20" >
-                                        <Path Fill="black" Data="M594.93,35.77L560.57,1.48 298.5,263.05 36.42,1.48 2.06,35.77 264.14,297.35 2.06,558.91 36.42,593.18 298.5,331.66 560.57,593.18 594.93,558.91 332.86,297.35z" UseLayoutRounding="False"></Path>
-                                    </Viewbox>
-
-
-                                </StackPanel>
-
-                                <TextBlock TextWrapping="Wrap"   Text=" Add your Notes." VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="39,8,0,9"/>
-
-                            </Grid>
-                            <!--</Border>-->
-
-
-
-                            <Grid Grid.Row="1" >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.20*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Column="0" Background="White"></Grid>
-
-
-                                <Grid Grid.Column="1" Background="#E5673A" x:Name="text" Tapped="Journaltext_Tapped" >
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Journal" x:Name="txtjournal" Foreground="White" ></TextBlock>
-                                </Grid>
-
-                                <Grid Grid.Column="2" Background="#B4B4B5" x:Name="text2" Tapped="Questionstext_Tapped">
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text=" Questions" x:Name="txtquestions" Foreground="Black"></TextBlock>
-
-                                </Grid>
-
-
-
-                            </Grid>
-
-
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0" Background="White">
-
-                                </Grid>
-
-                                <!--<Grid BorderBrush="#D0D2D3" BorderThickness="1" Grid.Column="1" >-->
-                                <Grid Grid.Column="1" >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                        <!--<RowDefinition Height="0.3*"></RowDefinition>-->
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" Background="White">
-                                        <StackPanel  >
-                                            <TextBox x:Name="JorQtext" BorderThickness="1" FontSize="12" BorderBrush="#cecece" PlaceholderText="Add your notes or questions" VerticalAlignment="Top" Height="500"  TextWrapping="Wrap" Margin="0,0,0,0" />
-
-                                            <Button Click="saveJorQnotes" Foreground="#ffffff"  HorizontalAlignment="Right" Margin="0,-35,0,0"  Width="132"  Background="#E5673A">Save</Button>
-                                        </StackPanel>
-                                    </Grid>
-                                    <!--<Grid  Grid.Row="1" Background="Red">
-
-                                    </Grid>-->
-                                </Grid>
-
-
-                            </Grid>
-
-
-
-                            <!--<Grid Grid.Row="3" Background="White">
-
-                                </Grid>-->
-
-
-                        </Grid>
-
-
-                    </Grid>
-                    <!--</Border>-->
+                    </ScrollViewer>
                 </PivotItem>
                 <PivotItem Header="Pre Delivery">
                     <!--<Grid>

@@ -1952,3 +1952,9 @@ C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\MyToolkit.Extended.pri.xml
 C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\ProjectArchitectures.txt
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\NotificationDetailsPage.xbf
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\AdvocateHealthCare.csprojResolveAssemblyReference.cache
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\NotificationDetailsPage.g.i.cs
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\NotificationDetailsPage.g.cs
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\NotificationDetailsPage.xaml
+C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\obj\x86\Debug\NotificationDetailsPage.xbf

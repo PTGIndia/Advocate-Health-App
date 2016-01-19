@@ -65,8 +65,8 @@ namespace AdvocateHealthCare
         public QuestionEntry()
         {
             this.InitializeComponent();
-            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
-            txtdate.Text = Convert.ToString(DateTime.Now);
+            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();//Displays the notification count
+            txtdate.Text = DateTime.Now.ToString("dddd") + ", " + DateTime.Now.ToString("d");
         }
         public class ProfileJournal
         {
@@ -77,11 +77,12 @@ namespace AdvocateHealthCare
             public string JournalInfo { get; set; }
             public string JournalAsset { get; set; }
             public byte JournalTypeID { get; set; }
-            public DateTime CreatedDate { get; set; }
+            public string CreatedDate { get; set; }
             public string CreatedBy { get; set; }
             public string LoggedInUser { get; set; }
 
         }
+        //saves  questions
         private void QuestionsButton_Click(object sender, RoutedEventArgs e)
         {
             if (App.IsInternet() == true)
@@ -89,7 +90,7 @@ namespace AdvocateHealthCare
                 try
                 {
                     ProfileJournal profilejournal = new ProfileJournal();
-                    profilejournal.CreatedDate = System.DateTime.Today;
+                    profilejournal.CreatedDate = Convert.ToString(DateTime.Now);
                     if (textprofilejournalid.Text == "")
                     {
                         profilejournal.ProfileJournalID = null;
@@ -126,12 +127,12 @@ namespace AdvocateHealthCare
                         client.Dispose();
                         if (result.IsSuccessStatusCode == true)
                         {
-                            MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
+                            MessageDialog msgDialog = new MessageDialog("Successfully saved.", "Success");
                             msgDialog.ShowAsync();
                             this.Frame.Navigate(typeof(QuestionsPage));
                         }
                         else {
-                            MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                            MessageDialog msgDialog = new MessageDialog("Unsuccessful", "Failure");
                             msgDialog.ShowAsync();
                         }
                     }

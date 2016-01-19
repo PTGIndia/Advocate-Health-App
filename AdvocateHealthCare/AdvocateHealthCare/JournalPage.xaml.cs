@@ -130,21 +130,31 @@ namespace AdvocateHealthCare
             this.Frame.Navigate(typeof(Notifications));
         }
 
-
+        //shares image with social sharing
         private async void imgShare_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Journalinfo QuestionData = (Journalinfo)((Windows.UI.Xaml.FrameworkElement)((Windows.UI.Xaml.FrameworkElement)e.OriginalSource).Parent).DataContext;
-            // string messageBody =  // "Hi Arun ..this mail is sent from Health care App";
-            var emailMessage = new Windows.ApplicationModel.Email.EmailMessage();
-            emailMessage.Body = QuestionData.ProfileName + " wants to share this journal " + QuestionData._JournalInfo;
-            emailMessage.Subject = QuestionData.JournalTitle;
-            var email = "Enter mail address";//recipient.Emails.FirstOrDefault<Windows.ApplicationModel.Contacts.ContactEmail>();
-            if (email != null)
+            try
             {
-                var emailRecipient = new Windows.ApplicationModel.Email.EmailRecipient(email);
-                emailMessage.To.Add(emailRecipient);
+
+                Journalinfo QuestionData = (Journalinfo)((Windows.UI.Xaml.FrameworkElement)((Windows.UI.Xaml.FrameworkElement)e.OriginalSource).Parent).DataContext;
+                // string messageBody =  // "Hi Arun ..this mail is sent from Health care App";
+                var emailMessage = new Windows.ApplicationModel.Email.EmailMessage();
+                emailMessage.Body = QuestionData.ProfileName + " wants to share this journal " + QuestionData._JournalInfo;
+                emailMessage.Subject = QuestionData.JournalTitle;
+                var email = "Enter mail address";//recipient.Emails.FirstOrDefault<Windows.ApplicationModel.Contacts.ContactEmail>();
+                if (email != null)
+                {
+                    var emailRecipient = new Windows.ApplicationModel.Email.EmailRecipient(email);
+                    emailMessage.To.Add(emailRecipient);
+                }
+                await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(emailMessage);
+
             }
-            await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(emailMessage);
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void Notificationgridtapped(object sender, TappedRoutedEventArgs e)

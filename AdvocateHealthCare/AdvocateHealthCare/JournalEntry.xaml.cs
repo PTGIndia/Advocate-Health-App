@@ -25,9 +25,6 @@ namespace AdvocateHealthCare
     /// </summary>
     public sealed partial class JournalEntry : Page
     {
-
-
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
@@ -36,8 +33,6 @@ namespace AdvocateHealthCare
 
             if (obj != null)
             {
-
-
                 if (obj.CreatedDate == null)
                 {
                     obj.CreatedDate = "";
@@ -56,21 +51,16 @@ namespace AdvocateHealthCare
                 txtjournalinfo.Text = obj._JournalInfo;
                 textprofilejournalid.Text = obj.ProfileJournalID;
             }
-
             else
             {
-
             }
-
         }
-
-
         public JournalEntry()
         {
             this.InitializeComponent();
             var count = HomePage.unreadNotificationCount;
             txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
-            txtdate.Text = Convert.ToString(DateTime.Now);
+            txtdate.Text = DateTime.Now.ToString("dddd") + ", " + DateTime.Now.ToString("d");//Convert.ToString(DateTime.Now);
         }
 
         public class ProfileJournal
@@ -81,12 +71,12 @@ namespace AdvocateHealthCare
             public string JournalInfo { get; set; }
             public string JournalAsset { get; set; }
             public byte JournalTypeID { get; set; }
-            public DateTime CreatedDate { get; set; }
+            public string CreatedDate { get; set; }
             public string CreatedBy { get; set; }
             public string LoggedInUser { get; set; }
 
         }
-
+        //saves journal
         private void JournalButton_Click(object sender, RoutedEventArgs e)
         {
             if (App.IsInternet() == true)
@@ -94,7 +84,7 @@ namespace AdvocateHealthCare
                 try
                 {
                     ProfileJournal profilejournal = new ProfileJournal();
-                    profilejournal.CreatedDate = System.DateTime.Today;
+                    profilejournal.CreatedDate = Convert.ToString(DateTime.Now);
                     if (textprofilejournalid.Text == "")
                     {
                         profilejournal.ProfileJournalID = null;
@@ -112,7 +102,8 @@ namespace AdvocateHealthCare
 
 
 
-                    if (txtvalue.Text != "" || txtjournalinfo.Text != "")
+
+                    if (txtvalue.Text != "" && txtjournalinfo.Text != "")
                     {
                         var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
                         var method = new HttpMethod("POST");
@@ -132,12 +123,12 @@ namespace AdvocateHealthCare
 
                         if (result.IsSuccessStatusCode == true)
                         {
-                            MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
+                            MessageDialog msgDialog = new MessageDialog("Successfully saved.", "Success");
                             msgDialog.ShowAsync();
                             this.Frame.Navigate(typeof(JournalPage));
                         }
                         else {
-                            MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
+                            MessageDialog msgDialog = new MessageDialog("Unsuccessful.", "Failure");
                             msgDialog.ShowAsync();
                         }
                     }

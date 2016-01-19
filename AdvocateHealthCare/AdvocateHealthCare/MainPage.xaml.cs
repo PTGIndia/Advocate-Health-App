@@ -54,12 +54,12 @@ namespace AdvocateHealthCare
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
             JournalBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Help.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             if (ShellSplitView.Content != null)
                 ((Frame)ShellSplitView.Content).Navigate(typeof(HomePage));
@@ -71,12 +71,12 @@ namespace AdvocateHealthCare
             JournalBtn.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Help.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             if (ShellSplitView.Content != null)
                 ((Frame)ShellSplitView.Content).Navigate(typeof(JournalPage));
         }
@@ -87,12 +87,12 @@ namespace AdvocateHealthCare
             JournalBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Help.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
 
 
@@ -100,19 +100,19 @@ namespace AdvocateHealthCare
             ((Frame)ShellSplitView.Content).Navigate(typeof(InputWeightPage));
         }
 
-        private void GoalsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
-            JournalBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+        //private void GoalsBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
+        //    JournalBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+        //    HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+        //    WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+        //    Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+        //    Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+        //    Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+        //    User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
-            ((Frame)ShellSplitView.Content).Navigate(typeof(GoalsPage));
-        }
+        //    ((Frame)ShellSplitView.Content).Navigate(typeof(GoalsPage));
+        //}
 
         private void Gallery_Click(object sender, RoutedEventArgs e)
         {
@@ -121,11 +121,11 @@ namespace AdvocateHealthCare
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Help.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             ((Frame)ShellSplitView.Content).Navigate(typeof(GalleryPage));
         }
@@ -138,11 +138,11 @@ namespace AdvocateHealthCare
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
 
 
@@ -157,11 +157,11 @@ namespace AdvocateHealthCare
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Help.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             ((Frame)ShellSplitView.Content).Navigate(typeof(VideosPage));
         }
@@ -181,29 +181,29 @@ namespace AdvocateHealthCare
         private void User_Click(object sender, RoutedEventArgs e)
         {
 
-            User.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
+            //User.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
             Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             JournalBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Help.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
         }
 
         private void Setting_Click(object sender, RoutedEventArgs e)
         {
-            Setting.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
-            User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //Setting.Background = new SolidColorBrush(Color.FromArgb(225, 35, 35, 98));
+            //User.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Video.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             JournalBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             HomeBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 
             WeightBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
-            GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
+            //GoalsBtn.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Help.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
             Gallery.Background = new SolidColorBrush(Color.FromArgb(0, 75, 0, 130));
 

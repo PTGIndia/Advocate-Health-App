@@ -14,9 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.ComponentModel;
-
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace AdvocateHealthCare
 {
     /// <summary>
@@ -25,54 +23,89 @@ namespace AdvocateHealthCare
     public sealed partial class PlayVideo : Page
     {
         int VideoId;
+        string videoSource;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null)
-            {
+            {//play videos from homepage
                 //string DoctorVideo = e.Parameter.ToString();
-                PlayYoutubeVideo(e.Parameter.ToString());
+                AdvocateHealthCare.HomePage.navigationvideos obj = (AdvocateHealthCare.HomePage.navigationvideos)e.Parameter;
+                videoSource = obj.source;
+                PlayYoutubeVideo(obj.videosource.ToString());
             }
             else
             {
+                //plays videos from videos page
                 PlayVideoFromVideoPage();
             }
         }
         public PlayVideo()
         {
             this.InitializeComponent();
-
             //}
             //PlayYoutubeVideo(VideoId);
         }
         public void PlayVideoFromVideoPage()
         {
-
             VideoId = (App.Current as App).NavigateText;
             switch (VideoId)
             {
                 case 1:
-                    PlayYoutubeVideo("d9uAa9lECcA");
+                    PlayYoutubeVideo("wLWQ9XwlKao");
                     break;
                 case 2:
-                    PlayYoutubeVideo("CDJ7IebMo2A");
+                    PlayYoutubeVideo("bcLPRubq5cM");
                     break;
                 case 3:
-                    PlayYoutubeVideo("Xb8aVX6nA88");
+                    PlayYoutubeVideo("L1sFlTsq34k");
                     break;
                 case 4:
-                    PlayYoutubeVideo("U6118JszdCU");
+                    PlayYoutubeVideo("B8dp85rnAQg");
                     break;
                 case 5:
-                    PlayYoutubeVideo("Xb8aVX6nA88");
+                    PlayYoutubeVideo("wWIgBJRtuJ0");
                     break;
                 case 6:
-                    PlayYoutubeVideo("sjqfDru825I");
+                    PlayYoutubeVideo("DA51I8PuiHw");
                     break;
                 case 7:
-                    PlayYoutubeVideo("usrh-1bnXgE");
+                    PlayYoutubeVideo("wNexVdG4EwM");
                     break;
-            }
+                case 8:
+                    PlayYoutubeVideo("BJWjbhnOLbE");
+                    break;
+                case 9:
+                    PlayYoutubeVideo("lJOVYaXvH2c");
+                    break;
+                case 10:
+                    PlayYoutubeVideo("qucsu1iSM4c");
+                    break;
+                case 11:
+                    PlayYoutubeVideo("6fo_zG8ktIo");
+                    break;
+                case 12:
+                    PlayYoutubeVideo("HF1DvS9Y-7Y");
+                    break;
+                case 13:
+                    PlayYoutubeVideo("Xyci1-x5Zt4");
+                    break;
+                case 14:
+                    PlayYoutubeVideo("X9fvHK2ZN6s");
+                    break;
+                case 15:
+                    PlayYoutubeVideo("8ExOVKeg120");
+                    break;
+                case 16:
+                    PlayYoutubeVideo("vvUw2WWwqJw");
+                    break;
+                case 17:
+                    PlayYoutubeVideo("QE9hcf2QWaY");
+                    break;
+                case 18:
+                    PlayYoutubeVideo("k1cxL22IEUc");
+                    break;
 
+            }
         }
         DispatcherTimer dispatcherTimer;
         public async void PlayYoutubeVideo(string _videoId)
@@ -100,6 +133,7 @@ namespace AdvocateHealthCare
             time = (int)mediaYoutube.NaturalDuration.TimeSpan.TotalSeconds;
             double inMinutes = time / 60;
         }
+        //shows minutes and seconds count down for videos
         void dispatcherTimer_Tick(object sender, object e)
         {
             if (time > 0)
@@ -123,30 +157,35 @@ namespace AdvocateHealthCare
         {
             mediaYoutube.Source = VideoUri;
         }
-
         private void btnPause_Click(object sender, RoutedEventArgs e)
         {
             mediaYoutube.Pause();
             imgPause.Visibility = Visibility.Visible;
             dispatcherTimer.Stop();
         }
-
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             mediaYoutube.Stop();
             dispatcherTimer.Stop();
         }
-
         private void btnPLay_Click(object sender, RoutedEventArgs e)
         {
             mediaYoutube.Play();
             imgPause.Visibility = Visibility.Collapsed;
             dispatcherTimer.Start();
         }
-
         private void BackNav_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(VideosPage));
+            if (videoSource == "Home")
+            {
+                this.Frame.Navigate(typeof(HomePage));
+            }
+            else
+            {
+                this.Frame.Navigate(typeof(VideosPage));
+            }
+            rngProgress.Visibility = Visibility.Collapsed;
         }
+
     }
 }

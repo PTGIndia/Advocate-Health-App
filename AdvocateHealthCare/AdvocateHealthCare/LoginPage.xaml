@@ -26,10 +26,10 @@
                 </StackPanel>
                 <PasswordBox Password="" x:Name="pwdText" BorderThickness="0" PlaceholderText="Enter your Password" Height="40" Margin="0,15,0,0"></PasswordBox>
                 <Button x:Name="Login" Tapped="Login_Tapped" Foreground="#ffffff" Content="Login" Width="320" Margin="0,15,0,0" Height="40" FontSize="17" Background="#DD633F"></Button>
-                <StackPanel Orientation="Horizontal">
+                <!--<StackPanel Orientation="Horizontal">
                     <TextBlock Text="Forgot my Username" FontWeight="Thin" FontSize="12" HorizontalAlignment="Left" Margin="0,10,0,0"></TextBlock>
                     <TextBlock Text="Forgot my Password" FontWeight="Thin" FontSize="12" HorizontalAlignment="Right"  Margin="113,10,0,0"></TextBlock>
-                </StackPanel>
+                </StackPanel>-->
             </StackPanel>
         </Grid>
 

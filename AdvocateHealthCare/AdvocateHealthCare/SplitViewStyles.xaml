@@ -61,12 +61,6 @@
 
                                     </Storyboard>
                                 </VisualState>
-                                <!--<VisualState x:Name="UnselectedLocked">
-                                            <Storyboard>
-                                                <DoubleAnimation Duration="0" To="{ThemeResource PhonePivotLockedTranslation}" Storyboard.TargetProperty="X" Storyboard.TargetName="ContentPresenterTranslateTransform" />
-                                                <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ContentPresenter" />
-                                            </Storyboard>
-                                        </VisualState>-->
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
@@ -89,12 +83,13 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <SolidColorBrush x:Key="PivotBackground" Color="#232362"/>
+    <SolidColorBrush x:Key="PivotBackground" Color="#3A3F80"/>
     <Style x:Key="PivotStyle" TargetType="Pivot">
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="IsTabStop" Value="False"/>
+
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -314,8 +309,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Thickness x:Key="PivotPortraitThemePadding">19,38,0,0</Thickness>
-    <Thickness x:Key="PivotLandscapeThemePadding">19,25,0,0</Thickness>
+
 
     <Style TargetType="RadioButton" x:Key="SplitViewMenuButtonStyle">
         <Setter Property="Background" Value="{ThemeResource MenuButtonBackgroundBrush}" />

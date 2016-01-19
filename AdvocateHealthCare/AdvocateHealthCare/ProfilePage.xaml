@@ -6,7 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="SplitViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Margin="10,0,0,0" >
             <Grid.ColumnDefinitions>
@@ -25,23 +32,24 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.60*"></RowDefinition>
-                    <RowDefinition Height="*" ></RowDefinition>
-                    <RowDefinition Height="*" ></RowDefinition>
-                    <RowDefinition Height="*" ></RowDefinition>
-                    <RowDefinition Height="*" ></RowDefinition>
-                    <RowDefinition Height="*" ></RowDefinition>
-                    <RowDefinition Height="*" ></RowDefinition>
-                    <RowDefinition Height="*" ></RowDefinition>
-                    <RowDefinition Height="0.70*"></RowDefinition>
+                    <RowDefinition Height="0.6*" ></RowDefinition>
+                    <RowDefinition Height="0.6*" ></RowDefinition>
+                    <RowDefinition Height="0.6*" ></RowDefinition>
+                    <RowDefinition Height="0.6*" ></RowDefinition>
+                    <RowDefinition Height="0.6*" ></RowDefinition>
+                    <RowDefinition Height="0.6*" ></RowDefinition>
+                    <RowDefinition Height="0.6*" ></RowDefinition>
+
+                    <RowDefinition Height="0.40*"></RowDefinition>
                     <RowDefinition ></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Margin="0,25,0,0">
                     <StackPanel>
-                        <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Profile Setup" Margin="0,0,0,0"></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" Text="Profile Setup" ></TextBlock>
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Row="1">
-                    <StackPanel Width="300" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Grid Grid.Row="1" Margin="0,0,0,0">
+                    <StackPanel Width="300" HorizontalAlignment="Center" VerticalAlignment="Top" >
                         <TextBox x:Name="txtfirstname" PlaceholderText="Enter your First Name"></TextBox>
                     </StackPanel>
                 </Grid>
@@ -74,16 +82,18 @@
                 </Grid>
                 <Grid Grid.Row="7">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <ComboBox Width="300" SelectionChanged="ComboBoxitemsTest_SelectionChanged"  Height="50" PlaceholderText="Choose your primary care hospital" x:Name="ComboBoxitemsTest" ItemsSource="{Binding objlistProfileSetup}"  DisplayMemberPath="HospitalName" SelectedValuePath="HospitalID">
+                        <ComboBox Width="300" SelectionChanged="ComboBoxitemsTest_SelectionChanged" PlaceholderText="Choose your primary health care..."  Height="33"    x:Name="ComboBoxitemsTest"   DisplayMemberPath="HospitalName" SelectedValuePath="HospitalID"  >
+
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
                         </ComboBox>
 
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Row="8" Margin="0,10,0,0" Background="#E5673A" Tapped="bottonsetup_Tapped" Width="300">
-                    <!--<StackPanel HorizontalAlignment="Center" Width="300" Background="#E5673A" Tapped="bottonsetup_Tapped">-->
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,2,0,0" Text="Setup Profile" x:Name="bottonsetup" Foreground="White"></TextBlock>
-                    <!--</StackPanel>-->
-                </Grid>
+                <Button  Grid.Row="8" Content="Setup Profile" Width="300" HorizontalAlignment="Stretch" Background="#E5673A" Click="Button_Click"></Button>
 
             </Grid>
         </Grid>

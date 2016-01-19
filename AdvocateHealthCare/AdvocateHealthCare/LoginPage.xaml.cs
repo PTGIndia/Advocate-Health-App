@@ -29,7 +29,7 @@ namespace AdvocateHealthCare
         public LoginPage()
         {
             this.InitializeComponent();
-            //if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["ChechedStatus"].ToString() == "True") {}
+            //checks wether user clicked remember my password
             if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["ChechedStatus"] == null)
             {
                 checkBoxFlag = 1;
@@ -43,6 +43,7 @@ namespace AdvocateHealthCare
 
         }
         private Frame _rootFrame;
+        //validates the user existance
         private async void Login_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (cbCheckBox.IsChecked == true)

@@ -147,7 +147,8 @@ namespace AdvocateHealthCare
         {
             objListQuestionHelper.Clear();
             objListQuestionHelper = new List<QuestionsHelper>();
-            DateTime lmpDate = Convert.ToDateTime("11/04/2015");
+            //DateTime lmpValue = Convert.ToDateTime(Windows.Storage.ApplicationData.Current.LocalSettings.Values["Lmpdate"]);
+            DateTime lmpDate = Convert.ToDateTime(Windows.Storage.ApplicationData.Current.LocalSettings.Values["LMPDATE"]);
             DateTime FirstTrimesterPeriod = lmpDate.AddMonths(3);
             DateTime SecondTrimesterPeriod = FirstTrimesterPeriod.AddMonths(3);
             DateTime ThirdTrimesterPeriod = SecondTrimesterPeriod.AddMonths(3);
@@ -226,7 +227,7 @@ namespace AdvocateHealthCare
                     GetTrimestersData(2);
                     gridGallary2.ItemsSource = objListQuestionHelper;
                 }
-                else if (ActiveItemName == "Thrid Trimester")
+                else if (ActiveItemName == "Third Trimester")
                 {
                     GetTrimestersData(3);
                     gridGallary3.ItemsSource = objListQuestionHelper;

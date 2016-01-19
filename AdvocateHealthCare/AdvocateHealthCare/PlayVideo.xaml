@@ -18,6 +18,7 @@
 
             <Image Grid.Row="0" Source="Assets/back.png" HorizontalAlignment="Left" Margin="10,0,0,0" x:Name="BackNav" Tapped="BackNav_Tapped"></Image>
             <Grid Grid.Row="1">
+                <ProgressRing IsActive="True" Height="60" Width="60" x:Name="rngProgress" Visibility="Visible"></ProgressRing>
                 <MediaElement   Name="mediaYoutube" Source="{Binding VideoUri}">
                 </MediaElement>
                 <Image Source="Assets/pause.png" Height="30" x:Name="imgPause" Visibility="Collapsed" VerticalAlignment="Center"></Image>

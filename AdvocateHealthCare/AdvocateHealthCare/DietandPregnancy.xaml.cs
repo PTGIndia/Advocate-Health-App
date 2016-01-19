@@ -17,9 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace AdvocateHealthCare
 {
     /// <summary>
@@ -27,18 +25,18 @@ namespace AdvocateHealthCare
     /// </summary>
     public sealed partial class DietandPregnancy : Page
     {
-        // public static string jtapped;
-        public static string qtapped;
+
+        public static string questionsTapped = "1";
         public DietandPregnancy()
         {
             this.InitializeComponent();
             getback.Visibility = Visibility.Collapsed;
-            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();
+            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();//Displays the notification count
         }
-        public class saveJouorQues
+        public class SaveJournalQues
         {
             public int JournalorQuestionid { get; set; }
-            public string NotesforJorQ { get; set; }
+            public string NotesforJornalorQuestion { get; set; }
         }
         private void CloseImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -49,34 +47,37 @@ namespace AdvocateHealthCare
                 getback.Visibility = Visibility.Visible;
             }
         }
+        //reopens add your notes coloum
         private void GetbackButton_Click(object sender, TappedRoutedEventArgs e)
         {
             ColumnDefinition column = new ColumnDefinition();
             column.Width = new GridLength(0.35, GridUnitType.Star);
             GridDiet.ColumnDefinitions.Add(column);
             Grid.SetColumn(grdAddNotes, 1);
-
             grdAddNotes.Visibility = Visibility.Visible;
             getback.Visibility = Visibility.Collapsed;
         }
-
+        //toggles colors of journal button color
         private void Journaltext_Tapped(object sender, TappedRoutedEventArgs e)
         {
             text.Background = new SolidColorBrush(Color.FromArgb(255, 229, 103, 58));
             text2.Background = new SolidColorBrush(Color.FromArgb(224, 224, 224, 224));
             txtjournal.Foreground = new SolidColorBrush(Colors.White);
             txtquestions.Foreground = new SolidColorBrush(Colors.Black);
-            // jtapped = "1";
+            questionsTapped = "1";
+            JorQtext1.Visibility = Visibility.Collapsed;
+            JorQtext.Visibility = Visibility.Visible;
         }
-
+        //toggles colors of questions button color
         private void Questionstext_Tapped(object sender, TappedRoutedEventArgs e)
         {
             text2.Background = new SolidColorBrush(Color.FromArgb(255, 229, 103, 58));
             text.Background = new SolidColorBrush(Color.FromArgb(224, 224, 224, 224));
             txtjournal.Foreground = new SolidColorBrush(Colors.Black);
             txtquestions.Foreground = new SolidColorBrush(Colors.White);
-            qtapped = "2";
-
+            questionsTapped = "2";
+            JorQtext.Visibility = Visibility.Collapsed;
+            JorQtext1.Visibility = Visibility.Visible;
         }
         public class ProfileJournal
         {
@@ -86,120 +87,138 @@ namespace AdvocateHealthCare
             public string JournalInfo { get; set; }
             public string JournalAsset { get; set; }
             public byte JournalTypeID { get; set; }
-            public DateTime CreatedDate { get; set; }
+            public string CreatedDate { get; set; }
             public string CreatedBy { get; set; }
             public string LoggedInUser { get; set; }
-
         }
-
+        //saves users entered journals/questions
         private void saveJorQnotes(object sender, RoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                if (JorQtext.Text.Trim() != "")
-                {
-                    ProfileJournal profilejournal = new ProfileJournal();
-                    profilejournal.CreatedDate = System.DateTime.Today;
-                    profilejournal.ProfileJournalID = null;
 
-                    profilejournal.ProfileID = App.userId;
-                    profilejournal.JournalTitle = JorQtext.Text;
-                    profilejournal.JournalInfo = JorQtext.Text;
-                    profilejournal.JournalAsset = null;
-                    if (qtapped == "2")
+                try
+                {
+                    if (JorQtext.Text.Trim() != "" || JorQtext1.Text.Trim() != "")
                     {
-                        profilejournal.JournalTypeID = 2;
+                        ProfileJournal profilejournal = new ProfileJournal();
+                        profilejournal.CreatedDate = Convert.ToString(DateTime.Now);
+                        profilejournal.ProfileJournalID = null;
+                        profilejournal.ProfileID = App.userId;
+
+
+                        profilejournal.JournalAsset = null;
+                        if (questionsTapped == "2")
+                        {
+                            profilejournal.JournalTypeID = 2;
+                            profilejournal.JournalTitle = "New Question Entry";
+                            profilejournal.JournalInfo = JorQtext1.Text;
+                        }
+                        else
+                        {
+                            profilejournal.JournalTypeID = 1;
+                            profilejournal.JournalTitle = "New Journal Entry";
+                            profilejournal.JournalInfo = JorQtext.Text;
+                        }
+                        profilejournal.LoggedInUser = App.userName;
+
+                        var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
+                        var method = new HttpMethod("POST");
+                        var request = new HttpRequestMessage(method,
+                        App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
+
+                        {
+                            Content = new StringContent(serializedPatchDoc,
+                        System.Text.Encoding.Unicode, "application/json")
+                        };
+
+                        HttpClient client = new HttpClient();
+                        var result = client.SendAsync(request).Result;
+                        client.Dispose();
+                        if (result.IsSuccessStatusCode == true)
+                        {
+
+                            MessageDialog msgDialog = new MessageDialog("Successfully saved.", "Success");
+                            msgDialog.ShowAsync();
+                        }
+                        else {
+                            MessageDialog msgDialog = new MessageDialog("Unsuccessful.", "Failure");
+                            msgDialog.ShowAsync();
+                        }
                     }
                     else
                     {
-                        profilejournal.JournalTypeID = 1;
+                        if (questionsTapped == "1")
+                        {
+                            MessageDialog msgDialog = new MessageDialog("Please add your journal.", "Incomplete data");
+                            msgDialog.ShowAsync();
+                        }
+                        else
+                        {
+                            MessageDialog msgDialog = new MessageDialog("Please add your questions.", "Incomplete data");
+                            msgDialog.ShowAsync();
+                        }
                     }
-                    profilejournal.LoggedInUser = App.userName;
 
-
-                    var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
-                    var method = new HttpMethod("POST");
-                    var request = new HttpRequestMessage(method,
-                    App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
-
-
-                    {
-                        Content = new StringContent(serializedPatchDoc,
-                        System.Text.Encoding.Unicode, "application/json")
-                    };
-
-
-                    HttpClient client = new HttpClient();
-                    var result = client.SendAsync(request).Result;
-                    client.Dispose();
-
-                    if (result.IsSuccessStatusCode == true)
-                    {
-
-
-                        MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
-                        msgDialog.ShowAsync();
-                    }
-                    else {
-                        MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
-                        msgDialog.ShowAsync();
-                    }
+                    //this.Frame.Navigate(typeof(DietandPregnancy));
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageDialog msgDialog = new MessageDialog("Please fill all the details above", "Incomplete data");
+                    string meg = ex.StackTrace;
+                    MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
                     msgDialog.ShowAsync();
                 }
-
-
-                //this.Frame.Navigate(typeof(DietandPregnancy));
+                JorQtext1.Text = "";
+                JorQtext.Text = "";
             }
-
-            catch (Exception ex)
+            else
             {
-                string meg = ex.StackTrace;
-                MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
-
-
         }
-
 
         private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
         {
             this.Frame.Navigate(typeof(SearchPage), args.QueryText);
         }
-
+        //shares context through social mails
         private async void dietAndPregnancyShare_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            try
+            if (App.IsInternet() == true)
             {
-                var emailMessage = new Windows.ApplicationModel.Email.EmailMessage();
-                emailMessage.Subject = "Diet And Pregnancy";
-                emailMessage.Body = "http://www.advocatehealth.com/cmc/nutritionservices";
-                var email = "Enter mail address";//recipient.Emails.FirstOrDefault<Windows.ApplicationModel.Contacts.ContactEmail>();
-                if (email != null)
+                try
                 {
-                    var emailRecipient = new Windows.ApplicationModel.Email.EmailRecipient(email);
-                    emailMessage.To.Add(emailRecipient);
+                    var emailMessage = new Windows.ApplicationModel.Email.EmailMessage();
+                    emailMessage.Subject = "Diet And Pregnancy";
+                    emailMessage.Body = "http://www.advocatehealth.com/cmc/nutritionservices";
+                    var email = "Enter mail address";//recipient.Emails.FirstOrDefault<Windows.ApplicationModel.Contacts.ContactEmail>();
+                    if (email != null)
+                    {
+                        var emailRecipient = new Windows.ApplicationModel.Email.EmailRecipient(email);
+                        emailMessage.To.Add(emailRecipient);
+                    }
+                    await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(emailMessage);
                 }
-                await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(emailMessage);
-
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
-            catch (Exception ex)
+            else
             {
 
-                throw;
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
+                msgDialog.ShowAsync();
             }
 
         }
-
         private void Notificationgridtapped(object sender, TappedRoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Notifications));
         }
         string ActiveItemHeaderName;
+
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PivotItem currentItem = e.AddedItems[0] as PivotItem;
@@ -207,22 +226,19 @@ namespace AdvocateHealthCare
             switch (ActiveItemHeaderName)
             {
 
-
                 case "Pre Delivery":
                     DeliveryInfo("1");
                     break;
-
                 case "Delivery":
                     DeliveryInfo("2");
                     break;
-
                 case "Post Delivery":
                     DeliveryInfo("3");
                     break;
             }
-
         }
         DeliveryInformation objDeliveryInformation = new DeliveryInformation();
+
         //gets the content of selected pivot item by passing id
         public async void DeliveryInfo(string id)
         {
@@ -235,7 +251,6 @@ namespace AdvocateHealthCare
                     var client = new HttpClient();
                     HttpResponseMessage response = await client.GetAsync(new Uri(DeliveryInfoUri));
                     string jsonString = await response.Content.ReadAsStringAsync();
-
                     if (jsonString != "[]")
                     {
                         JArray jArr = JArray.Parse(jsonString);
@@ -245,7 +260,6 @@ namespace AdvocateHealthCare
                             objDeliveryInformation.DeliveryTitle = (string)jArr[itemCount]["TITLE"];
                             objDeliveryInformation.DeliveryInfo = (string)jArr[itemCount]["CONTENT"];
                             var x = App.BASE_URL + jArr[itemCount]["TITLEIMAGE"];
-
                             Uri uri = new Uri(x);
                             objDeliveryInformation.DeliveryUrl = uri;
                             lstDeliveryInformation.Add(objDeliveryInformation);
@@ -253,15 +267,12 @@ namespace AdvocateHealthCare
                         switch (ActiveItemHeaderName)
                         {
 
-
                             case "Pre Delivery":
                                 grdDeliveryDetails1.ItemsSource = lstDeliveryInformation;
                                 break;
-
                             case "Delivery":
                                 grdDeliveryDetails2.ItemsSource = lstDeliveryInformation;
                                 break;
-
                             case "Post Delivery":
                                 grdDeliveryDetails3.ItemsSource = lstDeliveryInformation;
                                 break;
@@ -284,14 +295,12 @@ namespace AdvocateHealthCare
             }
         }
 
-
         public class DeliveryInformation
         {
             public string DeliveryTitle { get; set; }
             public string DeliveryInfo { get; set; }
             public Uri DeliveryUrl { get; set; }
         }
-
 
     }
 }

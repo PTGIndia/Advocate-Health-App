@@ -22,13 +22,13 @@
     <AppXManifest Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-01-05T07:40:28.875</Modified>
+      <Modified>2016-01-07T07:18:57.341</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\AdvocateHealthCare.exe">
       <PackagePath>entrypoint\AdvocateHealthCare.exe</PackagePath>
-      <Modified>2016-01-05T07:40:27.377</Modified>
+      <Modified>2016-01-07T07:18:56.030</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sridhar\.nuget\packages\Microsoft.ApplicationInsights\1.0.0\lib\portable-win81+wpa81\Microsoft.ApplicationInsights.dll">
       <PackagePath>Microsoft.ApplicationInsights.dll</PackagePath>
@@ -682,7 +682,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\AdvocateHealthCare.xr.xml">
       <PackagePath>AdvocateHealthCare.xr.xml</PackagePath>
-      <Modified>2016-01-05T07:38:53.545</Modified>
+      <Modified>2016-01-07T07:18:55.458</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -694,11 +694,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-01-05T07:40:28.339</Modified>
+      <Modified>2016-01-07T07:18:56.834</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sridhar\Documents\Visual Studio 2015\Projects\GitHubAdvocateHealthCare\AdvocateHealthCare\AdvocateHealthCare\bin\x86\Debug\Core\AdvocateHealthCare.exe">
       <PackagePath>AdvocateHealthCare.exe</PackagePath>
-      <Modified>2016-01-05T07:40:28.874</Modified>
+      <Modified>2016-01-07T07:18:57.335</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

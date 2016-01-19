@@ -31,6 +31,7 @@ namespace AdvocateHealthCare
         {
             this.InitializeComponent();
             getback.Visibility = Visibility.Collapsed;
+            txtNotificationCount.Text = HomePage.unreadNotificationCount.ToString();//Displays the notification count
         }
 
         private void Viewbox_Tapped(object sender, TappedRoutedEventArgs e)
@@ -46,7 +47,7 @@ namespace AdvocateHealthCare
         private void GetbackButton_Click(object sender, TappedRoutedEventArgs e)
         {
             ColumnDefinition column = new ColumnDefinition();
-            column.Width = new GridLength(0.35, GridUnitType.Star);
+            column.Width = new GridLength(0.30, GridUnitType.Star);
             GridDiet.ColumnDefinitions.Add(column);
             Grid.SetColumn(grdAddNotes, 1);
 
@@ -150,80 +151,103 @@ namespace AdvocateHealthCare
             public string DeliveryInfo { get; set; }
             public Uri DeliveryUrl { get; set; }
         }
-        public static string qtapped;
+        public static string qtapped = "1";
+        //saves journals/question
         private void saveJorQnotes(object sender, RoutedEventArgs e)
         {
-            try
+            if (App.IsInternet())
             {
-                if (JorQtext.Text.Trim() != "")
+
+
+                try
                 {
-                    ProfileJournal profilejournal = new ProfileJournal();
-                    profilejournal.CreatedDate = System.DateTime.Today;
-                    profilejournal.ProfileJournalID = null;
-
-                    profilejournal.ProfileID = App.userId;
-
-                    profilejournal.JournalInfo = JorQtext.Text;
-                    profilejournal.JournalAsset = null;
-                    if (qtapped == "2")
+                    if (JorQtext.Text.Trim() != "" || JorQtext1.Text.Trim() != "")
                     {
-                        profilejournal.JournalTypeID = 2;
-                        profilejournal.JournalTitle = "Question Entry";
+                        ProfileJournal profilejournal = new ProfileJournal();
+                        profilejournal.CreatedDate = Convert.ToString(DateTime.Now);
+                        profilejournal.ProfileJournalID = null;
+
+                        profilejournal.ProfileID = App.userId;
+
+                        profilejournal.JournalInfo = JorQtext.Text;
+                        profilejournal.JournalAsset = null;
+                        if (qtapped == "2")
+                        {
+                            profilejournal.JournalTypeID = 2;
+                            profilejournal.JournalTitle = "New Question Entry";
+                            profilejournal.JournalInfo = JorQtext1.Text;
+                        }
+                        else
+                        {
+                            profilejournal.JournalTypeID = 1;
+                            profilejournal.JournalTitle = "New Journal Entry";
+                            profilejournal.JournalInfo = JorQtext.Text;
+                        }
+                        profilejournal.LoggedInUser = App.userName;
+
+
+                        var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
+                        var method = new HttpMethod("POST");
+                        var request = new HttpRequestMessage(method,
+                        App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
+
+
+                        {
+                            Content = new StringContent(serializedPatchDoc,
+                            System.Text.Encoding.Unicode, "application/json")
+                        };
+
+
+                        HttpClient client = new HttpClient();
+                        var result = client.SendAsync(request).Result;
+                        client.Dispose();
+
+                        if (result.IsSuccessStatusCode == true)
+                        {
+
+
+                            MessageDialog msgDialog = new MessageDialog("Successfully saved.", "Success");
+                            msgDialog.ShowAsync();
+                        }
+                        else {
+                            MessageDialog msgDialog = new MessageDialog("Unsuccessful.", "Failure");
+                            msgDialog.ShowAsync();
+                        }
                     }
                     else
                     {
-                        profilejournal.JournalTypeID = 1;
-                        profilejournal.JournalTitle = "Journal Entry";
+                        if (qtapped == "1")
+                        {
+                            MessageDialog msgDialog = new MessageDialog("Please add your journal.", "Incomplete data");
+                            msgDialog.ShowAsync();
+                        }
+                        else
+                        {
+                            MessageDialog msgDialog = new MessageDialog("Please add your questions.", "Incomplete data");
+                            msgDialog.ShowAsync();
+                        }
                     }
-                    profilejournal.LoggedInUser = App.userName;
 
 
-                    var serializedPatchDoc = JsonConvert.SerializeObject(profilejournal);
-                    var method = new HttpMethod("POST");
-                    var request = new HttpRequestMessage(method,
-                    App.BASE_URL + "/api/ProfileJournal/SaveProfileJournal")
-
-
-                    {
-                        Content = new StringContent(serializedPatchDoc,
-                        System.Text.Encoding.Unicode, "application/json")
-                    };
-
-
-                    HttpClient client = new HttpClient();
-                    var result = client.SendAsync(request).Result;
-                    client.Dispose();
-
-                    if (result.IsSuccessStatusCode == true)
-                    {
-
-
-                        MessageDialog msgDialog = new MessageDialog("Sucessfully Saved", "Success");
-                        msgDialog.ShowAsync();
-                    }
-                    else {
-                        MessageDialog msgDialog = new MessageDialog("Unsucessfull", "Failure");
-                        msgDialog.ShowAsync();
-                    }
+                    //this.Frame.Navigate(typeof(DietandPregnancy));
                 }
-                else
+
+                catch (Exception ex)
                 {
-                    MessageDialog msgDialog = new MessageDialog("Please fill all the details above", "Incomplete data");
+                    string meg = ex.StackTrace;
+                    MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
                     msgDialog.ShowAsync();
                 }
 
-
-                //this.Frame.Navigate(typeof(DietandPregnancy));
+                JorQtext1.Text = "";
+                JorQtext.Text = "";
             }
-
-            catch (Exception ex)
+            else
             {
-                string meg = ex.StackTrace;
-                MessageDialog msgDialog = new MessageDialog(ex.Message, "Message");
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
+
             }
-
-
         }
         public class ProfileJournal
         {
@@ -233,7 +257,7 @@ namespace AdvocateHealthCare
             public string JournalInfo { get; set; }
             public string JournalAsset { get; set; }
             public byte JournalTypeID { get; set; }
-            public DateTime CreatedDate { get; set; }
+            public string CreatedDate { get; set; }
             public string CreatedBy { get; set; }
             public string LoggedInUser { get; set; }
 
@@ -244,9 +268,11 @@ namespace AdvocateHealthCare
             text2.Background = new SolidColorBrush(Color.FromArgb(224, 224, 224, 224));
             txtjournal.Foreground = new SolidColorBrush(Colors.White);
             txtquestions.Foreground = new SolidColorBrush(Colors.Black);
-            // jtapped = "1";
-            JorQtext.Text = string.Empty;
+            JorQtext1.Visibility = Visibility.Collapsed;
+            JorQtext.Visibility = Visibility.Visible;
+            qtapped = "1";
         }
+
 
         private void Questionstext_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -255,14 +281,16 @@ namespace AdvocateHealthCare
             txtjournal.Foreground = new SolidColorBrush(Colors.Black);
             txtquestions.Foreground = new SolidColorBrush(Colors.White);
             qtapped = "2";
-            JorQtext.Text = string.Empty;
+            JorQtext.Visibility = Visibility.Collapsed;
+            JorQtext1.Visibility = Visibility.Visible;
         }
+
 
         private void Notificationgridtapped(object sender, TappedRoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Notifications));
         }
-
+        //finds the results of searched query
         private void mySearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
         {
             this.Frame.Navigate(typeof(SearchPage), args.QueryText);
