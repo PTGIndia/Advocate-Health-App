@@ -36,7 +36,11 @@ namespace AdvocateHealthCare
             this.InitializeComponent();
             GetNotificationCount();
         }
-
+        public class navigationvideos
+        {
+            public string videosource;
+            public string source;
+        }
         public class UnreadClass
         {
             public int Notificationcount { get; set; }
@@ -69,12 +73,15 @@ namespace AdvocateHealthCare
 
         private void StackNextClicked_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PlayVideo));
+            navigationvideos navigationvide = new navigationvideos();
+            navigationvide.videosource = "aANj9_oeyUM";
+            navigationvide.source = "Home";
+            this.Frame.Navigate(typeof(PlayVideo), navigationvide);
         }
 
         private async void HospitalGallery_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("http://www.hoovers.com/company-information/cs/company-profile.Advocate_Health_Care_Network.0f2420b0ff1b2733.html"));
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://healthadvisor.advocatehealth.com/Classes"));
 
         }
 
@@ -90,40 +97,49 @@ namespace AdvocateHealthCare
         public static int unreadNotificationCount;
 
         public object WebBrowserOpener { get; private set; }
-
+        //gets all the notifications(counts)
         public async void GetNotificationCount()
         {
-            List<bool> objLiseUnreadStatus = new List<bool>();
-            // App.BASE_URL+"/api/Notifications/GetNotifications?UserId=3&HospitalId=1";
-            string getAllNotifications = App.BASE_URL + "/api/Notifications/GetNotifications?UserId=" + App.userId + "&HospitalId=" + App.hospitalId;
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(new Uri(getAllNotifications));
-            string jsonString = await response.Content.ReadAsStringAsync();
-            JArray jArr = JArray.Parse(jsonString);
-            for (var count = 0; count < jArr.Count; count++)
+            try
             {
-                bool isRead = (bool)jArr[count]["IsRead"];
-                if (isRead != true)
+                if (App.IsInternet() == true)
                 {
+                    List<bool> objLiseUnreadStatus = new List<bool>();
+                    // App.BASE_URL+"/api/Notifications/GetNotifications?UserId=3&HospitalId=1";
+                    string getAllNotifications = App.BASE_URL + "/api/Notifications/GetNotifications?UserId=" + App.userId + "&HospitalId=" + App.hospitalId;
+                    var client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(new Uri(getAllNotifications));
+                    string jsonString = await response.Content.ReadAsStringAsync();
+                    JArray jArr = JArray.Parse(jsonString);
+                    for (var count = 0; count < jArr.Count; count++)
+                    {
+                        bool isRead = (bool)jArr[count]["IsRead"];
+                        if (isRead != true)
+                        {
+                            //objUnreadClass = new UnreadClass();
+                            //objUnreadClass.Notificationcount = (int)jArr[count]["IsRead"];
+                            objLiseUnreadStatus.Add(isRead);
+                        }
+                    }
+                    unreadNotificationCount = objLiseUnreadStatus.Count;
                     //objUnreadClass = new UnreadClass();
-                    //objUnreadClass.Notificationcount = (int)jArr[count]["IsRead"];
-                    objLiseUnreadStatus.Add(isRead);
+                    txtNotificationCount.Text = objLiseUnreadStatus.Count.ToString();
+                }
+                else
+                {
+                    MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
+                    msgDialog.ShowAsync();
                 }
             }
-            unreadNotificationCount = objLiseUnreadStatus.Count;
-            //objUnreadClass = new UnreadClass();
-            txtNotificationCount.Text = objLiseUnreadStatus.Count.ToString();
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
-
-
-
         private void Notificationgridtapped(object sender, TappedRoutedEventArgs e)
         {
-
             this.Frame.Navigate(typeof(Notifications));
-
-
-
         }
         string ActiveItemHeaderName;
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -132,10 +148,12 @@ namespace AdvocateHealthCare
             ActiveItemHeaderName = currentItem.Header.ToString();
             switch (ActiveItemHeaderName)
             {
-                case "General":
+                case "All":
                     DeliveryInfo(null);
                     break;
-
+                case "General":
+                    DeliveryInfo("4");
+                    break;
                 case "Pre Delivery":
                     DeliveryInfo("1");
                     break;
@@ -154,55 +172,70 @@ namespace AdvocateHealthCare
         //gets the content of selected pivot item by passing id
         public async void DeliveryInfo(string id)
         {
-            try
+            rngProgress.Visibility = Visibility.Visible;
+            if (App.IsInternet() == true)
             {
-                List<DeliveryInformation> lstDeliveryInformation = new List<DeliveryInformation>();
-                string DeliveryInfoUri = App.BASE_URL + "/api/Tiles/GetTilesById?SUBCATEGORYID=" + id;
-                var client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync(new Uri(DeliveryInfoUri));
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                if (jsonString != "[]")
+                try
                 {
-                    JArray jArr = JArray.Parse(jsonString);
-                    for (int itemCount = 0; itemCount < jArr.Count; itemCount++)
-                    {
-                        objDeliveryInformation = new DeliveryInformation();
-                        objDeliveryInformation.DeliveryTitle = (string)jArr[itemCount]["TITLE"];
-                        objDeliveryInformation.DeliveryInfo = (string)jArr[itemCount]["CONTENT"];
-                        var x = App.BASE_URL + jArr[itemCount]["TITLEIMAGE"];
+                    List<DeliveryInformation> lstDeliveryInformation = new List<DeliveryInformation>();
+                    string DeliveryInfoUri = App.BASE_URL + "/api/Tiles/GetTilesById?SUBCATEGORYID=" + id;
+                    var client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(new Uri(DeliveryInfoUri));
+                    string jsonString = await response.Content.ReadAsStringAsync();
 
-                        Uri uri = new Uri(x);
-                        objDeliveryInformation.DeliveryUrl = uri;
-                        lstDeliveryInformation.Add(objDeliveryInformation);
+                    if (jsonString != "[]")
+                    {
+                        JArray jArr = JArray.Parse(jsonString);
+                        for (int itemCount = 0; itemCount < jArr.Count; itemCount++)
+                        {
+                            objDeliveryInformation = new DeliveryInformation();
+                            objDeliveryInformation.DeliveryTitle = (string)jArr[itemCount]["TITLE"];
+                            objDeliveryInformation.DeliveryInfo = (string)jArr[itemCount]["CONTENT"];
+                            var x = App.BASE_URL + jArr[itemCount]["TITLEIMAGE"];
+
+                            Uri uri = new Uri(x);
+                            objDeliveryInformation.DeliveryUrl = uri;
+                            lstDeliveryInformation.Add(objDeliveryInformation);
+                        }
+                        switch (ActiveItemHeaderName)
+                        {
+                            case "All":
+                                grdDeliveryDetails.ItemsSource = lstDeliveryInformation;
+                                break;
+                            case "General":
+                                grdDeliveryDetailsGeneral.ItemsSource = lstDeliveryInformation;
+                                break;
+                            case "Pre Delivery":
+                                grdDeliveryDetails1.ItemsSource = lstDeliveryInformation;
+                                break;
+
+                            case "Delivery":
+                                grdDeliveryDetails2.ItemsSource = lstDeliveryInformation;
+                                break;
+
+                            case "Post Delivery":
+                                grdDeliveryDetails3.ItemsSource = lstDeliveryInformation;
+                                break;
+                        }
                     }
-                    switch (ActiveItemHeaderName)
+                    else
                     {
-                        case "General":
-                            grdDeliveryDetails.ItemsSource = lstDeliveryInformation;
-                            break;
-
-                        case "Pre Delivery":
-                            grdDeliveryDetails1.ItemsSource = lstDeliveryInformation;
-                            break;
-
-                        case "Delivery":
-                            grdDeliveryDetails2.ItemsSource = lstDeliveryInformation;
-                            break;
-
-                        case "Post Delivery":
-                            grdDeliveryDetails3.ItemsSource = lstDeliveryInformation;
-                            break;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
+                    rngProgress.Visibility = Visibility.Collapsed;
+                    MessageDialog msgDialog = new MessageDialog("Please check your internet connectivity. If the problem persists, please contact administrator.", "Message");
+                    msgDialog.ShowAsync();
                 }
+                rngProgress.Visibility = Visibility.Collapsed;
             }
-            catch (Exception ex)
+            else
             {
-                MessageDialog msgDialog = new MessageDialog("Please check your internet connectivity. If the problem persists, please contact administrator.", "Message");
+                rngProgress.Visibility = Visibility.Collapsed;
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
+
             }
         }
 
@@ -224,6 +257,10 @@ namespace AdvocateHealthCare
                 {
                     this.Frame.Navigate(typeof(DietandPregnancy));
                 }
+                if (gridTitle == " My Advocate Portal")
+                {
+                    this.Frame.Navigate(typeof(MyAdvocatePage));
+                }
             }
             catch (Exception ex)
             {
@@ -232,5 +269,12 @@ namespace AdvocateHealthCare
 
             }
         }
+        
+       
+       
+
+      
+
+       
     }
 }

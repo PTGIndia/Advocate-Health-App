@@ -21,60 +21,95 @@ using Windows.UI.Xaml.Navigation;
 namespace AdvocateHealthCare
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// An empty page that can be used  on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class LoginPage : Page
     {
+        int checkBoxFlag = 0;
         public LoginPage()
         {
             this.InitializeComponent();
+            //checks wether user clicked remember my password
+            if (Windows.Storage.ApplicationData.Current.LocalSettings.Values["ChechedStatus"] == null)
+            {
+                checkBoxFlag = 1;
+            }
+            else
+            {
+                userNameText.Text = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userMailAddress"].ToString();
+                pwdText.Password = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userPassword"].ToString();
+                cbCheckBox.IsChecked = true;
+            }
+
         }
         private Frame _rootFrame;
+        //validates the user existance
         private async void Login_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
-            try
+            if (cbCheckBox.IsChecked == true)
             {
-                bool authenticate = false;
-                string userName = userNameText.Text;
-                string password = pwdText.Password;
-                JObject jobject = new JObject();
-                if (userName.ToString() != String.Empty && password.ToString() != String.Empty)
+                if (checkBoxFlag == 1)
                 {
-                    string serviceCall = App.BASE_URL + "api/AuthenticateLogin/GetAuthentication?UserEmailId=" + userName + "&UserPwd=" + password;
-                    //string serviceCall = "http://localhost:53676/api/AuthenticateLogin/GetAuthentication?UserEmailId=" + userName + "&UserPwd=" + password;
-                    var client = new HttpClient();
-                    HttpResponseMessage response = await client.GetAsync(new Uri(serviceCall));
-                    var jsonString = await response.Content.ReadAsStringAsync();
-                    jobject = JObject.Parse(jsonString);
-                    if (jobject != null)
-                        authenticate = (bool)jobject.SelectToken(@"Flag");
-
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userMailAddress"] = userNameText.Text;
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userPassword"] = pwdText.Password;
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["ChechedStatus"] = "True";
                 }
-                if (authenticate)
-                {
-                    App.userId = (int)jobject.SelectToken(@"ProfileID");
-                    App.hospitalId = (int)jobject.SelectToken(@"HospitalID");
-
-                    _rootFrame = new Frame();
-                    Window.Current.Content = new MainPage(_rootFrame);
-                    _rootFrame.Navigate(typeof(HomePage));
-                }
-                else
-                {
-                    MessageDialog msgDialog = new MessageDialog("Login Failed. Please try again", "Failure");
-                    msgDialog.ShowAsync();
-                    Window.Current.Content = new LoginPage();
-                }
-
-
             }
-            catch (Exception ex)
+            else
             {
-                MessageDialog msgDialog = new MessageDialog("The authentication failed. Please enter valid credentials.", "Message");
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Remove("ChechedStatus");
+            }
+
+
+            if (App.IsInternet() == true)
+            {
+                try
+                {
+                    bool authenticate = false;
+                    string userName = userNameText.Text;
+                    string password = pwdText.Password;
+                    JObject jobject = new JObject();
+                    if (userName.ToString() != String.Empty && password.ToString() != String.Empty)
+                    {
+                        string serviceCall = App.BASE_URL + "api/AuthenticateLogin/GetAuthentication?UserEmailId=" + userName + "&UserPwd=" + password;
+                        //string serviceCall = "http://localhost:53676/api/AuthenticateLogin/GetAuthentication?UserEmailId=" + userName + "&UserPwd=" + password;
+                        var client = new HttpClient();
+                        HttpResponseMessage response = await client.GetAsync(new Uri(serviceCall));
+                        var jsonString = await response.Content.ReadAsStringAsync();
+                        jobject = JObject.Parse(jsonString);
+                        if (jobject != null)
+                            authenticate = (bool)jobject.SelectToken(@"Flag");
+
+                    }
+                    if (authenticate)
+                    {
+                        App.userId = (int)jobject.SelectToken(@"ProfileID");
+                        App.hospitalId = (int)jobject.SelectToken(@"HospitalID");
+
+                        _rootFrame = new Frame();
+                        Window.Current.Content = new MainPage(_rootFrame);
+                        _rootFrame.Navigate(typeof(HomePage));
+                    }
+                    else
+                    {
+                        MessageDialog msgDialog = new MessageDialog("Login Failed. Please try again", "Failure");
+                        msgDialog.ShowAsync();
+                        Window.Current.Content = new LoginPage();
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    MessageDialog msgDialog = new MessageDialog("The authentication failed. Please enter valid credentials.", "Message");
+                    msgDialog.ShowAsync();
+                }
+            }
+            else
+            {
+                MessageDialog msgDialog = new MessageDialog("Please check your internet connection and try again", "Internet Connection is not available");
                 msgDialog.ShowAsync();
             }
-
 
         }
         static byte[] GetBytes(string str)

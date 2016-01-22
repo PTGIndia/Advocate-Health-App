@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>AdvocateHealthCare_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxPackageDir>C:\Users\v-rata\Desktop\ADH App packages\</AppxPackageDir>
+    <AppxPackageDir>C:\Users\arunp\Desktop\pack\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
@@ -132,6 +132,12 @@
     </Compile>
     <Compile Include="Model\MyDataTemplateSelector2.cs" />
     <Compile Include="Model\MyDataTemplateSelector3.cs" />
+    <Compile Include="MyAdvocatePage.xaml.cs">
+      <DependentUpon>MyAdvocatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationDetailsPage.xaml.cs">
+      <DependentUpon>NotificationDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Notifications.xaml.cs">
       <DependentUpon>Notifications.xaml</DependentUpon>
     </Compile>
@@ -166,14 +172,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\11.png" />
+    <Content Include="Assets\1453150913_ic_close_48px.png" />
     <Content Include="Assets\add_a_journal.png" />
+    <Content Include="Assets\Advocte portal icons-01.png" />
+    <Content Include="Assets\Advocte portal icons-02.png" />
+    <Content Include="Assets\Advocte portal icons-03.png" />
+    <Content Include="Assets\Advocte portal icons-04.png" />
+    <Content Include="Assets\Advocte portal icons-05.png" />
+    <Content Include="Assets\Advocte portal icons-06.png" />
     <Content Include="Assets\artical_img1.png" />
     <Content Include="Assets\back.png" />
+    <Content Include="Assets\Breastfeeding-and-Smoking.png" />
     <Content Include="Assets\calendar.png" />
     <Content Include="Assets\capture_photo.png" />
     <Content Include="Assets\capture_profile_photo.png" />
     <Content Include="Assets\close.png" />
     <Content Include="Assets\dietAndpreg.png" />
+    <Content Include="Assets\Dollarphotoclub_88132471.png" />
+    <Content Include="Assets\Excercise-and-Pregnancy.png" />
+    <Content Include="Assets\General\General_HowOldIsTooOld.jpg" />
+    <Content Include="Assets\General\General_MeetDrSasaki.jpg" />
+    <Content Include="Assets\General\General_MeetDrSeetal.jpg" />
+    <Content Include="Assets\General\General_Mommyrexia.jpg" />
+    <Content Include="Assets\General\General_PregnancyPlanner.jpg" />
+    <Content Include="Assets\GoodSamaritanicon - Copy.png" />
     <Content Include="Assets\hospital.png" />
     <Content Include="Assets\Edit.png" />
     <Content Include="Assets\img2.png" />
@@ -187,15 +209,35 @@
     <Content Include="Assets\moreImg.png" />
     <Content Include="Assets\next.png" />
     <Content Include="Assets\notifications.png" />
+    <Content Include="Assets\Nutrition-and-Pregnancy.png" />
+    <Content Include="Assets\Pain-Management-with-Medications.png" />
+    <Content Include="Assets\PainManagement.png" />
+    <Content Include="Assets\pause.png" />
     <Content Include="Assets\playImg.png" />
-    <Content Include="Assets\unread.png" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_BabysFirstBath.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_BathingTips.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_BreastfeedingBenefits.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_CommonNewParentQuestions.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_DiaperRash.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_InfantCheckup.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_KnowAboutBreastfeeding.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_PickAPediatrician.jpg" />
+    <Content Include="Assets\Post_Delivery\PostDelivery_Swaddle.jpg" />
+    <Content Include="Assets\Pre_Delivery\PreDelivery_FluVaccinations.jpg" />
+    <Content Include="Assets\Pre_Delivery\PreDelivery_HighRiskPregnancy.jpg" />
+    <Content Include="Assets\Pre_Delivery\PreDelivery_MeetDrTherese.jpg" />
+    <Content Include="Assets\Pre_Delivery\PreDelivery_OpioidPainkillers.jpg" />
+    <Content Include="Assets\read.png" />
+    <Content Include="Assets\register_for_classes.jpg" />
     <Content Include="Assets\replay.png" />
     <Content Include="Assets\settings.png" />
     <Content Include="Assets\share.png" />
     <Content Include="Assets\slider1.jpg" />
-    <Content Include="Assets\read.png" />
+    <Content Include="Assets\Stages-of-labor.png" />
+    <Content Include="Assets\unread.png" />
     <Content Include="Assets\redirect.png" />
     <Content Include="Assets\user.png" />
+    <Content Include="Assets\Vaccination.png" />
     <Content Include="Assets\video.png" />
     <Content Include="Assets\video_play.jpg" />
     <Content Include="Assets\video_play.png" />
@@ -258,6 +300,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MyAdvocatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NotificationDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Notifications.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -295,6 +345,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
